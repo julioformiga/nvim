@@ -59,6 +59,7 @@ map('n', '<leader>e',   '<CMD>NeoTreeFloatToggle<CR>', {noremap = true, silent =
 map('n', '<leader>r', ':so %<CR><CMD>echo "Settings reload!"<CR>')  -- Reload configuration without restart nvim
 map('n', '<leader>t', '<CMD>ToggleTerm direction=tab<CR>')
 map('n', '<A-1>', '<ESC><CMD>1ToggleTerm direction=float<CR>')
+map('n', ';', ':<Down>')
 map('n', '<A-2>', '<ESC><CMD>2ToggleTerm direction=horizontal<CR>')
 map('n', '<C-CR>', '<CMD>2TermExec cmd="python %" direction=horizontal<CR>')
 -- vim.api.nvim_set_keymap("n", "<leader>g", "<cmd>lua _lazygit_toggle()<CR>", {noremap = true, silent = true})

@@ -38,9 +38,7 @@ opt.guifont = {"JetBrainsMonoRegular Nerd Font Mono", ":h06"}
 -- opt.completeopt = {'menu', 'menuone'}
 opt.completeopt = {'menu','noinsert','noselect'}
 
-
-
--- -- Disable builtin plugins
+-- Disable builtin plugins
 local disabled_built_ins = {
    "2html_plugin",
    "getscript",

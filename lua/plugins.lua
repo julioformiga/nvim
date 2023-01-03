@@ -31,7 +31,7 @@ return require('packer').startup(function(use)
     --  Navigation
     use('https://github.com/mhinz/vim-startify')
     use('https://github.com/nvim-telescope/telescope.nvim')
-    --  use('https://github.com/nvim-telescope/telescope-project.nvim')
+    -- use('https://github.com/nvim-telescope/telescope-project.nvim')
     use('https://github.com/preservim/tagbar') --  Tagbar for code navigation Alt-O
     use('https://github.com/neoclide/coc.nvim')
     -- use('https://github.com/github/copilot.vim')
@@ -64,12 +64,12 @@ return require('packer').startup(function(use)
     -- use('https://github.com/vim-airline/vim-airline')  --  Status bar
     -- use('https://github.com/vim-airline/vim-airline-themes')  --  Status bar
     use {
-      'https://github.com/nvim-lualine/lualine.nvim',
-      requires = { 'https://github.com/kyazdani42/nvim-web-devicons', opt = true }
+        'https://github.com/nvim-lualine/lualine.nvim',
+        requires = { 'https://github.com/kyazdani42/nvim-web-devicons', opt = true }
     }
     use{ 'https://github.com/anuvyklack/pretty-fold.nvim',
        config = function()
-          require('pretty-fold').setup()
+            require('pretty-fold').setup()
        end
     }
 
