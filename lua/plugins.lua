@@ -41,6 +41,7 @@ return require('packer').startup(function(use)
     --  use('https://github.com/nvim-treesitter/nvim-treesitter'), {'do': ':TSUpdate'}
     use('https://github.com/nvim-treesitter/nvim-treesitter')
     use('https://github.com/nvim-treesitter/nvim-treesitter-textobjects')
+    use('https://github.com/JoosepAlviste/nvim-ts-context-commentstring')
     use('https://github.com/nvim-lua/plenary.nvim')
     use('https://github.com/MunifTanjim/nui.nvim')
     use('https://github.com/nvim-neo-tree/neo-tree.nvim')
@@ -67,26 +68,26 @@ return require('packer').startup(function(use)
         'https://github.com/nvim-lualine/lualine.nvim',
         requires = { 'https://github.com/kyazdani42/nvim-web-devicons', opt = true }
     }
-    use{ 'https://github.com/anuvyklack/pretty-fold.nvim',
-       config = function()
+    use {
+        'https://github.com/anuvyklack/pretty-fold.nvim',
+        config = function()
             require('pretty-fold').setup()
-       end
+        end
     }
 
     --  Focus + Editor
     use('https://github.com/folke/trouble.nvim')
     -- use('https://github.com/tpope/vim-surround') --  Surrounding ysw)
     use('https://github.com/kylechui/nvim-surround')
-    -- use('https://github.com/tpope/vim-commentary') --  For Commenting gcc & gc
     use('https://github.com/terrortylor/nvim-comment')
-    use('https://github.com/JoosepAlviste/nvim-ts-context-commentstring')
     use('https://github.com/wellle/targets.vim') --  Target.vim
     use('https://github.com/leafOfTree/vim-matchtag') --  Target.vim
     use('https://github.com/famiu/bufdelete.nvim')
     --  use('https://github.com/xiyaowong/nvim-cursorword')
     use('https://github.com/mg979/vim-visual-multi') --, {'branch': 'master'}
     use('https://github.com/ap/vim-css-color') --  CSS Color Preview
-    use('https://github.com/max397574/colortils.nvim') -- CSS Color Picker
+    -- use('https://github.com/max397574/colortils.nvim') -- CSS Color Picker
+    use('https://github.com/ziontee113/color-picker.nvim') -- CSS Color Picker
     use('https://github.com/folke/zen-mode.nvim')
     --  use('https://github.com/folke/twilight.nvim') " Destack and highlight lines in ZenMode
     use('https://github.com/lukas-reineke/indent-blankline.nvim')
