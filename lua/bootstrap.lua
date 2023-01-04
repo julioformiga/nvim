@@ -106,31 +106,31 @@ require('gitsigns').setup {
   },
 }
 
-require("colortils").setup()
-require("colortils").setup({
-    register = "+", -- Register in which color codes will be copied
-    color_preview =  "███ %s", -- Preview for colors, if it contains `%s` this will be replaced with a hex color code of the color
-    -- The default in which colors should be saved
-    -- This can be hex, hsl or rgb
-    default_format = "hex",
-    border = "rounded", -- Border for the float
-    mappings = { -- Some mappings which are used inside the tools
-        increment = "l", -- increment values
-        decrement = "h", -- decrement values
-        increment_big = "L", -- increment values with bigger steps
-        decrement_big = "H", -- decrement values with bigger steps
-        min_value = "0", -- set values to the minimum
-        max_value = "$", -- set values to the maximum
-        set_register_default_format = "<cr>", -- save the current color in the register specified above with the format specified above
-        set_register_cjoose_format = "g<cr>", -- save the current color in the register specified above with a format you can choose
-        replace_default_format = "<m-cr>", -- replace the color under the cursor with the current color in the format specified above
-        replace_choose_format = "g<m-cr>", -- replace the color under the cursor with the current color in a format you can choose
-        export = "E", -- export the current color to a different tool
-        set_value = "c", -- set the value to a certain number (done by just entering numbers)
-        transparency = "T", -- toggle transparency
-        choose_background = "B", -- choose the background (for transparent colors)
-    }
-})
+-- require("colortils").setup()
+-- require("colortils").setup({
+--     register = "+", -- Register in which color codes will be copied
+--     color_preview =  "███ %s", -- Preview for colors, if it contains `%s` this will be replaced with a hex color code of the color
+--     -- The default in which colors should be saved
+--     -- This can be hex, hsl or rgb
+--     default_format = "hex",
+--     border = "rounded", -- Border for the float
+--     mappings = { -- Some mappings which are used inside the tools
+--         increment = "l", -- increment values
+--         decrement = "h", -- decrement values
+--         increment_big = "L", -- increment values with bigger steps
+--         decrement_big = "H", -- decrement values with bigger steps
+--         min_value = "0", -- set values to the minimum
+--         max_value = "$", -- set values to the maximum
+--         set_register_default_format = "<cr>", -- save the current color in the register specified above with the format specified above
+--         set_register_cjoose_format = "g<cr>", -- save the current color in the register specified above with a format you can choose
+--         replace_default_format = "<m-cr>", -- replace the color under the cursor with the current color in the format specified above
+--         replace_choose_format = "g<m-cr>", -- replace the color under the cursor with the current color in a format you can choose
+--         export = "E", -- export the current color to a different tool
+--         set_value = "c", -- set the value to a certain number (done by just entering numbers)
+--         transparency = "T", -- toggle transparency
+--         choose_background = "B", -- choose the background (for transparent colors)
+--     }
+-- })
 
 require('zen-mode').setup({
     window = {
@@ -171,3 +171,4 @@ require("toggleterm").setup{
         }
     }
 }
+require("color-picker").setup()
