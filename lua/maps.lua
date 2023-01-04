@@ -66,7 +66,7 @@ map('n', '<C-CR>', '<CMD>2TermExec cmd="python %" direction=horizontal<CR>')
 map('n', '<A-o>', "<CMD>TagbarOpenAutoClose<CR>")
 map('n', '<A-z>', "<CMD>ZenMode<CR>")
 
--- Windows
+-- Windows adn Tabs
 map('n', '<C-tab>', '<C-w>w') -- Alternate
 map('n', '<C-S-Up>', "<C-w><Up>")
 map('n', '<C-S-Down>', "<C-w><Down>")
@@ -76,6 +76,8 @@ map('n', '<C-S-H>', "<CMD>vertical resize +4<CR>")
 map('n', '<C-S-J>', "<CMD>horizontal resize +4<CR>")
 map('n', '<C-S-K>', "<CMD>horizontal resize -4<CR>")
 map('n', '<C-S-L>', "<CMD>vertical resize -4<CR>")
+map('n', '<C-S-PageUp>', "<CMD>BufferLineMovePrev<CR>")
+map('n', '<C-S-PageDown>', "<CMD>BufferLineMoveNext<CR>")
 
 -- map('"', '<C-d>', '<CMD>call CocActionAsync('jumpDefinition')<CR>')
 map('n', '<C-d>', 'dd')
@@ -87,28 +89,28 @@ map('i', '<C-s>', '<ESC><CMD>w<CR>')
 map('v', '<C-s>', '<ESC><CMD>w<CR>')
 map('s', '<C-s>', '<ESC><CMD>w<CR>')
 map('n', '<C-z>', '<CMD>undo<CR>')
+map('n', '<S-u>', '<CMD>redo<CR>')
 map('n', '<C-Space>', '<CMD>NeoTreeFocusToggle<CR>')
 map('n', '<A-q>', '<CMD>SClose<CR>')
+map('n', '<S-j>', '<S-j>x')
 -- map('n', '<A-q>', '<CMD>NeoTreeClose<CR><CMD>SClose<CR>')
 
 map('i', '<S-Del>', '<ESC><CMD>delete<CR>i')
 map('n', '<S-Del>', '<CMD>delete<CR>')
--- map('i', '<A-/>', '<ESC><CMD>Commentary<CR>i<Right>')
--- map('n', '<A-/>', '<CMD>Commentary<CR>')
--- map('v', '<A-/>', '<ESC><CMD>\'<,\'>Commentary<CR>gv')
 
 map('i', '<A-/>', '<ESC><CMD>CommentToggle<CR>i<Right>')
-map('n', '<A-/>', '<S-V><ESC><CMD>\'<,\'>CommentToggle<CR>gv')
-map('v', '<A-/>', '<ESC><CMD>\'<,\'>CommentToggle<CR>gv')
+map('n', '<A-/>', '<S-V><ESC><CMD>\'<,\'>CommentToggle<CR>gv<ESC>')
+map('v', '<A-/>', '<ESC><CMD>\'<,\'>CommentToggle<CR>gv<ESC>')
 
 map('i', '<C-PageDown>', '<ESC><CMD>bnext<CR>')
 map('i', '<C-PageUp>', '<ESC><CMD>bprevious<CR>')
-map('n', '<C-PageUp>', '<CMD>bprevious<CR>')
 map('n', '<C-PageDown>', '<CMD>bnext<CR>')
+map('n', '<C-PageUp>', '<CMD>bprevious<CR>')
 map('n', '<A-a>', 'ggVGo')
 map('i', '<A-d>', '<ESC>yypi')
 map('n', '<A-d>', 'yyp')
-map('v', '<A-d>', 'y}O<ESC>p')
+map('v', '<A-d>', 'ygv<ESC>p')
+-- map('v', '<A-d>', 'y}O<ESC>p')
 
 -- Move lines up and down
 map('i', '<A-Up>', '<ESC><CMD>m .-2<CR>==gi')
@@ -201,4 +203,5 @@ map('v', '<Down>', '<Esc><Down>')
 -- Keybind to clear search
 map('n', '<leader>c', '<CMD>nohl<CR><CMD>echo "Search Cleared"<CR>')
 
-map('n', '<A-c>', '<CMD>Colortils picker<CR>')
+map('n', '<C-c>', '<CMD>PickColor<CR>', {noremap=true,silent=true})
+map('i', '<C-c>', '<CMD>PickColorInsert<CR>', {noremap=true,silent=true})
