@@ -54,6 +54,7 @@ map('n', '<leader>fg',  '<CMD>Telescope live_grep<cr>')
 map('n', '<leader>fb',  '<CMD>Telescope buffers<cr>')
 map('n', '<leader>fh',  '<CMD>Telescope help_tags<cr>')
 -- map('n', '<leader>g',   '<CMD>lua _lazygit_toggle()<CR>', {noremap = true, silent = true})
+-- map('n', '<leader>d',   '<CMD>LazyGitCurrentFile<CR>', {noremap = true, silent = true})
 map('n', '<leader>g',   '<CMD>LazyGitCurrentFile<CR>', {noremap = true, silent = true})
 map('n', '<leader>e',   '<CMD>NeoTreeFloatToggle<CR>', {noremap = true, silent = true})
 map('n', '<leader>r', ':so %<CR><CMD>echo "Settings reload!"<CR>')  -- Reload configuration without restart nvim

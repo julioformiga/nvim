@@ -4,7 +4,7 @@ local opt = vim.opt
 
 -- syntax on                     -- syntax highlighting, see :help syntax
 o.number = true
-o.noswapfile = true                   -- disable use of swap files
+-- o.noswapfile = true                   -- disable use of swap files
 o.wildmenu = true                     -- completion menu
 o.backspace = 'indent,eol,start'      -- ensure proper backspace functionality
 o.undodir = '/home/julio/.cache/nvim/undo'  -- undo ability will persist after exiting file
@@ -30,14 +30,15 @@ o.shell = '/home/julio/.local/bin/xonsh'
 -- opt.spell = true
 -- opt.spelllang = {"en", "pt"}
 opt.termguicolors = true
--- opt.guifont = {"JetBrainsMono Nerd Font Mono", ":h11"}
+-- opt.guifont = {"JetBrainsMono Nerd Font Mono", ":h12"}
 opt.guifont = {"Hack Nerd Font Mono", ":h12"}
 -- opt.guifont = {"SauceCodePro Nerd Font", ":h14"}
 -- opt.guifont = {"RobotoMono Nerd Font Mono", ":h13"}
 -- opt.guifont = {"UbuntuMono Nerd Font Mono", ":h16"}
 -- opt.guifont = {"VictorMono Nerd Font Mono, Medium", ":h12"}
 -- opt.completeopt = {'menu', 'menuone'}
-opt.completeopt = {'menu','noinsert','noselect'}
+-- opt.completeopt = {'menu','noinsert','noselect'}
+opt.completeopt = {'menu','menuone','noselect'}
 
 -- Disable builtin plugins
 local disabled_built_ins = {

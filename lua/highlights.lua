@@ -1,19 +1,25 @@
 -- show breadcrumbs if available
-local function breadcrumbs()
-    local items = vim.b.coc_nav
-    local t = {''}
-    for k,v in ipairs(items) do
-        setmetatable(v, { __index = function(table, key)
-            return ' '
-        end})
-        t[#t+1] = ' %#' .. (v.highlight or "Normal") .. '#' .. (type(v.label) == 'string' and v.label .. ' ' or '') .. '%#NonText#'.. (v.name or '')
-        if next(items,k) ~= nil then
-            t[#t+1] = '%#StatusLineNC# '
-        end
-    end
-    t[#t+1] = '%#EndOfBuffer#%L  '
-    return table.concat(t)
-end
+-- local function breadcrumbs()
+--     local items = vim.b.coc_nav
+--     local t = {''}
+--     for k,v in ipairs(items) do
+--         setmetatable(v, { __index = function(table, key)
+--             return ' '
+--         end})
+--         t[#t+1] = ' %#' .. (v.highlight or "Normal") .. '#' .. (type(v.label) == 'string' and v.label .. ' ' or '') .. '%#NonText#'.. (v.name or '')
+--         if next(items,k) ~= nil then
+--             t[#t+1] = '%#StatusLineNC# '
+--         end
+--     end
+--     t[#t+1] = '%#EndOfBuffer#%L  '
+--     return table.concat(t)
+-- end
+--
+local navic = require("nvim-navic")
+navic.setup {
+    highlight = false
+}
+breadcrumbs = { navic.get_location, cond = navic.is_available }
 
 vim.cmd([[ let g:neovide_cursor_vfx_mode = "railgun" ]])
 -- vim.cmd([[ let g:neovide_floating_blur_amount_x = 2.0 ]])
@@ -42,7 +48,7 @@ require('lualine').setup {
   sections = {
     lualine_a = {'mode'},
     lualine_b = {'branch', 'diff', 'diagnostics'},
-    lualine_c = {'filename', breadcrumbs},
+    lualine_c = {'filename'},
     lualine_x = {'encoding', 'fileformat', 'filetype'},
     lualine_y = {'progress'},
     lualine_z = {'location'}
@@ -63,11 +69,19 @@ require('lualine').setup {
     -- lualine_y = {},
     -- lualine_z = {'tabs'}
   },
-  winbar = {},
-  inactive_winbar = {},
-  extensions = {}
+  winbar = {
+      lualine_a = {'filename', breadcrumbs },
+      lualine_b = {},
+      lualine_c = {},
+  },
+  -- winbar = {},
+  inactive_winbar = {
+      lualine_a = {'filename'},
+  },
+  extensions = {
+      'toggleterm'
+  }
 }
-require('lualine').setup()
 
 require('bufferline').setup {
     options = {

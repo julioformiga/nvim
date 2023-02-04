@@ -33,9 +33,30 @@ return require('packer').startup(function(use)
     use('https://github.com/nvim-telescope/telescope.nvim')
     -- use('https://github.com/nvim-telescope/telescope-project.nvim')
     use('https://github.com/preservim/tagbar') --  Tagbar for code navigation Alt-O
-    use('https://github.com/neoclide/coc.nvim')
+    use('https://github.com/folke/trouble.nvim')
+
+    -- LSP -------
+    use('https://github.com/williamboman/mason.nvim')
+    use('https://github.com/williamboman/mason-lspconfig.nvim')
+    use('https://github.com/neovim/nvim-lspconfig')
+    use('https://github.com/hrsh7th/nvim-cmp')
+    use('https://github.com/hrsh7th/cmp-nvim-lua')
+    use('https://github.com/hrsh7th/cmp-nvim-lsp')
+    use('https://github.com/hrsh7th/cmp-buffer')
+    use('https://github.com/hrsh7th/cmp-path')
+    -- use({"https://github.com/L3MON4D3/LuaSnip", tag = "v<CurrentMajor>.*"})
+    use('https://github.com/saadparwaiz1/cmp_luasnip')
+    use('https://github.com/onsails/lspkind.nvim')
+    use('https://github.com/themaxmarchuk/tailwindcss-colors.nvim')
+    -- use('https://github.com/SmiteshP/nvim-navic')
+    use {
+        "https://github.com/SmiteshP/nvim-navic",
+        requires = "neovim/nvim-lspconfig"
+    }
+
+    -- COC --------
+    -- use('https://github.com/neoclide/coc.nvim')
     -- use('https://github.com/github/copilot.vim')
-    -- use('https://github.com/Shougo/deoplete.nvim'), { 'do': ':UpdateRemotePlugins' }
     -- use('https://github.com/tpope/vim-fugitive') --  GIT
     use('https://github.com/lewis6991/gitsigns.nvim') --  GIT
     --  use('https://github.com/nvim-treesitter/nvim-treesitter'), {'do': ':TSUpdate'}
@@ -76,10 +97,10 @@ return require('packer').startup(function(use)
     }
 
     --  Focus + Editor
-    use('https://github.com/folke/trouble.nvim')
     -- use('https://github.com/tpope/vim-surround') --  Surrounding ysw)
     use('https://github.com/kylechui/nvim-surround')
     use('https://github.com/terrortylor/nvim-comment')
+    use('https://github.com/tpope/vim-repeat')
     use('https://github.com/wellle/targets.vim') --  Target.vim
     use('https://github.com/leafOfTree/vim-matchtag') --  Target.vim
     use('https://github.com/famiu/bufdelete.nvim')
@@ -91,10 +112,8 @@ return require('packer').startup(function(use)
     use('https://github.com/folke/zen-mode.nvim')
     --  use('https://github.com/folke/twilight.nvim') " Destack and highlight lines in ZenMode
     use('https://github.com/lukas-reineke/indent-blankline.nvim')
-    --  use('https://github.com/jiangmiao/auto-pairs')
-    --  use('https://github.com/windwp/nvim-autopairs')
-    --  use('https://github.com/windwp/nvim-ts-autotag')
-    --  use('https://github.com/mhinz/vim-signify') " Diff git signals
+    use('https://github.com/windwp/nvim-autopairs')
+    use('https://github.com/windwp/nvim-ts-autotag')
     use('https://github.com/farmergreg/vim-lastplace') --  Cursor in last edit position
     use('https://github.com/turbio/bracey.vim') --, {'do': 'npm install --prefix server'} --  Live server
     --  use('https://github.com/manzeloth/live-server')
