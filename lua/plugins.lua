@@ -27,6 +27,7 @@ vim.cmd([[
 return require('packer').startup(function(use)
     -- Packer can manage itself
     use('https://github.com/wbthomason/packer.nvim')
+    -- use('https://github.com/github/copilot.vim')
 
     --  Navigation
     use('https://github.com/mhinz/vim-startify')
@@ -44,8 +45,22 @@ return require('packer').startup(function(use)
     use('https://github.com/hrsh7th/cmp-nvim-lsp')
     use('https://github.com/hrsh7th/cmp-buffer')
     use('https://github.com/hrsh7th/cmp-path')
-    -- use({"https://github.com/L3MON4D3/LuaSnip", tag = "v<CurrentMajor>.*"})
+
+    -- SNIPPETS ------------------
+    -- use('https://github.com/hrsh7th/cmp-vsnip')
+    -- use('https://github.com/hrsh7th/vim-vsnip')
+
+    use('https://github.com/L3MON4D3/LuaSnip')
     use('https://github.com/saadparwaiz1/cmp_luasnip')
+
+    -- use('https://github.com/hrsh7th/cmp-vsnip')
+    -- use('https://github.com/hrsh7th/vim-vsnip')
+
+    -- use('https://github.com/dcampos/nvim-snippy')
+    -- use('https://github.com/dcampos/cmp-snippy')
+    use('https://github.com/rafamadriz/friendly-snippets')
+    -------------------------------
+
     use('https://github.com/onsails/lspkind.nvim')
     use('https://github.com/themaxmarchuk/tailwindcss-colors.nvim')
     -- use('https://github.com/SmiteshP/nvim-navic')
@@ -56,10 +71,8 @@ return require('packer').startup(function(use)
 
     -- COC --------
     -- use('https://github.com/neoclide/coc.nvim')
-    -- use('https://github.com/github/copilot.vim')
     -- use('https://github.com/tpope/vim-fugitive') --  GIT
     use('https://github.com/lewis6991/gitsigns.nvim') --  GIT
-    --  use('https://github.com/nvim-treesitter/nvim-treesitter'), {'do': ':TSUpdate'}
     use('https://github.com/nvim-treesitter/nvim-treesitter')
     use('https://github.com/nvim-treesitter/nvim-treesitter-textobjects')
     use('https://github.com/JoosepAlviste/nvim-ts-context-commentstring')

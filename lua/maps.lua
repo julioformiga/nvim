@@ -56,18 +56,19 @@ map('n', '<leader>fh',  '<CMD>Telescope help_tags<cr>')
 -- map('n', '<leader>g',   '<CMD>lua _lazygit_toggle()<CR>', {noremap = true, silent = true})
 -- map('n', '<leader>d',   '<CMD>LazyGitCurrentFile<CR>', {noremap = true, silent = true})
 map('n', '<leader>g',   '<CMD>LazyGitCurrentFile<CR>', {noremap = true, silent = true})
-map('n', '<leader>e',   '<CMD>NeoTreeFloatToggle<CR>', {noremap = true, silent = true})
+map('n', '<A-e>',   '<CMD>NeoTreeFloatToggle<CR>', {noremap = true, silent = true})
 map('n', '<leader>r', ':so %<CR><CMD>echo "Settings reload!"<CR>')  -- Reload configuration without restart nvim
-map('n', '<leader>t', '<CMD>ToggleTerm direction=tab<CR>')
+map('n', '<leader>t', '<CMD>TroubleToggle<CR>')
+map('n', '<leader>u', '<CMD>PackerUpdate<CR><CMD>Mason<CR>')
 map('n', '<A-1>', '<ESC><CMD>1ToggleTerm direction=float<CR>')
-map('n', ';', ':<Down>')
+-- map('n', ';', ':<Down>')
 map('n', '<A-2>', '<ESC><CMD>2ToggleTerm direction=horizontal<CR>')
 map('n', '<C-CR>', '<CMD>2TermExec cmd="python %" direction=horizontal<CR>')
 -- vim.api.nvim_set_keymap("n", "<leader>g", "<cmd>lua _lazygit_toggle()<CR>", {noremap = true, silent = true})
 map('n', '<A-o>', "<CMD>TagbarOpenAutoClose<CR>")
 map('n', '<A-z>', "<CMD>ZenMode<CR>")
 
--- Windows adn Tabs
+-- Windows and Tabs
 map('n', '<C-tab>', '<C-w>w') -- Alternate
 map('n', '<C-S-Up>', "<C-w><Up>")
 map('n', '<C-S-Down>', "<C-w><Down>")

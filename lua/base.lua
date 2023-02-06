@@ -4,7 +4,7 @@ local opt = vim.opt
 
 -- syntax on                     -- syntax highlighting, see :help syntax
 o.number = true
--- o.noswapfile = true                   -- disable use of swap files
+o.noswapfile = true                   -- disable use of swap files
 o.wildmenu = true                     -- completion menu
 o.backspace = 'indent,eol,start'      -- ensure proper backspace functionality
 o.undodir = '/home/julio/.cache/nvim/undo'  -- undo ability will persist after exiting file
