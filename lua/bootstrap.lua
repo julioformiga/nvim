@@ -192,6 +192,11 @@ require("lspconfig")["ruff_lsp"].setup{
     capabilities = capabilities,
     flags = lsp_flags
 }
+-- require("lspconfig")["cpplint"].setup{
+--     on_attach = on_attach,
+--     capabilities = capabilities,
+--     flags = lsp_flags
+-- }
 
 -- Frontend -------------
 require("lspconfig")["cssls"].setup({
@@ -394,6 +399,9 @@ require("toggleterm").setup{
         NormalFloat = {
             guibg = "#070C11",
         }
+    },
+    winbar = {
+        enable = true
     }
 }
 require("color-picker").setup()

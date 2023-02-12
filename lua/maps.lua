@@ -4,6 +4,13 @@ local function map(mode, lhs, rhs, options)
     vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = {"python"},
+    callback = function()
+        map('n', '<A-CR>', '<CMD>1TermExec cmd="python %" direction=float<CR>')
+    end
+})
+
 function _G.set_terminal_keymaps()
     local opts = {buffer = 0}
     vim.keymap.set('t', '<ESC>', [[<C-\><C-n><CMD>wincmd k<CR>]], opts)
@@ -44,7 +51,17 @@ local Terminal  = require('toggleterm.terminal').Terminal
 -- function _lazygit_toggle()
 --     lazygit:toggle()
 -- end
+M = {}
+M.HandleURL = function()
+  local url = string.match(vim.fn.getline("."), "[a-z]*://[^ >,;]*")
+  if url ~= "" then
+    vim.cmd('exec "!xdg-open ' .. url .. '"')
+  else
+    vim.cmd('echo "No URI found in line."')
+  end
+end
 
+map("n", "gf", '<Cmd>lua M.HandleURL()<CR>')
 
 vim.g.mapleader = ' '
 
@@ -53,17 +70,14 @@ map('n', '<leader>ff',  '<CMD>Telescope find_files<cr>')
 map('n', '<leader>fg',  '<CMD>Telescope live_grep<cr>')
 map('n', '<leader>fb',  '<CMD>Telescope buffers<cr>')
 map('n', '<leader>fh',  '<CMD>Telescope help_tags<cr>')
--- map('n', '<leader>g',   '<CMD>lua _lazygit_toggle()<CR>', {noremap = true, silent = true})
--- map('n', '<leader>d',   '<CMD>LazyGitCurrentFile<CR>', {noremap = true, silent = true})
-map('n', '<leader>g',   '<CMD>LazyGitCurrentFile<CR>', {noremap = true, silent = true})
+map('n', '<leader>gg',   '<CMD>LazyGitCurrentFile<CR>', {noremap = true, silent = true})
 map('n', '<A-e>',   '<CMD>NeoTreeFloatToggle<CR>', {noremap = true, silent = true})
 map('n', '<leader>r', ':so %<CR><CMD>echo "Settings reload!"<CR>')  -- Reload configuration without restart nvim
-map('n', '<leader>t', '<CMD>TroubleToggle<CR>')
+map('n', '<leader>e', '<CMD>TroubleToggle<CR>')
 map('n', '<leader>u', '<CMD>PackerUpdate<CR><CMD>Mason<CR>')
 map('n', '<A-1>', '<ESC><CMD>1ToggleTerm direction=float<CR>')
 -- map('n', ';', ':<Down>')
 map('n', '<A-2>', '<ESC><CMD>2ToggleTerm direction=horizontal<CR>')
-map('n', '<C-CR>', '<CMD>2TermExec cmd="python %" direction=horizontal<CR>')
 -- vim.api.nvim_set_keymap("n", "<leader>g", "<cmd>lua _lazygit_toggle()<CR>", {noremap = true, silent = true})
 map('n', '<A-o>', "<CMD>TagbarOpenAutoClose<CR>")
 map('n', '<A-z>', "<CMD>ZenMode<CR>")
@@ -151,8 +165,8 @@ map('n', '<A-End>', '<CMD>vertical resize +2<CR>')
 
 -- Insert mode
 map('i', '<A-i>', '<ESC><Right>')
-map('i', '<A-CR>', '<ESC>')
-map('n', '<A-CR>', '<ESC>o')
+-- map('i', '<A-CR>', '<ESC>')
+-- map('n', '<A-CR>', '<ESC>o')
 map('n', '<A-m>', '<ESC>o')
 map('i', '<A-j>', '<Down>')
 map('i', '<A-k>', '<Up>')

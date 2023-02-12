@@ -45,6 +45,7 @@ return require('packer').startup(function(use)
     use('https://github.com/hrsh7th/cmp-nvim-lsp')
     use('https://github.com/hrsh7th/cmp-buffer')
     use('https://github.com/hrsh7th/cmp-path')
+    use('https://github.com/hrsh7th/cmp-cmdline')
 
     -- SNIPPETS ------------------
     -- use('https://github.com/hrsh7th/cmp-vsnip')
@@ -81,23 +82,18 @@ return require('packer').startup(function(use)
     use('https://github.com/nvim-neo-tree/neo-tree.nvim')
     use('https://github.com/kdheepak/lazygit.nvim')
     use('https://github.com/akinsho/toggleterm.nvim')
-    use {
-        'https://github.com/stevearc/aerial.nvim',
-        config = function() require('aerial').setup() end
-    }
+    use('https://github.com/stevearc/aerial.nvim')
     --  Visual
     -- use('https://github.com/Shatur/neovim-ayu')
     use('https://github.com/nvim-tree/nvim-web-devicons')
     use('https://github.com/catppuccin/nvim')
-    -- use('https://github.com/folke/tokyonight.nvim')
+    use('https://github.com/folke/tokyonight.nvim')
     use('https://github.com/EdenEast/nightfox.nvim')
     use('https://github.com/navarasu/onedark.nvim')
     use {
         'https://github.com/akinsho/bufferline.nvim',
         tag = "v3.*",
         requires = 'https://github.com/nvim-tree/nvim-web-devicons'}
-    -- use('https://github.com/vim-airline/vim-airline')  --  Status bar
-    -- use('https://github.com/vim-airline/vim-airline-themes')  --  Status bar
     use {
         'https://github.com/nvim-lualine/lualine.nvim',
         requires = { 'https://github.com/kyazdani42/nvim-web-devicons', opt = true }
