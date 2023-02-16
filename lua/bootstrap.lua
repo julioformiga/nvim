@@ -17,24 +17,6 @@ require("indent_blankline").setup {
     filetype_exclude = { "dashboard" }
 }
 
--- vim.cmd([[ let g:coc_global_extensions = [ 'coc-svg', 'coc-pyright' ] ]])
--- vim.cmd([[ inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>" ]])
--- vim.cmd([[ inoremap <silent><expr> <c-space> coc#refresh() ]])
--- vim.cmd([[ function! CheckBackspace() abort
---     let col = col('.') - 1
---     return !col || getline('.')[col - 1]  =~# '\s'
--- endfunction
--- ]])
---
--- vim.cmd([[ inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<CR><c-r>=coc#on_enter()\<CR>" ]])
--- vim.cmd([[ inoremap <silent><expr> <TAB>
---     \ coc#pum#visible() ? coc#pum#next(1) :
---     \ coc#expandableOrJumpable() ?
---     \ "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
---     \ CheckBackspace() ? "\<TAB>" :
---     \ coc#refresh()
--- ]])
-
 require("mason").setup()
 require("mason-lspconfig").setup()
 
@@ -114,7 +96,8 @@ cmp.setup({
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
         ['<C-Space>'] = cmp.mapping.complete(),
         ['<C-e>'] = cmp.mapping.abort(),
-        ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+        -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+        ['<CR>'] = cmp.mapping.confirm({ select = true }),
     }),
     sources = cmp.config.sources({
         { name = 'path' },
@@ -182,21 +165,28 @@ require("lspconfig")["pyright"].setup {
     capabilities = capabilities,
     flags = lsp_flags
 }
--- require("lspconfig")["pylsp"].setup {
---     on_attach = on_attach,
---     capabilities = capabilities,
---     flags = lsp_flags
--- }
 require("lspconfig")["ruff_lsp"].setup{
     on_attach = on_attach,
     capabilities = capabilities,
     flags = lsp_flags
 }
--- require("lspconfig")["cpplint"].setup{
---     on_attach = on_attach,
---     capabilities = capabilities,
---     flags = lsp_flags
--- }
+require("lspconfig")["arduino_language_server"].setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    flags = lsp_flags,
+    cmd = {
+        "/home/julio/go/bin/arduino-language-server",
+        "-clangd", "/usr/bin/clangd",
+        "-cli", "/usr/local/bin/arduino-cli",
+        "-cli-config", "/home/julio/.arduino15/arduino-cli.yaml",
+        "-fqbn", "Seeeduino:samd:seeed_XIAO_m0",
+    }
+}
+require("lspconfig")["clangd"].setup{
+    on_attach = on_attach,
+    capabilities = capabilities,
+    flags = lsp_flags
+}
 
 -- Frontend -------------
 require("lspconfig")["cssls"].setup({
