@@ -33,8 +33,16 @@ require('lualine').setup {
     component_separators = { left = '', right = ''},
     section_separators = { left = '', right = ''},
     disabled_filetypes = {
-      statusline = {},
-      winbar = {},
+        statusline = {
+            'startify',
+            'toggleterm',
+            'neo-tree',
+        },
+        winbar = {
+            'startify',
+            'toggleterm',
+            'neo-tree',
+        },
     },
     ignore_focus = {},
     always_divide_middle = true,
@@ -70,17 +78,22 @@ require('lualine').setup {
     -- lualine_z = {'tabs'}
   },
   winbar = {
-      lualine_a = {'filename', breadcrumbs },
-      lualine_b = {},
-      lualine_c = {},
+    lualine_a = {'filename'},
+    lualine_b = {breadcrumbs},
+    -- lualine_c = {},
+    -- lualine_x = {},
+    -- lualine_y = {},
+    -- lualine_z = {}
   },
-  -- winbar = {},
   inactive_winbar = {
-      lualine_a = {'filename'},
+    lualine_a = {'filename'},
+    lualine_b = {},
+    -- lualine_c = {},
+    -- lualine_x = {},
+    -- lualine_y = {},
+    -- lualine_z = {}
   },
-  extensions = {
-      'toggleterm'
-  }
+  extensions = {'toggleterm', 'nvim-dap-ui', 'neo-tree', 'aerial'}
 }
 
 require('bufferline').setup {
@@ -258,8 +271,8 @@ require("tokyonight").setup({
   ---@param colors ColorScheme
   on_highlights = function(highlights, colors) end,
 })
-vim.cmd.colorscheme "catppuccin-mocha"
--- vim.cmd.colorscheme "nightfox"
+-- vim.cmd.colorscheme "catppuccin-mocha"
+vim.cmd.colorscheme "nightfox"
 -- vim.cmd.colorscheme "tokyonight"
 
 -- require('ayu').setup({

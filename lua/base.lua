@@ -1,5 +1,6 @@
 local g = vim.g
 local o = vim.o
+local wo = vim.wo
 local opt = vim.opt
 
 -- syntax on                     -- syntax highlighting, see :help syntax
@@ -22,20 +23,21 @@ o.softtabstop = 4
 o.shiftwidth = 4
 o.smarttab = true
 o.mouse = 'a'
+wo.colorcolumn = '120'
 o.clipboard = 'unnamedplus'
 o.encoding = 'UTF-8'
 o.cursorline = true
 o.list = true
 o.shell = '/home/julio/.local/bin/xonsh'
--- opt.spell = true
--- opt.spelllang = {"en", "pt"}
 opt.termguicolors = true
--- opt.guifont = {"JetBrainsMono Nerd Font Mono", ":h12"}
-opt.guifont = {"Hack Nerd Font Mono", ":h12"}
+-- opt.guifont = {"JetBrainsMono Nerd Font Mono", ":h14"}
+opt.guifont = {"Hack Nerd Font Mono", ":h14"}
 -- opt.guifont = {"SauceCodePro Nerd Font", ":h14"}
 -- opt.guifont = {"RobotoMono Nerd Font Mono", ":h13"}
 -- opt.guifont = {"UbuntuMono Nerd Font Mono", ":h16"}
 -- opt.guifont = {"VictorMono Nerd Font Mono, Medium", ":h12"}
+-- opt.spell = true
+-- opt.spelllang = {"en", "pt"}
 -- opt.completeopt = {'menu', 'menuone'}
 -- opt.completeopt = {'menu','noinsert','noselect'}
 opt.completeopt = {'menu','menuone','noselect'}

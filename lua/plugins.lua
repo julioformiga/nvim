@@ -70,9 +70,6 @@ return require('packer').startup(function(use)
         requires = "neovim/nvim-lspconfig"
     }
 
-    -- COC --------
-    -- use('https://github.com/neoclide/coc.nvim')
-    -- use('https://github.com/tpope/vim-fugitive') --  GIT
     use('https://github.com/lewis6991/gitsigns.nvim') --  GIT
     use('https://github.com/nvim-treesitter/nvim-treesitter')
     use('https://github.com/nvim-treesitter/nvim-treesitter-textobjects')
@@ -104,6 +101,13 @@ return require('packer').startup(function(use)
             require('pretty-fold').setup()
         end
     }
+
+    -- DEBUG
+    use 'https://github.com/folke/neodev.nvim'
+    use { "https://github.com/rcarriga/nvim-dap-ui", requires = {"https://github.com/mfussenegger/nvim-dap"} }
+    use 'https://github.com/mfussenegger/nvim-dap-python'
+    use 'https://github.com/theHamsta/nvim-dap-virtual-text'
+    use 'https://github.com/mortepau/codicons.nvim'
 
     --  Focus + Editor
     -- use('https://github.com/tpope/vim-surround') --  Surrounding ysw)

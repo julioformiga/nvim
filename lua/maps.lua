@@ -55,7 +55,7 @@ M = {}
 M.HandleURL = function()
   local url = string.match(vim.fn.getline("."), "[a-z]*://[^ >,;]*")
   if url ~= "" then
-    vim.cmd('exec "!xdg-open ' .. url .. '"')
+    vim.cmd("exec '!xdg-open " .. url .. "'")
   else
     vim.cmd('echo "No URI found in line."')
   end
@@ -66,6 +66,7 @@ map("n", "gf", '<Cmd>lua M.HandleURL()<CR>')
 vim.g.mapleader = ' '
 
 -- Find files using Telescope command-line sugar.
+map('n', '<leader>a',  '<CMD>AerialToggle<cr>')
 map('n', '<leader>ff',  '<CMD>Telescope find_files<cr>')
 map('n', '<leader>fg',  '<CMD>Telescope live_grep<cr>')
 map('n', '<leader>fb',  '<CMD>Telescope buffers<cr>')
@@ -81,6 +82,13 @@ map('n', '<A-2>', '<ESC><CMD>2ToggleTerm direction=horizontal<CR>')
 -- vim.api.nvim_set_keymap("n", "<leader>g", "<cmd>lua _lazygit_toggle()<CR>", {noremap = true, silent = true})
 map('n', '<A-o>', "<CMD>TagbarOpenAutoClose<CR>")
 map('n', '<A-z>', "<CMD>ZenMode<CR>")
+
+-- Debuger
+map('n', '<F2>', '<CMD>DapToggleBreakpoint<CR>')
+map('n', '<F8>', '<CMD>DapContinue<CR>')
+map('n', '<F9>', '<CMD>DapStepInto<CR>')
+map('n', '<F10>', '<CMD>DapTerminate<CR>')
+map('n', '<F12>', '<CMD>lua require("dapui").toggle()<CR>')
 
 -- Windows and Tabs
 map('n', '<C-tab>', '<C-w>w') -- Alternate
@@ -107,7 +115,7 @@ map('s', '<C-s>', '<ESC><CMD>w<CR>')
 map('n', '<C-z>', '<CMD>undo<CR>')
 map('n', '<S-u>', '<CMD>redo<CR>')
 map('n', '<C-Space>', '<CMD>NeoTreeFocusToggle<CR>')
-map('n', '<A-q>', '<CMD>SClose<CR>')
+map('n', '<A-q>', '<CMD>lua require("dapui").close()<CR><CMD>SClose<CR>')
 map('n', '<S-j>', '<S-j>x')
 -- map('n', '<A-q>', '<CMD>NeoTreeClose<CR><CMD>SClose<CR>')
 

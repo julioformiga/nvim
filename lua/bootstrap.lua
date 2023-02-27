@@ -11,6 +11,11 @@ vim.api.nvim_create_autocmd("FileType", {
     end
 })
 
+vim.api.nvim_create_autocmd({"BufWritePre"}, {
+    pattern = {"*"},
+    command = [[%s/\s\+$//e]]
+})
+
 require("indent_blankline").setup {
     space_char_blankline = " ",
     show_current_context = true,
@@ -179,7 +184,8 @@ require("lspconfig")["arduino_language_server"].setup {
         "-clangd", "/usr/bin/clangd",
         "-cli", "/usr/local/bin/arduino-cli",
         "-cli-config", "/home/julio/.arduino15/arduino-cli.yaml",
-        "-fqbn", "Seeeduino:samd:seeed_XIAO_m0",
+        -- "-fqbn", "Seeeduino:samd:seeed_XIAO_m0",
+        "-fqbn", "rp2040:rp2040:rpipicow",
     }
 }
 require("lspconfig")["clangd"].setup{
@@ -243,6 +249,40 @@ for type, icon in pairs(signs) do
 end
 require("nvim-autopairs").setup()
 require('nvim-ts-autotag').setup()
+
+require("neodev").setup({
+  library = { plugins = { "nvim-dap-ui" }, types = true },
+})
+
+require('codicons').setup()
+
+-- require("dap").setup()
+-- local dap = require('dap')
+-- dap.configurations.python = {
+--   {
+--     type = 'python';
+--     request = 'launch';
+--     name = "Launch file";
+--     program = "${file}";
+--     pythonPath = function()
+--       return '/usr/bin/python'
+--     end;
+--   },
+-- }
+require('dap-python').setup('.venv/bin/python')
+require("nvim-dap-virtual-text").setup()
+require("dapui").setup()
+-- require("dapui").open()
+local dap, dapui = require("dap"), require("dapui")
+dap.listeners.after.event_initialized["dapui_config"] = function()
+  dapui.open()
+end
+-- dap.listeners.before.event_terminated["dapui_config"] = function()
+--   dapui.close()
+-- end
+-- dap.listeners.before.event_exited["dapui_config"] = function()
+--   dapui.close()
+-- end
 
 vim.cmd([[ let g:ascii = [
 \ '',
