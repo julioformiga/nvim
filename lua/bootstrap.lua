@@ -185,6 +185,7 @@ require("lspconfig")["arduino_language_server"].setup {
         "-cli", "/usr/local/bin/arduino-cli",
         "-cli-config", "/home/julio/.arduino15/arduino-cli.yaml",
         -- "-fqbn", "Seeeduino:samd:seeed_XIAO_m0",
+        -- "-fqbn", "arduino:avr:uno",
         "-fqbn", "rp2040:rp2040:rpipicow",
     }
 }
