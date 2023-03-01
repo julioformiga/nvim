@@ -30,6 +30,7 @@ o.cursorline = true
 o.list = true
 o.shell = '/home/julio/.local/bin/xonsh'
 opt.termguicolors = true
+opt.iskeyword:append("-") -- Add '-' in command 'w' to select word
 -- opt.guifont = {"JetBrainsMono Nerd Font Mono", ":h14"}
 opt.guifont = {"Hack Nerd Font Mono", ":h14"}
 -- opt.guifont = {"SauceCodePro Nerd Font", ":h14"}
