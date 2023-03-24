@@ -1,6 +1,7 @@
 vim.api.nvim_create_autocmd("FileType", {
     pattern = {
-        "html", "css", "scss", "vue",
+        "html", "css", "scss", "vue", "json",
+        "javascriptvue", "typescriptvue",
         "typescript", "typescriptreact",
         "javascript", "javascriptreact"
     },
@@ -148,7 +149,7 @@ local on_attach = function(client, bufnr)
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
     vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-    vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+    -- vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
     vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
     vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
     vim.keymap.set('n', '<space>wl', function()
@@ -161,11 +162,16 @@ local on_attach = function(client, bufnr)
     vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
 end
 local lsp_flags = {
-    debounce_text_changes = 150,
+    debounce_text_changes = 250,
 }
 
 -- Backend -------------
 require("lspconfig")["pyright"].setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    flags = lsp_flags
+}
+require("lspconfig")["graphql"].setup {
     on_attach = on_attach,
     capabilities = capabilities,
     flags = lsp_flags
@@ -196,6 +202,11 @@ require("lspconfig")["clangd"].setup{
 }
 
 -- Frontend -------------
+require("lspconfig")["marksman"].setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+    flags = lsp_flags
+})
 require("lspconfig")["cssls"].setup({
     on_attach = on_attach,
     capabilities = capabilities,
