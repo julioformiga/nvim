@@ -86,7 +86,9 @@ return require('packer').startup(function(use)
     use('https://github.com/catppuccin/nvim')
     use('https://github.com/folke/tokyonight.nvim')
     use('https://github.com/EdenEast/nightfox.nvim')
-    use('https://github.com/navarasu/onedark.nvim')
+    -- use('https://github.com/navarasu/onedark.nvim')
+    use('https://github.com/olimorris/onedarkpro.nvim')
+    use('https://github.com/Mofiqul/vscode.nvim')
     use {
         'https://github.com/akinsho/bufferline.nvim',
         tag = "v3.*",
@@ -94,6 +96,12 @@ return require('packer').startup(function(use)
     use {
         'https://github.com/nvim-lualine/lualine.nvim',
         requires = { 'https://github.com/kyazdani42/nvim-web-devicons', opt = true }
+    }
+    use {
+        "https://github.com/loctvl842/monokai-pro.nvim",
+        config = function()
+            require("monokai-pro").setup()
+        end
     }
     use {
         'https://github.com/anuvyklack/pretty-fold.nvim',
@@ -110,8 +118,15 @@ return require('packer').startup(function(use)
     use 'https://github.com/mortepau/codicons.nvim'
 
     --  Focus + Editor
-    -- use('https://github.com/tpope/vim-surround') --  Surrounding ysw)
-    use('https://github.com/kylechui/nvim-surround')
+    use({
+        "https://github.com/kylechui/nvim-surround",
+        tag = "*", -- Use for stability; omit to use `main` branch for the latest features
+        config = function()
+            require("nvim-surround").setup({
+                -- Configuration here, or leave empty to use defaults
+            })
+        end
+    })
     use('https://github.com/terrortylor/nvim-comment')
     use('https://github.com/tpope/vim-repeat')
     use('https://github.com/wellle/targets.vim') --  Target.vim
