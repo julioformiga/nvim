@@ -162,7 +162,7 @@ local on_attach = function(client, bufnr)
     vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
 end
 local lsp_flags = {
-    debounce_text_changes = 250,
+    debounce_text_changes = 150,
 }
 
 -- Backend -------------
@@ -192,9 +192,17 @@ require("lspconfig")["arduino_language_server"].setup {
         "-cli-config", "/home/julio/.arduino15/arduino-cli.yaml",
         -- "-fqbn", "Seeeduino:samd:seeed_XIAO_m0",
         -- "-fqbn", "arduino:avr:uno",
-        "-fqbn", "rp2040:rp2040:rpipicow",
+        -- "-fqbn", "rp2040:rp2040:rpipicow",
+        "-fqbn", "esp8266:esp8266:nodemcuv2",
     }
 }
+
+require("lspconfig")["cmake"].setup{
+    on_attach = on_attach,
+    capabilities = capabilities,
+    flags = lsp_flags
+}
+
 require("lspconfig")["clangd"].setup{
     on_attach = on_attach,
     capabilities = capabilities,

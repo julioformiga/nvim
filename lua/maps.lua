@@ -5,11 +5,33 @@ local function map(mode, lhs, rhs, options)
 end
 
 vim.api.nvim_create_autocmd("FileType", {
-    pattern = {"python"},
+    pattern = {"arduino"},
     callback = function()
-        map('n', '<S-CR>', '<CMD>3TermExec cmd="python %" direction=float<CR><CR>')
+        map('n', '<S-CR>', '<ESC><CMD>3TermExec cmd="arduino-cli compile --fqbn esp8266:esp8266:nodemcuv2 && arduino-cli upload -v -p /dev/ttyACM0 --fqbn esp8266:esp8266:nodemcuv2:baud=3000000 && arduino-cli monitor -p /dev/ttyACM0 -c baudrate=115200" direction=float<CR>')
     end
 })
+
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = {"c"},
+    callback = function()
+        map('n', '<S-CR>', '<ESC><CMD>3TermExec cmd="gcc % -o main && ./main" direction=horizontal<CR>')
+    end
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = {"cpp"},
+    callback = function()
+        map('n', '<S-CR>', '<ESC><CMD>3TermExec cmd="g++ % -o mainpp && ./mainpp" direction=horizontal<CR>')
+    end
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = {"python"},
+    callback = function()
+        map('n', '<S-CR>', '<ESC><CMD>3TermExec cmd="python %" direction=float<CR>')
+    end
+})
+
 
 function _G.set_terminal_keymaps()
     local opts = {buffer = 0}
@@ -79,7 +101,7 @@ map('n', '<leader>u', '<CMD>PackerUpdate<CR><CMD>Mason<CR>')
 map('n', '<A-1>', '<ESC><CMD>1ToggleTerm direction=float<CR>')
 -- map('n', ';', ':<Down>')
 map('n', '<A-2>', '<ESC><CMD>2ToggleTerm direction=horizontal<CR>')
-map('n', '<A-3>', '<ESC><CMD>3ToggleTerm direction=horizontal<CR>')
+map('n', '<A-3>', '<ESC><CMD>3ToggleTerm direction=float<CR>')
 -- vim.api.nvim_set_keymap("n", "<leader>g", "<cmd>lua _lazygit_toggle()<CR>", {noremap = true, silent = true})
 map('n', '<A-o>', "<CMD>TagbarOpenAutoClose<CR>")
 map('n', '<A-z>', "<CMD>ZenMode<CR>")
