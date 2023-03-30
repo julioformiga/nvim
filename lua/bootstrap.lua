@@ -147,9 +147,10 @@ local on_attach = function(client, bufnr)
     local bufopts = { noremap=true, silent=true, buffer=bufnr }
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+    vim.keymap.set('n', '<C-CR>', vim.lsp.buf.definition, bufopts)
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
     vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-    -- vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+    vim.keymap.set('n', 'gsh', vim.lsp.buf.signature_help, bufopts)
     vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
     vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
     vim.keymap.set('n', '<space>wl', function()
@@ -158,29 +159,29 @@ local on_attach = function(client, bufnr)
     vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
     vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
     vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
-    vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+    vim.keymap.set('n', '<space>gr', vim.lsp.buf.references, bufopts)
     vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
 end
+
 local lsp_flags = {
     debounce_text_changes = 150,
 }
 
--- Backend -------------
-require("lspconfig")["pyright"].setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-    flags = lsp_flags
-}
-require("lspconfig")["graphql"].setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-    flags = lsp_flags
-}
-require("lspconfig")["ruff_lsp"].setup{
-    on_attach = on_attach,
-    capabilities = capabilities,
-    flags = lsp_flags
-}
+-- For C++ in Ubuntu: sudo apt install g++-12
+local lspservers = {
+                    "pyright", "graphql", "ruff_lsp", "cmake", "clangd",
+                    "marksman", "cssls", "cssmodules_ls", "rome", "eslint",
+                    "emmet_ls", "tsserver", "volar"
+                }
+
+for _, lsp in pairs(lspservers) do
+    require("lspconfig")[lsp].setup {
+        on_attach = on_attach,
+        capabilities = capabilities,
+        flags = lsp_flags
+    }
+end
+
 require("lspconfig")["arduino_language_server"].setup {
     on_attach = on_attach,
     capabilities = capabilities,
@@ -197,58 +198,6 @@ require("lspconfig")["arduino_language_server"].setup {
     }
 }
 
-require("lspconfig")["cmake"].setup{
-    on_attach = on_attach,
-    capabilities = capabilities,
-    flags = lsp_flags
-}
-
-require("lspconfig")["clangd"].setup{
-    on_attach = on_attach,
-    capabilities = capabilities,
-    flags = lsp_flags
-}
-
--- Frontend -------------
-require("lspconfig")["marksman"].setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-    flags = lsp_flags
-})
-require("lspconfig")["cssls"].setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-    flags = lsp_flags
-})
-require("lspconfig")["cssmodules_ls"].setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-    flags = lsp_flags
-})
-require("lspconfig")["rome"].setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-    flags = lsp_flags
-})
-require("lspconfig")["eslint"].setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-    flags = lsp_flags
-})
-require("lspconfig")["emmet_ls"].setup({
-    capabilities = capabilities,
-    flags = lsp_flags
-})
-require("lspconfig")["tsserver"].setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-    flags = lsp_flags
-})
-require("lspconfig")["volar"].setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-    flags = lsp_flags
-})
 require("lspconfig")["tailwindcss"].setup({
     on_attach = function(client, bufnr)
         require("tailwindcss-colors").buf_attach(bufnr)
@@ -256,6 +205,7 @@ require("lspconfig")["tailwindcss"].setup({
     capabilities = capabilities,
     flags = lsp_flags
 })
+
 local signs = {
     Error = " ",
     Warn = " ",
