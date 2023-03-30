@@ -1,37 +1,43 @@
+vim.g.mapleader = ' '
+
 local function map(mode, lhs, rhs, options)
     options = options or { noremap = true, silent = true }
     -- vim.keymap.set(m, k, v, o)
     vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
-vim.api.nvim_create_autocmd("FileType", {
-    pattern = {"arduino"},
-    callback = function()
-        map('n', '<S-CR>', '<ESC><CMD>3TermExec cmd="arduino-cli compile --fqbn esp8266:esp8266:nodemcuv2 && arduino-cli upload -v -p /dev/ttyACM0 --fqbn esp8266:esp8266:nodemcuv2:baud=3000000 && arduino-cli monitor -p /dev/ttyACM0 -c baudrate=115200" direction=float<CR>')
-    end
-})
 
-vim.api.nvim_create_autocmd("FileType", {
-    pattern = {"c"},
-    callback = function()
-        map('n', '<S-CR>', '<ESC><CMD>3TermExec cmd="gcc % -o main && ./main" direction=horizontal<CR>')
-    end
-})
+local aucmd_dict = {
+    FileType = {
+        {
+            pattern = {"arduino"},
+            callback = function()
+                map('n', '<leader>sf', 'va{V', {noremap = false, silent = true})
+                map('n', '<S-CR>', '<ESC><CMD>3TermExec cmd="arduino-cli compile --fqbn esp8266:esp8266:nodemcuv2 && arduino-cli upload -v -p /dev/ttyACM0 --fqbn esp8266:esp8266:nodemcuv2:baud=3000000 && arduino-cli monitor -p /dev/ttyACM0 -c baudrate=115200" direction=float<CR>')
+            end
+        },
+        {
+            pattern = {"c","cpp"},
+            callback = function()
+                map('n', '<leader>sf', 'va{V', {noremap = false, silent = true})
+                map('n', '<S-CR>', '<ESC><CMD>3TermExec cmd="g++ % -o mainpp && ./mainpp" direction=horizontal<CR><C-w>j')
+            end
+        },
+        {
+            pattern = {"python"},
+            callback = function()
+                map('n', '<leader>sf', '[[V]M', {noremap = false, silent = true})
+                map('n', '<S-CR>', '<ESC><CMD>3TermExec cmd="python %" direction=float<CR>')
+            end
+        }
+    },
+}
 
-vim.api.nvim_create_autocmd("FileType", {
-    pattern = {"cpp"},
-    callback = function()
-        map('n', '<S-CR>', '<ESC><CMD>3TermExec cmd="g++ % -o mainpp && ./mainpp" direction=horizontal<CR>')
+for event, opt_tbls in pairs(aucmd_dict) do
+    for _, opt_tbl in pairs(opt_tbls) do
+        vim.api.nvim_create_autocmd(event, opt_tbl)
     end
-})
-
-vim.api.nvim_create_autocmd("FileType", {
-    pattern = {"python"},
-    callback = function()
-        map('n', '<S-CR>', '<ESC><CMD>3TermExec cmd="python %" direction=float<CR>')
-    end
-})
-
+end
 
 function _G.set_terminal_keymaps()
     local opts = {buffer = 0}
@@ -85,8 +91,6 @@ end
 
 map("n", "gf", '<Cmd>lua M.HandleURL()<CR>')
 
-vim.g.mapleader = ' '
-
 -- Find files using Telescope command-line sugar.
 map('n', '<leader>a',  '<CMD>AerialToggle<cr>')
 map('n', '<leader>ff',  '<CMD>Telescope find_files<cr>')
@@ -99,10 +103,8 @@ map('n', '<leader>r', ':so %<CR><CMD>echo "Settings reload!"<CR>')  -- Reload co
 map('n', '<leader>e', '<CMD>TroubleToggle<CR>')
 map('n', '<leader>u', '<CMD>PackerUpdate<CR><CMD>Mason<CR>')
 map('n', '<A-1>', '<ESC><CMD>1ToggleTerm direction=float<CR>')
--- map('n', ';', ':<Down>')
 map('n', '<A-2>', '<ESC><CMD>2ToggleTerm direction=horizontal<CR>')
 map('n', '<A-3>', '<ESC><CMD>3ToggleTerm direction=float<CR>')
--- vim.api.nvim_set_keymap("n", "<leader>g", "<cmd>lua _lazygit_toggle()<CR>", {noremap = true, silent = true})
 map('n', '<A-o>', "<CMD>TagbarOpenAutoClose<CR>")
 map('n', '<A-z>', "<CMD>ZenMode<CR>")
 
@@ -126,7 +128,6 @@ map('n', '<C-S-L>', "<CMD>vertical resize +4<CR>")
 map('n', '<C-S-PageUp>', "<CMD>BufferLineMovePrev<CR>")
 map('n', '<C-S-PageDown>', "<CMD>BufferLineMoveNext<CR>")
 
--- map('"', '<C-d>', '<CMD>call CocActionAsync('jumpDefinition')<CR>')
 map('n', '<C-d>', 'dd')
 map('i', '<C-d>', '<ESC>ddi')
 map('n', '<C-s>', '<CMD>w<CR>')
@@ -141,7 +142,6 @@ map('n', '<S-u>', '<CMD>redo<CR>')
 map('n', '<C-Space>', '<CMD>NeoTreeFocusToggle<CR>')
 map('n', '<A-q>', '<CMD>lua require("dapui").close()<CR><CMD>SClose<CR>')
 map('n', '<S-j>', '<S-j>x')
--- map('n', '<A-q>', '<CMD>NeoTreeClose<CR><CMD>SClose<CR>')
 
 map('i', '<S-Del>', '<ESC><CMD>delete<CR>i')
 map('n', '<S-Del>', '<CMD>delete<CR>')
@@ -158,7 +158,6 @@ map('n', '<A-a>', 'ggVGo')
 map('i', '<A-d>', '<ESC>yypi')
 map('n', '<A-d>', 'yyp')
 map('v', '<A-d>', 'ygv<ESC>p')
--- map('v', '<A-d>', 'y}O<ESC>p')
 
 -- Move lines up and down
 map('i', '<A-Up>', '<ESC><CMD>m .-2<CR>==gi')
@@ -169,14 +168,59 @@ map('n', '<A-Down>', '<CMD>m .+1<CR>==')
 map('v', '<A-Down>', "<ESC><CMD>'<,'>m '>+1<CR>gv=gv")
 
 -- Normal and Visual mode
-map('n', '<CR>', 'a')
+
+-- Testing change HJKL to JIKL
+map("n", "i", 'k')
+map("v", "i", 'k')
+map("n", "h", 'i')
+map("v", "h", 'i')
+map("n", "j", 'h')
+map("v", "j", 'h')
+map("n", "k", 'j')
+map("v", "k", 'j')
+map("n", "H", 'I')
+map("n", "J", 'I')
+map("n", "L", 'A')
+map("n", "I", 'J')
+map('n', '<A-h>', 'bce')
+map('n', '<A-k>', '<CMD>m .+1<CR>==')
+map('v', '<A-k>', "<ESC><CMD>'<,'>m '>+1<CR>gv=gv")
+map('n', '<A-i>', '<CMD>m .-2<CR>==')
+map('v', '<A-i>', "<ESC><CMD>'<,'>m '<-2<CR>gv=gv")
+map('n', '<A-j>', 'b')
+map('n', '<C-i>', '<CMD>bprevious<CR>')
+map('n', '<C-k>', '<CMD>bnext<CR>')
+map('i', '<A-h>', '<ESC><Right>')
+-- -- Movements
+map('i', '<A-k>', '<Down>')
+map('i', '<A-i>', '<Up>')
+map('i', '<A-j>', '<Left>')
+map('i', '<A-l>', '<Right>')
+map('i', '<S-A-j>', '<C-o>b')
+map('i', '<S-A-l>', '<C-o>e')
+
+-- Original HJKL
+-- map('n', '<A-i>', 'bce')
+-- map('n', '<A-j>', '<CMD>m .+1<CR>==')
+-- map('v', '<A-j>', "<ESC><CMD>'<,'>m '>+1<CR>gv=gv")
+-- map('n', '<A-k>', '<CMD>m .-2<CR>==')
+-- map('v', '<A-k>', "<ESC><CMD>'<,'>m '<-2<CR>gv=gv")
+-- map('n', '<A-h>', 'b')
+-- map('n', '<C-j>', '<CMD>bprevious<CR>')
+-- map('n', '<C-k>', '<CMD>bnext<CR>')
+-- map('i', '<A-i>', '<ESC><Right>')
+-- -- Movements
+-- map('i', '<A-j>', '<Down>')
+-- map('i', '<A-k>', '<Up>')
+-- map('i', '<A-h>', '<Left>')
+-- map('i', '<A-l>', '<Right>')
+-- map('i', '<S-A-h>', '<C-o>b')
+-- map('i', '<S-A-l>', '<C-o>e')
+
+map('n', '<CR>', 'i')
+map('n', '<leader>tr', '<CMD>Telescope registers<CR>')
+-- map('n', '<C-CR>', 'a')
 map('n', '<A-CR>', 'bce')
-map('n', '<A-i>', 'bce')
-map('n', '<A-j>', '<CMD>m .+1<CR>==')
-map('v', '<A-j>', "<ESC><CMD>'<,'>m '>+1<CR>gv=gv")
-map('n', '<A-k>', '<CMD>m .-2<CR>==')
-map('v', '<A-k>', "<ESC><CMD>'<,'>m '<-2<CR>gv=gv")
-map('n', '<A-h>', 'b')
 map('n', '<A-l>', 'w')
 map('n', '<A-[>', 'ysiw', { noremap = false, silent = true })
 map('n', '<A-]>', 'ds', { noremap = false, silent = true })
@@ -184,13 +228,8 @@ map('n', '<A-9>', 'ysiwb', { noremap = false, silent = false })
 map('n', '<A-0>', 'dsb', { noremap = false, silent = false })
 map('n', '<A-,>', 'ysiwt', { noremap = false, silent = false })
 map('n', '<A-.>', 'dst', { noremap = false, silent = false })
--- map('i', '<A-,>', '<Right>, ""<Left>')
 map('i', '<A-,>', '<ESC>lylli, <ESC>ppi')
 map('v', '<A-,>', 'ST', { noremap = false, silent = false })
--- map('n', '<C-h>', '<C-w>h')
-map('n', '<C-j>', '<CMD>bprevious<CR>')
-map('n', '<C-k>', '<CMD>bnext<CR>')
--- map('n', '<C-l>', '<C-w>l')
 map('n', '<C-\\>', '<CMD>vsplit<CR><C-w>l<CR>:bnext<CR>')
 map('n', '<C-/>', '<CMD>split<CR><C-w>j<CR>:bnext<CR>')
 map('n', '<C-q>', '<C-w>q')
@@ -201,12 +240,12 @@ map('n', '<A-Backspace>', 'cb')
 
 -- Insert mode
 map('i', '<A-u>', '<ESC>ui')
-map('i', '<A-i>', '<ESC><Right>')
 map('n', '<A-m>', '<ESC>o')
-map('i', '<A-j>', '<Down>')
-map('i', '<A-k>', '<Up>')
-map('i', '<A-h>', '<Left>')
-map('i', '<A-l>', '<Right>')
+map('i', '<A-CR>', '<ESC>bce')
+
+map('i', '<A-Left>', '<C-o>b')
+map('i', '<A-Right>', '<C-o>e')
+
 map('i', '<A-z>', '<Backspace>')
 map('i', '<A-x>', '<Del>')
 map('i', '<A-g>', '<Home>')
@@ -217,9 +256,9 @@ map('i', '<A-S-Del>', '<C-o>die')
 map('i', '<A-S-Backspace>', '<C-o>dib')
 
 map('n', '<A-Left>', '<C-w>h')
-map('i', '<A-Left>', '<ESC><C-w>h')
+-- map('i', '<A-Left>', '<ESC><C-w>h')
 map('n', '<A-Right>', '<C-w>l')
-map('i', '<A-Right>', '<ESC><C-w>l')
+-- map('i', '<A-Right>', '<ESC><C-w>l')
 map('n', '<A-PageDown>', '<CMD>bnext<CR>')
 map('i', '<A-PageDown>', '<ESC><CMD>bnext<CR>')
 map('n', '<A-PageUp>', '<CMD>bprevious<CR>')
