@@ -29,6 +29,13 @@ o.encoding = 'UTF-8'
 o.cursorline = true
 o.list = true
 o.shell = '/home/julio/.local/bin/xonsh'
+o.fillchars = [[eob: ,fold: ,foldopen:,foldsep:│,foldclose:]]
+o.foldcolumn = '5' -- '0' is not bad
+o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+o.foldlevelstart = 99
+o.foldenable = true
+-- opt.foldmethod = "expr"
+-- opt.foldexpr = "nvim_treesitter#foldexpr()"
 opt.termguicolors = true
 opt.iskeyword:append("-") -- Add '-' in command 'w' to select word
 -- opt.guifont = {"JetBrainsMono Nerd Font Mono", ":h14"}

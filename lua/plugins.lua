@@ -69,7 +69,6 @@ return require('packer').startup(function(use)
         "https://github.com/SmiteshP/nvim-navic",
         requires = "neovim/nvim-lspconfig"
     }
-
     use('https://github.com/lewis6991/gitsigns.nvim') --  GIT
     use('https://github.com/nvim-treesitter/nvim-treesitter')
     use('https://github.com/nvim-treesitter/nvim-treesitter-textobjects')
@@ -97,16 +96,11 @@ return require('packer').startup(function(use)
         'https://github.com/nvim-lualine/lualine.nvim',
         requires = { 'https://github.com/kyazdani42/nvim-web-devicons', opt = true }
     }
+    use {'https://github.com/kevinhwang91/nvim-ufo', requires = 'https://github.com/kevinhwang91/promise-async'}
     use {
         "https://github.com/loctvl842/monokai-pro.nvim",
         config = function()
             require("monokai-pro").setup()
-        end
-    }
-    use {
-        'https://github.com/anuvyklack/pretty-fold.nvim',
-        config = function()
-            require('pretty-fold').setup()
         end
     }
 
