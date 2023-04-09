@@ -1,7 +1,4 @@
 plug-config/
 plugin/
 spell/
-coc-settings.json
-coc-settings_bak.json
-old-init.vim
 session
