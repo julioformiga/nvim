@@ -27,9 +27,9 @@ require("mason").setup()
 require("mason-lspconfig").setup()
 
 local has_words_before = function()
-  unpack = unpack or table.unpack
-  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+    unpack = unpack or table.unpack
+    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+    return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
 local cmp = require('cmp')
@@ -103,7 +103,7 @@ cmp.setup({
         ['<C-Space>'] = cmp.mapping.complete(),
         ['<C-e>'] = cmp.mapping.abort(),
         -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-        ['<CR>'] = cmp.mapping.confirm({ select = true }),
+        ['<CR>'] = cmp.mapping.confirm({ select = false }),
     }),
     sources = cmp.config.sources({
         { name = 'path' },
@@ -137,8 +137,8 @@ cmp.setup.cmdline(':', {
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 capabilities.textDocument.foldingRange = {
-    dynamicRegistration = false,
-    lineFoldingOnly = true
+    dynamicRegistration = true,
+    lineFoldingOnly = false
 }
 local navic = require("nvim-navic")
 local on_attach = function(client, bufnr)
@@ -150,7 +150,6 @@ local on_attach = function(client, bufnr)
     local bufopts = { noremap=true, silent=true, buffer=bufnr }
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-    vim.keymap.set('n', '<C-CR>', vim.lsp.buf.definition, bufopts)
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
     vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
     vim.keymap.set('n', 'gsh', vim.lsp.buf.signature_help, bufopts)
@@ -172,9 +171,11 @@ local lsp_flags = {
 
 -- For C++ in Ubuntu: sudo apt install g++-12
 local lspservers = {
-                    "pyright", "graphql", "ruff_lsp", "cmake", "clangd",
-                    "marksman", "cssls", "cssmodules_ls", "rome", "eslint",
-                    "emmet_ls", "tsserver", "volar"
+                    "pyright", "graphql", "ruff_lsp", "yamlls",
+                    "cmake", "neocmake", "clangd", "rust_analyzer",
+                    "marksman", "cssmodules_ls", "rome", "eslint",
+                    "emmet_ls", "html", "tsserver", "jsonls", "volar",
+                    "lua_ls", "dockerls"
                 }
 
 for _, lsp in pairs(lspservers) do
@@ -190,15 +191,27 @@ require("lspconfig")["arduino_language_server"].setup {
     capabilities = capabilities,
     flags = lsp_flags,
     cmd = {
-        "/home/julio/go/bin/arduino-language-server",
-        "-clangd", "/usr/bin/clangd",
-        "-cli", "/usr/local/bin/arduino-cli",
-        "-cli-config", "/home/julio/.arduino15/arduino-cli.yaml",
+        HOMEDIR .. "/go/bin/arduino-language-server",
+        "-clangd", HOMEDIR .. "/.local/share/nvim/mason/bin/clangd",
+        "-cli", HOMEDIR .. "/bin/arduino-cli",
+        "-cli-config", HOMEDIR .. "/.arduino15/arduino-cli.yaml",
         -- "-fqbn", "Seeeduino:samd:seeed_XIAO_m0",
         -- "-fqbn", "arduino:avr:uno",
         -- "-fqbn", "rp2040:rp2040:rpipicow",
         "-fqbn", "esp8266:esp8266:nodemcuv2",
     }
+}
+
+require("lspconfig")['cssls'].setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    settings = {
+        validate = true,
+        css = {
+            lint = { unknownAtRules = "ignore" }
+        }
+    },
+    flags = lsp_flags
 }
 
 require("lspconfig")["tailwindcss"].setup({
@@ -249,9 +262,12 @@ require('ufo').setup({
     close_fold_kinds = {'imports', 'comment'},
     preview = {
         win_config = {
-            border = {'', '─', '', '', '', '─', '', ''},
+            -- border = {'', '─', '', '', '', '─', '', ''},
+            border = 'rounded',
             winhighlight = 'Normal:Folded',
-            winblend = 0
+            -- winhighlight = 'Normal:Normal',
+            winblend = 12,
+            maxheight = 20
         },
         mappings = {
             scrollU = '<C-u>',
@@ -264,7 +280,8 @@ require('ufo').setup({
     provider_selector = function(bufnr, filetype, buftype)
         -- if you prefer treesitter provider rather than lsp,
         -- return ftMap[filetype] or {'treesitter', 'indent'}
-        return ftMap[filetype]
+        return {'treesitter', 'indent'}
+        -- return ftMap[filetype]
     end,
 })
 -- End Folder
@@ -276,6 +293,46 @@ local signs = {
     Info = " "
 }
 
+-- Function to check if a floating dialog exists and if not
+-- then check for diagnostics under the cursor
+function OpenDiagnosticIfNoFloat()
+    for _, winid in pairs(vim.api.nvim_tabpage_list_wins(0)) do
+        if vim.api.nvim_win_get_config(winid).zindex then
+            return
+        end
+    end
+    -- THIS IS FOR BUILTIN LSP
+    vim.diagnostic.open_float(table, {
+        scope = "cursor",
+        focusable = false,
+        close_events = {
+            "CursorMoved",
+            "CursorMovedI",
+            "BufHidden",
+            "InsertCharPre",
+            "WinLeave",
+        },
+    })
+end
+-- Show diagnostics under the cursor when holding position
+vim.api.nvim_create_augroup("lsp_diagnostics_hold", { clear = true })
+vim.api.nvim_create_autocmd({ "CursorHold" }, {
+    pattern = "*",
+    command = "lua OpenDiagnosticIfNoFloat()",
+    group = "lsp_diagnostics_hold",
+})
+require('lspconfig.ui.windows').default_options.border = 'rounded'
+
+-- require("neotest").setup({
+--   adapters = {
+--     require("neotest-python")({
+--       dap = { justMyCode = false },
+--     }),
+--     require("neotest-vitest"),
+--     require("neotest-plenary"),
+--   },
+-- })
+
 for type, icon in pairs(signs) do
     local hl = "DiagnosticSign" .. type
     vim.fn.sign_define(hl, {text = icon, texthl = hl, numhl = hl})
@@ -284,7 +341,7 @@ require("nvim-autopairs").setup()
 require('nvim-ts-autotag').setup()
 
 require("neodev").setup({
-  library = { plugins = { "nvim-dap-ui" }, types = true },
+  library = { plugins = { "nvim-dap-ui", "neotest" }, types = true },
 })
 
 require('codicons').setup()
@@ -353,7 +410,7 @@ require('gitsigns').setup {
     untracked    = { hl = 'GitSignsAdd'   , text = '┆', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'    },
   },
   signcolumn = true,  -- Toggle with `:Gitsigns toggle_signs`
-  numhl      = false, -- Toggle with `:Gitsigns toggle_numhl`
+  numhl      = true, -- Toggle with `:Gitsigns toggle_numhl`
   linehl     = false, -- Toggle with `:Gitsigns toggle_linehl`
   word_diff  = false, -- Toggle with `:Gitsigns toggle_word_diff`
   watch_gitdir = {
@@ -361,7 +418,7 @@ require('gitsigns').setup {
     follow_files = true
   },
   attach_to_untracked = true,
-  current_line_blame = false, -- Toggle with `:Gitsigns toggle_current_line_blame`
+  current_line_blame = true, -- Toggle with `:Gitsigns toggle_current_line_blame`
   current_line_blame_opts = {
     virt_text = true,
     virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
