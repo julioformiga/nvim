@@ -1,3 +1,4 @@
+HOMEDIR = os.getenv('HOME')
 require("base")
 require("plugins")
 require("highlights")
