@@ -2,7 +2,7 @@ local navic = require("nvim-navic")
 navic.setup {
     highlight = false
 }
-breadcrumbs = { navic.get_location, cond = navic.is_available }
+BREADCRUMBS = { navic.get_location, cond = navic.is_available }
 
 require('lualine').setup {
   options = {
@@ -57,7 +57,7 @@ require('lualine').setup {
   },
   winbar = {
     lualine_a = {'filename'},
-    lualine_b = {breadcrumbs},
+    lualine_b = {BREADCRUMBS},
     -- lualine_c = {},
     -- lualine_x = {},
     -- lualine_y = {},
