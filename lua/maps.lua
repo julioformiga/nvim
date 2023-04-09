@@ -20,14 +20,21 @@ local aucmd_dict = {
             pattern = {"c","cpp"},
             callback = function()
                 map('n', '<leader>sf', 'va{V', {noremap = false, silent = true})
-                map('n', '<S-CR>', '<ESC><CMD>3TermExec cmd="g++ % -o mainpp && ./mainpp" direction=horizontal<CR><C-w>j')
+                map('n', '<S-CR>', '<ESC><CMD>3TermExec cmd="g++ % -o main && ./main" direction=horizontal<CR><C-w>j')
+            end
+        },
+        {
+            pattern = {"rs", "rust"},
+            callback = function()
+                map('n', '<leader>sf', 'va{V', {noremap = false, silent = true})
+                map('n', '<S-CR>', '<ESC><CMD>3TermExec cmd="cargo run" direction=horizontal<CR><C-w>j')
             end
         },
         {
             pattern = {"python"},
             callback = function()
                 map('n', '<leader>sf', '[[V]M', {noremap = false, silent = true})
-                map('n', '<S-CR>', '<ESC><CMD>3TermExec cmd="python %" direction=float<CR>')
+                map('n', '<S-CR>', '<ESC><CMD>3TermExec cmd="python %" direction=horizontal<CR>')
             end
         }
     },
@@ -52,7 +59,6 @@ end
 -- if you only want these mappings for toggle term use term://*toggleterm#* instead
 vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
 
-vim.g.neovide_scale_factor=0.9
 function ChangeScaleFactor(delta)
     vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * delta
 end
@@ -92,20 +98,21 @@ end
 map("n", "gf", '<Cmd>lua M.HandleURL()<CR>')
 
 -- Find files using Telescope command-line sugar.
-map('n', '<leader>a',  '<CMD>AerialToggle<cr>')
 map('n', '<leader>ff',  '<CMD>Telescope find_files<cr>')
 map('n', '<leader>fg',  '<CMD>Telescope live_grep<cr>')
 map('n', '<leader>fb',  '<CMD>Telescope buffers<cr>')
 map('n', '<leader>fh',  '<CMD>Telescope help_tags<cr>')
 map('n', '<leader>gg',   '<CMD>LazyGitCurrentFile<CR>', {noremap = true, silent = true})
 map('n', '<A-e>',   '<CMD>NeoTreeFloatToggle<CR>', {noremap = true, silent = true})
+map('n', '<A-b>',   '<CMD>NeoTreeFloat buffers<CR>', {noremap = true, silent = true})
 map('n', '<leader>r', ':so %<CR><CMD>echo "Settings reload!"<CR>')  -- Reload configuration without restart nvim
 map('n', '<leader>e', '<CMD>TroubleToggle<CR>')
 map('n', '<leader>u', '<CMD>PackerUpdate<CR><CMD>Mason<CR>')
 map('n', '<A-1>', '<ESC><CMD>1ToggleTerm direction=float<CR>')
 map('n', '<A-2>', '<ESC><CMD>2ToggleTerm direction=horizontal<CR>')
 map('n', '<A-3>', '<ESC><CMD>3ToggleTerm direction=float<CR>')
-map('n', '<A-o>', "<CMD>TagbarOpenAutoClose<CR>")
+map('n', '<leader>o', "<CMD>TagbarOpenAutoClose<CR>")
+map('n', '<leader>a',  '<CMD>AerialToggle<cr>')
 map('n', '<A-z>', "<CMD>ZenMode<CR>")
 
 -- Debugger
@@ -141,7 +148,7 @@ map('n', '<C-z>', '<CMD>undo<CR>')
 map('n', '<S-u>', '<CMD>redo<CR>')
 map('n', '<C-Space>', '<CMD>NeoTreeFocusToggle<CR>')
 map('n', '<A-q>', '<CMD>lua require("dapui").close()<CR><CMD>SClose<CR>')
-map('n', '<S-j>', '<S-j>x')
+-- map('n', '<S-j>', '<S-j>x')
 
 map('i', '<S-Del>', '<ESC><CMD>delete<CR>i')
 map('n', '<S-Del>', '<CMD>delete<CR>')
@@ -149,6 +156,9 @@ map('n', '<S-Del>', '<CMD>delete<CR>')
 map('i', '<A-/>', '<ESC><CMD>CommentToggle<CR>i<Right>')
 map('n', '<A-/>', '<S-V><ESC><CMD>\'<,\'>CommentToggle<CR>gv<ESC>')
 map('v', '<A-/>', '<ESC><CMD>\'<,\'>CommentToggle<CR>gv<ESC>')
+map('i', '<A-u>', '<ESC><CMD>CommentToggle<CR>i<Right>')
+map('n', '<A-u>', '<S-V><ESC><CMD>\'<,\'>CommentToggle<CR>gv<ESC>')
+map('v', '<A-u>', '<ESC><CMD>\'<,\'>CommentToggle<CR>gv<ESC>')
 
 map('i', '<C-PageDown>', '<ESC><CMD>bnext<CR>')
 map('i', '<C-PageUp>', '<ESC><CMD>bprevious<CR>')
@@ -187,7 +197,13 @@ map('n', '<A-End>', '<CMD>vertical resize +2<CR>')
 map('n', '<A-Del>', 'ce')
 map('n', '<A-Backspace>', 'cb')
 
-map("n", "H", 'I')
+map('n', '<leader><Left>', 'za')
+map('n', '<leader><Up>', 'zM')
+map('n', '<leader><Down>', 'zR')
+map('n', '<leader>h', 'za')
+map('n', '<leader>j', 'zR')
+map('n', '<leader>k', 'zM')
+
 map("n", "L", 'A')
 
 map('n', '<A-i>', 'bce')
@@ -208,7 +224,7 @@ map('i', '<A-l>', '<Right>')
 map('i', '<S-A-h>', '<C-o>b')
 map('i', '<S-A-l>', '<C-o>e')
 
-map('i', '<A-u>', '<ESC>ui')
+-- map('i', '<A-u>', '<ESC>ui')
 map('n', '<A-m>', '<ESC>o')
 map('i', '<A-CR>', '<ESC>bce')
 map('i', '<A-i>', '<ESC><Right>')
@@ -228,9 +244,7 @@ map('i', '<A-S-Del>', '<C-o>die')
 map('i', '<A-S-Backspace>', '<C-o>dib')
 
 map('n', '<A-Left>', '<C-w>h')
--- map('i', '<A-Left>', '<ESC><C-w>h')
 map('n', '<A-Right>', '<C-w>l')
--- map('i', '<A-Right>', '<ESC><C-w>l')
 map('n', '<A-PageDown>', '<CMD>bnext<CR>')
 map('i', '<A-PageDown>', '<ESC><CMD>bnext<CR>')
 map('n', '<A-PageUp>', '<CMD>bprevious<CR>')
