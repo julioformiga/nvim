@@ -19,9 +19,9 @@ end
 -- Reloads Neovim after whenever you save useins.lua
 vim.cmd([[
     augroup packer_user_config
-      autocmd!
-     autocmd BufWritePost useins.lua source <afile> | PackerSync
-  augroup END
+        autocmd!
+        autocmd BufWritePost useins.lua source <afile> | PackerSync
+    augroup END
 ]])
 
 return require('packer').startup(function(use)
@@ -46,6 +46,18 @@ return require('packer').startup(function(use)
     use('https://github.com/hrsh7th/cmp-buffer')
     use('https://github.com/hrsh7th/cmp-path')
     use('https://github.com/hrsh7th/cmp-cmdline')
+
+    -- use {
+    --     "https://github.com/nvim-neotest/neotest",
+    --     requires = {
+    --         "https://github.com/nvim-lua/plenary.nvim",
+    --         "https://github.com/nvim-treesitter/nvim-treesitter",
+    --         "https://github.com/antoinemadec/FixCursorHold.nvim",
+    --         "https://github.com/nvim-neotest/neotest-python",
+    --         "https://github.com/nvim-neotest/neotest-plenary",
+    --         "https://github.com/marilari88/neotest-vitest",
+    --     }
+    -- }
 
     -- SNIPPETS ------------------
     -- use('https://github.com/hrsh7th/cmp-vsnip')
@@ -88,6 +100,13 @@ return require('packer').startup(function(use)
     -- use('https://github.com/navarasu/onedark.nvim')
     use('https://github.com/olimorris/onedarkpro.nvim')
     use('https://github.com/Mofiqul/vscode.nvim')
+    use("https://github.com/loctvl842/monokai-pro.nvim")
+    -- use {
+    --     "https://github.com/loctvl842/monokai-pro.nvim",
+    --     config = function()
+    --         require("monokai-pro").setup()
+    --     end
+    -- }
     use {
         'https://github.com/akinsho/bufferline.nvim',
         tag = "v3.*",
@@ -97,12 +116,6 @@ return require('packer').startup(function(use)
         requires = { 'https://github.com/kyazdani42/nvim-web-devicons', opt = true }
     }
     use {'https://github.com/kevinhwang91/nvim-ufo', requires = 'https://github.com/kevinhwang91/promise-async'}
-    use {
-        "https://github.com/loctvl842/monokai-pro.nvim",
-        config = function()
-            require("monokai-pro").setup()
-        end
-    }
 
     -- DEBUG
     use 'https://github.com/folke/neodev.nvim'
