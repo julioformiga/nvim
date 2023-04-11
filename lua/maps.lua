@@ -2,10 +2,8 @@ vim.g.mapleader = ' '
 
 local function map(mode, lhs, rhs, options)
     options = options or { noremap = true, silent = true }
-    -- vim.keymap.set(m, k, v, o)
     vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
-
 
 local aucmd_dict = {
     FileType = {
@@ -62,8 +60,8 @@ vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
 function ChangeScaleFactor(delta)
     vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * delta
 end
-map('n', '<C-=>', ":lua ChangeScaleFactor(1.1)<CR>")
-map('n', '<C-->', ":lua ChangeScaleFactor(1/1.1)<CR>")
+map('n', '<C-=>', ':lua ChangeScaleFactor(1.1)<CR>')
+map('n', '<C-->', ':lua ChangeScaleFactor(1/1.1)<CR>')
 
 local Terminal  = require('toggleterm.terminal').Terminal
 -- local lazygit = Terminal:new({
@@ -87,24 +85,25 @@ local Terminal  = require('toggleterm.terminal').Terminal
 -- end
 M = {}
 M.HandleURL = function()
-  local url = string.match(vim.fn.getline("."), "[a-z]*://[^ >,;]*")
-  if url ~= "" then
-    vim.cmd("exec '!xdg-open " .. url .. "'")
-  else
-    vim.cmd('echo "No URI found in line."')
-  end
+    local url = string.match(vim.fn.getline("."), "[a-z]*://[^ >,;]*")
+    if url ~= "" then
+        vim.cmd("exec '!xdg-open " .. url .. "'")
+    else
+        vim.cmd('echo "No URI found in line."')
+    end
 end
 
 map("n", "gf", '<Cmd>lua M.HandleURL()<CR>')
 
 -- Find files using Telescope command-line sugar.
-map('n', '<leader>ff',  '<CMD>Telescope find_files<cr>')
-map('n', '<leader>fg',  '<CMD>Telescope live_grep<cr>')
-map('n', '<leader>fb',  '<CMD>Telescope buffers<cr>')
-map('n', '<leader>fh',  '<CMD>Telescope help_tags<cr>')
-map('n', '<leader>gg',   '<CMD>LazyGitCurrentFile<CR>', {noremap = true, silent = true})
-map('n', '<A-e>',   '<CMD>NeoTreeFloatToggle<CR>', {noremap = true, silent = true})
-map('n', '<A-b>',   '<CMD>NeoTreeFloat buffers<CR>', {noremap = true, silent = true})
+map('n', '<leader>ff', '<CMD>Telescope find_files<cr>')
+map('n', '<leader>fg', '<CMD>Telescope live_grep<cr>')
+map('n', '<leader>fb', '<CMD>Telescope buffers<cr>')
+map('n', '<leader>fh', '<CMD>Telescope help_tags<cr>')
+map('n', '<leader>gg', '<CMD>LazyGitCurrentFile<CR>', {noremap = true, silent = true})
+map('n', '<A-e>', '<CMD>NeoTreeFloatToggle<CR>', {noremap = true, silent = true})
+-- map('n', '<A-b>', '<CMD>NeoTreeFloat buffers<CR>', {noremap = true, silent = true})
+map('n', '<A-b>', '<CMD>Telescope buffers<CR>', {noremap = true, silent = true})
 map('n', '<leader>r', ':so %<CR><CMD>echo "Settings reload!"<CR>')  -- Reload configuration without restart nvim
 map('n', '<leader>e', '<CMD>TroubleToggle<CR>')
 map('n', '<leader>u', '<CMD>PackerUpdate<CR><CMD>Mason<CR>')
@@ -115,8 +114,26 @@ map('n', '<leader>o', "<CMD>TagbarOpenAutoClose<CR>")
 map('n', '<leader>a',  '<CMD>AerialToggle<cr>')
 map('n', '<A-z>', "<CMD>ZenMode<CR>")
 
+-- Not rewrite clipboard
+map('n', 'd', '"_d')
+map('n', 'x', '"_x')
+map('n', 'X', '"_X')
+map('n', '<Del>', '"_x')
+-- Edit words with copy and paste
+map('n', '<A-CR>', 'b"_ce')
+map('i', '<A-CR>', '<ESC>b"_ce')
+map('n', '<A-i>', 'b"_ce')
+map('n', '<A-p>', 'b"_ce<ESC>p')
+map('i', '<A-p>', '<ESC>b"_ce<ESC>pi')
+map('n', '<A-y>', 'bye')
+map('i', '<A-y>', '<ESC>bye')
+
+map('n', '<F2>', '<CMD>lua require("renamer").rename()<CR>')
+map('i', '<F2>', '<CMD>lua require("renamer").rename()<CR>')
+map('v', '<F2>', '<CMD>lua require("renamer").rename()<CR>')
+
 -- Debugger
-map('n', '<F2>', '<CMD>DapToggleBreakpoint<CR>')
+map('n', '<F7>', '<CMD>DapToggleBreakpoint<CR>')
 map('n', '<F8>', '<CMD>DapContinue<CR>')
 map('n', '<F9>', '<CMD>DapStepInto<CR>')
 map('n', '<F10>', '<CMD>DapTerminate<CR>')
@@ -180,7 +197,6 @@ map('v', '<A-Down>', "<ESC><CMD>'<,'>m '>+1<CR>gv=gv")
 -- Normal and Visual mode
 map('n', '<CR>', 'i')
 map('n', '<leader>tr', '<CMD>Telescope registers<CR>')
-map('n', '<A-CR>', 'bce')
 map('n', '<A-l>', 'w')
 map('n', '<A-[>', 'ysiw', { noremap = false, silent = true })
 map('n', '<A-]>', 'ds', { noremap = false, silent = true })
@@ -206,7 +222,6 @@ map('n', '<leader>k', 'zM')
 
 map("n", "L", 'A')
 
-map('n', '<A-i>', 'bce')
 map('n', '<A-j>', '<CMD>m .+1<CR>==')
 map('v', '<A-j>', "<ESC><CMD>'<,'>m '>+1<CR>gv=gv")
 map('n', '<A-k>', '<CMD>m .-2<CR>==')
@@ -226,7 +241,6 @@ map('i', '<S-A-l>', '<C-o>e')
 
 -- map('i', '<A-u>', '<ESC>ui')
 map('n', '<A-m>', '<ESC>o')
-map('i', '<A-CR>', '<ESC>bce')
 map('i', '<A-i>', '<ESC><Right>')
 
 map('i', '<A-,>', '<ESC>lylli, <ESC>ppi')

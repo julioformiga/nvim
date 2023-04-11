@@ -134,6 +134,7 @@ return require('packer').startup(function(use)
             })
         end
     })
+    use('https://github.com/filipdutescu/renamer.nvim')
     use('https://github.com/terrortylor/nvim-comment')
     use('https://github.com/tpope/vim-repeat')
     use('https://github.com/wellle/targets.vim') --  Target.vim
