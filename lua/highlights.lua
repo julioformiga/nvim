@@ -296,7 +296,10 @@ require("tokyonight").setup({
 
 
 -- vim.cmd.colorscheme "catppuccin-mocha"
-vim.cmd.colorscheme "nightfox"
+-- vim.cmd.colorscheme "nightfox"
+-- vim.cmd.colorscheme "terafox"
+vim.cmd.colorscheme "duskfox"
+-- vim.cmd.colorscheme "carbonfox"
 -- vim.cmd.colorscheme "vscode"
 -- vim.cmd.colorscheme "tokyonight"
 -- vim.cmd.colorscheme "monokai-pro"
