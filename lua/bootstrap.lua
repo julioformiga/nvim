@@ -3,7 +3,8 @@ vim.api.nvim_create_autocmd("FileType", {
         "html", "css", "scss", "vue", "json",
         "javascriptvue", "typescriptvue",
         "typescript", "typescriptreact",
-        "javascript", "javascriptreact"
+        "javascript", "javascriptreact",
+        "c", "cpp", "arduino"
     },
     callback = function()
         vim.opt_local.shiftwidth = 2
@@ -12,8 +13,8 @@ vim.api.nvim_create_autocmd("FileType", {
     end
 })
 
-vim.api.nvim_create_autocmd({"BufWritePre"}, {
-    pattern = {"*"},
+vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+    pattern = { "*" },
     command = [[%s/\s\+$//e]]
 })
 
@@ -23,6 +24,11 @@ require("indent_blankline").setup {
     filetype_exclude = { "dashboard" }
 }
 
+require("telescope").setup({
+    defaults = {
+        initial_mode = "normal"
+    }
+})
 require("mason").setup()
 require("mason-lspconfig").setup()
 
@@ -40,7 +46,7 @@ require("luasnip.loaders.from_vscode").lazy_load()
 
 cmp.setup({
     snippet = {
-        expand = function(args) -- REQUIRED - you must specify a snippet engine
+        expand = function(args)           -- REQUIRED - you must specify a snippet engine
             -- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
             luasnip.lsp_expand(args.body) -- For `luasnip` users.
             -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
@@ -49,8 +55,8 @@ cmp.setup({
     },
     formatting = {
         format = lspkind.cmp_format({
-            mode = 'symbol_text', -- show only symbol annotations
-            maxwidth = 50, -- prevent the popup from showing more than provided characters
+            mode = 'symbol_text',  -- show only symbol annotations
+            maxwidth = 50,         -- prevent the popup from showing more than provided characters
             ellipsis_char = '...', -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead
             menu = ({
                 path = "[Path]",
@@ -70,12 +76,10 @@ cmp.setup({
             -- end
         })
     },
-
     window = {
         completion = cmp.config.window.bordered(),
         documentation = cmp.config.window.bordered(),
     },
-
     mapping = cmp.mapping.preset.insert({
         ['<Tab>'] = function(fallback)
             if cmp.visible() then
@@ -97,7 +101,6 @@ cmp.setup({
                 fallback()
             end
         end,
-
         ['<C-b>'] = cmp.mapping.scroll_docs(-4),
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
         ['<C-Space>'] = cmp.mapping.complete(),
@@ -147,22 +150,22 @@ local on_attach = function(client, bufnr)
     end
 
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-    local bufopts = { noremap=true, silent=true, buffer=bufnr }
+    local bufopts = { noremap = true, silent = true, buffer = bufnr }
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
     vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
     vim.keymap.set('n', 'gsh', vim.lsp.buf.signature_help, bufopts)
-    vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
-    vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-    vim.keymap.set('n', '<space>wl', function()
+    vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, bufopts)
+    vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
+    vim.keymap.set('n', '<leader>wl', function()
         print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
     end, bufopts)
-    vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
-    vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
-    vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
-    vim.keymap.set('n', '<space>gr', vim.lsp.buf.references, bufopts)
-    vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
+    vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, bufopts)
+    vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
+    vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
+    vim.keymap.set('n', '<leader>gr', vim.lsp.buf.references, bufopts)
+    vim.keymap.set('n', '<leader>f', function() vim.lsp.buf.format { async = true } end, bufopts)
 end
 
 local lsp_flags = {
@@ -171,12 +174,12 @@ local lsp_flags = {
 
 -- For C++ in Ubuntu: sudo apt install g++-12
 local lspservers = {
-                    "pyright", "graphql", "ruff_lsp", "yamlls",
-                    "cmake", "neocmake", "clangd", "rust_analyzer",
-                    "marksman", "cssmodules_ls", "rome", "eslint",
-                    "emmet_ls", "html", "tsserver", "jsonls", "volar",
-                    "lua_ls", "dockerls"
-                }
+    "pyright", "graphql", "ruff_lsp", "yamlls",
+    "cmake", "neocmake", "clangd", "rust_analyzer",
+    "marksman", "cssmodules_ls", "rome", "eslint",
+    "emmet_ls", "html", "tsserver", "jsonls", "volar",
+    "lua_ls", "dockerls"
+}
 
 for _, lsp in pairs(lspservers) do
     require("lspconfig")[lsp].setup {
@@ -225,7 +228,7 @@ require("lspconfig")["tailwindcss"].setup({
 -- Folder
 local ftMap = {
     vim = 'indent',
-    python = {'indent'},
+    python = { 'indent' },
     git = ''
 }
 local handler = function(virtText, lnum, endLnum, width, truncate)
@@ -242,7 +245,7 @@ local handler = function(virtText, lnum, endLnum, width, truncate)
         else
             chunkText = truncate(chunkText, targetWidth - curWidth)
             local hlGroup = chunk[2]
-            table.insert(newVirtText, {chunkText, hlGroup})
+            table.insert(newVirtText, { chunkText, hlGroup })
             chunkWidth = vim.fn.strdisplaywidth(chunkText)
             -- str width returned from truncate() may less than 2nd argument, need padding
             if curWidth + chunkWidth < targetWidth then
@@ -252,14 +255,14 @@ local handler = function(virtText, lnum, endLnum, width, truncate)
         end
         curWidth = curWidth + chunkWidth
     end
-    table.insert(newVirtText, {suffix, 'MoreMsg'})
+    table.insert(newVirtText, { suffix, 'MoreMsg' })
     return newVirtText
 end
 
 require('ufo').setup({
     open_fold_hl_timeout = 150,
     enable_get_fold_virt_text = true,
-    close_fold_kinds = {'imports', 'comment'},
+    close_fold_kinds = { 'imports', 'comment' },
     preview = {
         win_config = {
             -- border = {'', '─', '', '', '', '─', '', ''},
@@ -280,7 +283,7 @@ require('ufo').setup({
     provider_selector = function(bufnr, filetype, buftype)
         -- if you prefer treesitter provider rather than lsp,
         -- return ftMap[filetype] or {'treesitter', 'indent'}
-        return {'treesitter', 'indent'}
+        return { 'treesitter', 'indent' }
         -- return ftMap[filetype]
     end,
 })
@@ -314,6 +317,7 @@ function OpenDiagnosticIfNoFloat()
         },
     })
 end
+
 -- Show diagnostics under the cursor when holding position
 vim.api.nvim_create_augroup("lsp_diagnostics_hold", { clear = true })
 vim.api.nvim_create_autocmd({ "CursorHold" }, {
@@ -335,13 +339,13 @@ require('lspconfig.ui.windows').default_options.border = 'rounded'
 
 for type, icon in pairs(signs) do
     local hl = "DiagnosticSign" .. type
-    vim.fn.sign_define(hl, {text = icon, texthl = hl, numhl = hl})
+    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
 require("nvim-autopairs").setup()
 require('nvim-ts-autotag').setup()
 
 require("neodev").setup({
-  library = { plugins = { "nvim-dap-ui", "neotest" }, types = true },
+    library = { plugins = { "nvim-dap-ui", "neotest" }, types = true },
 })
 
 require('codicons').setup()
@@ -365,7 +369,7 @@ require("dapui").setup()
 -- require("dapui").open()
 local dap, dapui = require("dap"), require("dapui")
 dap.listeners.after.event_initialized["dapui_config"] = function()
-  dapui.open()
+    dapui.open()
 end
 -- dap.listeners.before.event_terminated["dapui_config"] = function()
 --   dapui.close()
@@ -401,46 +405,46 @@ vim.cmd([[ let g:startify_lists = [
 require('aerial').setup()
 
 require('gitsigns').setup {
-  signs = {
-    add          = { hl = 'GitSignsAdd'   , text = '│', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'    },
-    change       = { hl = 'GitSignsChange', text = '│', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn' },
-    delete       = { hl = 'GitSignsDelete', text = '_', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn' },
-    topdelete    = { hl = 'GitSignsDelete', text = '‾', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn' },
-    changedelete = { hl = 'GitSignsChange', text = '~', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn' },
-    untracked    = { hl = 'GitSignsAdd'   , text = '┆', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'    },
-  },
-  signcolumn = true,  -- Toggle with `:Gitsigns toggle_signs`
-  numhl      = true, -- Toggle with `:Gitsigns toggle_numhl`
-  linehl     = false, -- Toggle with `:Gitsigns toggle_linehl`
-  word_diff  = false, -- Toggle with `:Gitsigns toggle_word_diff`
-  watch_gitdir = {
-    interval = 1000,
-    follow_files = true
-  },
-  attach_to_untracked = true,
-  current_line_blame = true, -- Toggle with `:Gitsigns toggle_current_line_blame`
-  current_line_blame_opts = {
-    virt_text = true,
-    virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
-    delay = 1000,
-    ignore_whitespace = false,
-  },
-  current_line_blame_formatter = '<author>, <author_time:%Y-%m-%d> - <summary>',
-  sign_priority = 6,
-  update_debounce = 100,
-  status_formatter = nil, -- Use default
-  max_file_length = 40000, -- Disable if file is longer than this (in lines)
-  preview_config = {
-    -- Options passed to nvim_open_win
-    border = 'single',
-    style = 'minimal',
-    relative = 'cursor',
-    row = 0,
-    col = 1
-  },
-  yadm = {
-    enable = false
-  },
+    signs                        = {
+        add          = { hl = 'GitSignsAdd', text = '│', numhl = 'GitSignsAddNr', linehl = 'GitSignsAddLn' },
+        change       = { hl = 'GitSignsChange', text = '│', numhl = 'GitSignsChangeNr', linehl = 'GitSignsChangeLn' },
+        delete       = { hl = 'GitSignsDelete', text = '_', numhl = 'GitSignsDeleteNr', linehl = 'GitSignsDeleteLn' },
+        topdelete    = { hl = 'GitSignsDelete', text = '‾', numhl = 'GitSignsDeleteNr', linehl = 'GitSignsDeleteLn' },
+        changedelete = { hl = 'GitSignsChange', text = '~', numhl = 'GitSignsChangeNr', linehl = 'GitSignsChangeLn' },
+        untracked    = { hl = 'GitSignsAdd', text = '┆', numhl = 'GitSignsAddNr', linehl = 'GitSignsAddLn' },
+    },
+    signcolumn                   = true, -- Toggle with `:Gitsigns toggle_signs`
+    numhl                        = true, -- Toggle with `:Gitsigns toggle_numhl`
+    linehl                       = false, -- Toggle with `:Gitsigns toggle_linehl`
+    word_diff                    = false, -- Toggle with `:Gitsigns toggle_word_diff`
+    watch_gitdir                 = {
+        interval = 1000,
+        follow_files = true
+    },
+    attach_to_untracked          = true,
+    current_line_blame           = true, -- Toggle with `:Gitsigns toggle_current_line_blame`
+    current_line_blame_opts      = {
+        virt_text = true,
+        virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
+        delay = 1000,
+        ignore_whitespace = false,
+    },
+    current_line_blame_formatter = '<author>, <author_time:%Y-%m-%d> - <summary>',
+    sign_priority                = 6,
+    update_debounce              = 100,
+    status_formatter             = nil, -- Use default
+    max_file_length              = 40000, -- Disable if file is longer than this (in lines)
+    preview_config               = {
+        -- Options passed to nvim_open_win
+        border = 'single',
+        style = 'minimal',
+        relative = 'cursor',
+        row = 0,
+        col = 1
+    },
+    yadm                         = {
+        enable = false
+    },
 }
 
 -- require("colortils").setup()
@@ -479,6 +483,7 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
         update_in_insert = true,
     }
 )
+require('renamer').setup()
 require('zen-mode').setup({
     window = {
         backdrop = 0.8,
@@ -506,7 +511,7 @@ require('nvim_comment').setup({
 
 -- require('nvim_comment').setup()
 require("nvim-surround").setup()
-require("toggleterm").setup{
+require("toggleterm").setup {
     -- shading_factor = 1,
     shade_terminals = false,
     float_opts = {
