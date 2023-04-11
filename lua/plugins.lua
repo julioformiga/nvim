@@ -4,12 +4,11 @@ if not status then
     return
 end
 --]]
-
 local ensure_packer = function()
     local fn = vim.fn
-    local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+    local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
     if fn.empty(fn.glob(install_path)) > 0 then
-        fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+        fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
         vim.cmd [[packadd packer.nvim]]
         return true
     end
@@ -34,7 +33,24 @@ return require('packer').startup(function(use)
     use('https://github.com/nvim-telescope/telescope.nvim')
     -- use('https://github.com/nvim-telescope/telescope-project.nvim')
     use('https://github.com/preservim/tagbar') --  Tagbar for code navigation Alt-O
+    use('https://github.com/rcarriga/nvim-notify')
     use('https://github.com/folke/trouble.nvim')
+    use({
+        "https://github.com/folke/noice.nvim",
+        config = function()
+            require("noice").setup({
+                -- add any options here
+            })
+        end,
+        requires = {
+            -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+            "https://github.com/MunifTanjim/nui.nvim",
+            -- OPTIONAL:
+            --   `nvim-notify` is only needed, if you want to use the notification view.
+            --   If not available, we use `mini` as the fallback
+            "https://github.com/rcarriga/nvim-notify",
+        }
+    })
 
     -- LSP -------
     use('https://github.com/williamboman/mason.nvim')
@@ -110,16 +126,16 @@ return require('packer').startup(function(use)
     use {
         'https://github.com/akinsho/bufferline.nvim',
         tag = "v3.*",
-        requires = 'https://github.com/nvim-tree/nvim-web-devicons'}
+        requires = 'https://github.com/nvim-tree/nvim-web-devicons' }
     use {
         'https://github.com/nvim-lualine/lualine.nvim',
         requires = { 'https://github.com/kyazdani42/nvim-web-devicons', opt = true }
     }
-    use {'https://github.com/kevinhwang91/nvim-ufo', requires = 'https://github.com/kevinhwang91/promise-async'}
+    use { 'https://github.com/kevinhwang91/nvim-ufo', requires = 'https://github.com/kevinhwang91/promise-async' }
 
     -- DEBUG
     use 'https://github.com/folke/neodev.nvim'
-    use { "https://github.com/rcarriga/nvim-dap-ui", requires = {"https://github.com/mfussenegger/nvim-dap"} }
+    use { "https://github.com/rcarriga/nvim-dap-ui", requires = { "https://github.com/mfussenegger/nvim-dap" } }
     use 'https://github.com/mfussenegger/nvim-dap-python'
     use 'https://github.com/theHamsta/nvim-dap-virtual-text'
     use 'https://github.com/mortepau/codicons.nvim'
@@ -137,12 +153,12 @@ return require('packer').startup(function(use)
     use('https://github.com/filipdutescu/renamer.nvim')
     use('https://github.com/terrortylor/nvim-comment')
     use('https://github.com/tpope/vim-repeat')
-    use('https://github.com/wellle/targets.vim') --  Target.vim
+    use('https://github.com/wellle/targets.vim')      --  Target.vim
     use('https://github.com/leafOfTree/vim-matchtag') --  Target.vim
     use('https://github.com/famiu/bufdelete.nvim')
     --  use('https://github.com/xiyaowong/nvim-cursorword')
-    use('https://github.com/mg979/vim-visual-multi') --, {'branch': 'master'}
-    use('https://github.com/ap/vim-css-color') --  CSS Color Preview
+    use('https://github.com/mg979/vim-visual-multi')       --, {'branch': 'master'}
+    use('https://github.com/ap/vim-css-color')             --  CSS Color Preview
     -- use('https://github.com/max397574/colortils.nvim') -- CSS Color Picker
     use('https://github.com/ziontee113/color-picker.nvim') -- CSS Color Picker
     use('https://github.com/folke/zen-mode.nvim')
@@ -151,7 +167,7 @@ return require('packer').startup(function(use)
     use('https://github.com/windwp/nvim-autopairs')
     use('https://github.com/windwp/nvim-ts-autotag')
     use('https://github.com/farmergreg/vim-lastplace') --  Cursor in last edit position
-    use('https://github.com/turbio/bracey.vim') --, {'do': 'npm install --prefix server'} --  Live server
+    use('https://github.com/turbio/bracey.vim')        --, {'do': 'npm install --prefix server'} --  Live server
     --  use('https://github.com/manzeloth/live-server')
     use('https://github.com/pangloss/vim-javascript')  --  Syntax highlight for JSX
     use('https://github.com/MaxMEllon/vim-jsx-pretty') --  Syntax highlight for JSX

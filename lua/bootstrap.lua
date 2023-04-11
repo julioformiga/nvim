@@ -24,11 +24,23 @@ require("indent_blankline").setup {
     filetype_exclude = { "dashboard" }
 }
 
+require("noice").setup({
+    lsp = {
+        -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+        override = {
+            ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+            ["vim.lsp.util.stylize_markdown"] = true,
+            ["cmp.entry.get_documentation"] = true,
+        },
+    },
+})
+
 require("telescope").setup({
     defaults = {
         initial_mode = "normal"
     }
 })
+
 require("mason").setup()
 require("mason-lspconfig").setup()
 
@@ -413,8 +425,8 @@ require('gitsigns').setup {
         changedelete = { hl = 'GitSignsChange', text = '~', numhl = 'GitSignsChangeNr', linehl = 'GitSignsChangeLn' },
         untracked    = { hl = 'GitSignsAdd', text = '┆', numhl = 'GitSignsAddNr', linehl = 'GitSignsAddLn' },
     },
-    signcolumn                   = true, -- Toggle with `:Gitsigns toggle_signs`
-    numhl                        = true, -- Toggle with `:Gitsigns toggle_numhl`
+    signcolumn                   = true,  -- Toggle with `:Gitsigns toggle_signs`
+    numhl                        = true,  -- Toggle with `:Gitsigns toggle_numhl`
     linehl                       = false, -- Toggle with `:Gitsigns toggle_linehl`
     word_diff                    = false, -- Toggle with `:Gitsigns toggle_word_diff`
     watch_gitdir                 = {
@@ -432,7 +444,7 @@ require('gitsigns').setup {
     current_line_blame_formatter = '<author>, <author_time:%Y-%m-%d> - <summary>',
     sign_priority                = 6,
     update_debounce              = 100,
-    status_formatter             = nil, -- Use default
+    status_formatter             = nil,   -- Use default
     max_file_length              = 40000, -- Disable if file is longer than this (in lines)
     preview_config               = {
         -- Options passed to nvim_open_win
