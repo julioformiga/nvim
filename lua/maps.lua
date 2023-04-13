@@ -8,30 +8,37 @@ end
 local aucmd_dict = {
     FileType = {
         {
-            pattern = {"arduino"},
+            pattern = { "arduino" },
             callback = function()
-                map('n', '<leader>sf', 'va{V', {noremap = false, silent = true})
-                map('n', '<S-CR>', '<ESC><CMD>3TermExec cmd="arduino-cli compile --fqbn esp8266:esp8266:nodemcuv2 && arduino-cli upload -v -p /dev/ttyACM0 --fqbn esp8266:esp8266:nodemcuv2:baud=3000000 && arduino-cli monitor -p /dev/ttyACM0 -c baudrate=115200" direction=float<CR>')
+                map('n', '<leader>vf', 'va{V', { noremap = false, silent = true })
+                map('n', '<S-CR>',
+                    '<ESC><CMD>3TermExec cmd="arduino-cli compile --fqbn esp8266:esp8266:nodemcuv2 && arduino-cli upload -v -p /dev/ttyACM0 --fqbn esp8266:esp8266:nodemcuv2:baud=3000000 && arduino-cli monitor -p /dev/ttyACM0 -c baudrate=115200" direction=float<CR>')
             end
         },
         {
-            pattern = {"c","cpp"},
+            pattern = { "c", "cpp" },
             callback = function()
-                map('n', '<leader>sf', 'va{V', {noremap = false, silent = true})
+                map('n', '<leader>vf', 'va{V', { noremap = false, silent = true })
                 map('n', '<S-CR>', '<ESC><CMD>3TermExec cmd="g++ % -o main && ./main" direction=horizontal<CR><C-w>j')
             end
         },
         {
-            pattern = {"rs", "rust"},
+            pattern = { "rs", "rust" },
             callback = function()
-                map('n', '<leader>sf', 'va{V', {noremap = false, silent = true})
+                map('n', '<leader>vf', 'va{V', { noremap = false, silent = true })
                 map('n', '<S-CR>', '<ESC><CMD>3TermExec cmd="cargo run" direction=horizontal<CR><C-w>j')
             end
         },
         {
-            pattern = {"python"},
+            pattern = { "markdown" },
             callback = function()
-                map('n', '<leader>sf', '[[V]M', {noremap = false, silent = true})
+                map('n', '<S-CR>', '<ESC><CMD>Glow %<CR>')
+            end
+        },
+        {
+            pattern = { "python" },
+            callback = function()
+                map('n', '<leader>vf', '[[V]M', { noremap = false, silent = true })
                 map('n', '<S-CR>', '<ESC><CMD>3TermExec cmd="python %" direction=horizontal<CR>')
             end
         }
@@ -45,7 +52,7 @@ for event, opt_tbls in pairs(aucmd_dict) do
 end
 
 function _G.set_terminal_keymaps()
-    local opts = {buffer = 0}
+    local opts = { buffer = 0 }
     vim.keymap.set('t', '<ESC>', [[<C-\><C-n><CMD>wincmd k<CR>]], opts)
     vim.keymap.set('t', '<C-q>', [[<C-\><C-n><CMD>ToggleTerm<CR>]], opts)
     vim.keymap.set('t', '<A-q>', [[<C-\><C-n><CMD>ToggleTerm<CR>]], opts)
@@ -54,16 +61,18 @@ function _G.set_terminal_keymaps()
     vim.keymap.set('t', '<C-k>', [[<CMD>wincmd k<CR>]], opts)
     vim.keymap.set('t', '<C-l>', [[<CMD>wincmd l<CR>]], opts)
 end
+
 -- if you only want these mappings for toggle term use term://*toggleterm#* instead
 vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
 
 function ChangeScaleFactor(delta)
     vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * delta
 end
+
 map('n', '<C-=>', ':lua ChangeScaleFactor(1.1)<CR>')
 map('n', '<C-->', ':lua ChangeScaleFactor(1/1.1)<CR>')
 
-local Terminal  = require('toggleterm.terminal').Terminal
+local Terminal = require('toggleterm.terminal').Terminal
 -- local lazygit = Terminal:new({
 --     cmd = "lazygit",
 --     dir = "git_dir",
@@ -83,8 +92,8 @@ local Terminal  = require('toggleterm.terminal').Terminal
 -- function _lazygit_toggle()
 --     lazygit:toggle()
 -- end
-M = {}
-M.HandleURL = function()
+M              = {}
+M.HandleURL    = function()
     local url = string.match(vim.fn.getline("."), "[a-z]*://[^ >,;]*")
     if url ~= "" then
         vim.cmd("exec '!xdg-open " .. url .. "'")
@@ -100,19 +109,20 @@ map('n', '<leader>ff', '<CMD>Telescope find_files<cr>')
 map('n', '<leader>fg', '<CMD>Telescope live_grep<cr>')
 map('n', '<leader>fb', '<CMD>Telescope buffers<cr>')
 map('n', '<leader>fh', '<CMD>Telescope help_tags<cr>')
-map('n', '<leader>gg', '<CMD>LazyGitCurrentFile<CR>', {noremap = true, silent = true})
-map('n', '<A-e>', '<CMD>NeoTreeFloatToggle<CR>', {noremap = true, silent = true})
+map('n', '<leader>gg', '<CMD>LazyGitCurrentFile<CR>', { noremap = true, silent = true })
+map('n', '<A-e>', '<CMD>NeoTreeFloatToggle<CR>', { noremap = true, silent = true })
 -- map('n', '<A-b>', '<CMD>NeoTreeFloat buffers<CR>', {noremap = true, silent = true})
-map('n', '<A-b>', '<CMD>Telescope buffers<CR>', {noremap = true, silent = true})
-map('n', '<leader>r', ':so %<CR><CMD>echo "Settings reload!"<CR>')  -- Reload configuration without restart nvim
+map('n', '<A-b>', '<CMD>Telescope buffers<CR>', { noremap = true, silent = true })
+map('n', '<leader>r', ':so %<CR><CMD>echo "Settings reload!"<CR>') -- Reload configuration without restart nvim
 map('n', '<leader>e', '<CMD>TroubleToggle<CR>')
 map('n', '<leader>u', '<CMD>PackerUpdate<CR><CMD>Mason<CR>')
 map('n', '<A-1>', '<ESC><CMD>1ToggleTerm direction=float<CR>')
 map('n', '<A-2>', '<ESC><CMD>2ToggleTerm direction=horizontal<CR>')
 map('n', '<A-3>', '<ESC><CMD>3ToggleTerm direction=float<CR>')
 map('n', '<leader>o', "<CMD>TagbarOpenAutoClose<CR>")
-map('n', '<leader>a',  '<CMD>AerialToggle<cr>')
+map('n', '<leader>a', '<CMD>AerialToggle<cr>')
 map('n', '<A-z>', "<CMD>ZenMode<CR>")
+map('n', '<A-CR>', ':', { noremap = true, silent = false })
 
 -- Not rewrite clipboard
 map('n', 'd', '"_d')
@@ -120,11 +130,11 @@ map('n', 'x', '"_x')
 map('n', 'X', '"_X')
 map('n', '<Del>', '"_x')
 -- Edit words with copy and paste
-map('n', '<A-CR>', 'b"_ce')
-map('i', '<A-CR>', '<ESC>b"_ce')
+-- map('n', '<A-CR>', 'b"_ce')
+-- map('i', '<A-CR>', '<ESC>b"_ce')
 map('n', '<A-i>', 'b"_ce')
 map('n', '<A-p>', 'b"_ce<ESC>p')
-map('i', '<A-p>', '<ESC>b"_ce<ESC>pi')
+-- map('i', '<A-p>', '<ESC>b"_ce<ESC>pi')
 map('n', '<A-y>', 'bye')
 map('i', '<A-y>', '<ESC>bye')
 
@@ -212,6 +222,7 @@ map('n', '<A-Home>', '<CMD>vertical resize -2<CR>')
 map('n', '<A-End>', '<CMD>vertical resize +2<CR>')
 map('n', '<A-Del>', 'ce')
 map('n', '<A-Backspace>', 'cb')
+map('n', '<A-x>', '"_dw')
 
 map('n', '<leader><Left>', 'za')
 map('n', '<leader><Up>', 'zM')
@@ -219,8 +230,6 @@ map('n', '<leader><Down>', 'zR')
 map('n', '<leader>h', 'za')
 map('n', '<leader>j', 'zR')
 map('n', '<leader>k', 'zM')
-
-map("n", "L", 'A')
 
 map('n', '<A-j>', '<CMD>m .+1<CR>==')
 map('v', '<A-j>', "<ESC><CMD>'<,'>m '>+1<CR>gv=gv")
@@ -237,7 +246,7 @@ map('i', '<A-k>', '<Up>')
 map('i', '<A-h>', '<Left>')
 map('i', '<A-l>', '<Right>')
 map('i', '<S-A-h>', '<C-o>b')
-map('i', '<S-A-l>', '<C-o>e')
+map('i', '<S-A-l>', '<C-o>w')
 
 -- map('i', '<A-u>', '<ESC>ui')
 map('n', '<A-m>', '<ESC>o')
@@ -275,7 +284,7 @@ map('v', '<Tab>', '>gv')
 map('v', '<S-Tab>', '<gv')
 
 -- Select with shift + arrows
-map('i', '<S-Left>','<Left><C-o>v')
+map('i', '<S-Left>', '<Left><C-o>v')
 map('i', '<S-Right>', '<C-o>v')
 map('i', '<S-Up>', '<Left><C-o>v<Up><Right>')
 map('i', '<S-Down>', '<C-o>v<Down><Left>')
@@ -297,5 +306,5 @@ map('v', '<Down>', '<Esc><Down>')
 -- Keybind to clear search
 map('n', '<leader>c', '<CMD>nohl<CR><CMD>echo "Search Cleared"<CR>')
 
-map('n', '<C-c>', '<CMD>PickColor<CR>', {noremap=true,silent=true})
-map('i', '<C-c>', '<CMD>PickColorInsert<CR>', {noremap=true,silent=true})
+map('n', '<C-c>', '<CMD>PickColor<CR>', { noremap = true, silent = true })
+map('i', '<C-c>', '<CMD>PickColorInsert<CR>', { noremap = true, silent = true })
