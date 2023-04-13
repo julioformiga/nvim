@@ -18,26 +18,47 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
     command = [[%s/\s\+$//e]]
 })
 
+vim.g.VM_maps = {
+    ["I BS"] = '', -- disable backspace mapping, to resolve incompatibility with multi select
+}
+
 require("indent_blankline").setup {
     space_char_blankline = " ",
     show_current_context = true,
     filetype_exclude = { "dashboard" }
 }
 
-require("noice").setup({
-    lsp = {
-        -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
-        override = {
-            ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-            ["vim.lsp.util.stylize_markdown"] = true,
-            ["cmp.entry.get_documentation"] = true,
-        },
-    },
-})
+-- ============ Bug with Neovim https://github.com/neovim/neovim/issues/22344 ===============
+-- ============ Bug with Noice https://github.com/folke/noice.nvim/issues/17 ===============
+-- ============ Bug with Neovide https://github.com/neovide/neovide/issues/1751 ===============
+-- require("noice").setup({
+--     lsp = {
+--         -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+--         override = {
+--             ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+--             ["vim.lsp.util.stylize_markdown"] = true,
+--             ["cmp.entry.get_documentation"] = true,
+--         },
+--     },
+--     presets = {
+--         bottom_search = true, -- use a classic bottom cmdline for search
+--         command_palette = true, -- position the cmdline and popupmenu together
+--         long_message_to_split = true, -- long messages will be sent to a split
+--         inc_rename = false,   -- enables an input dialog for inc-rename.nvim
+--         lsp_doc_border = false, -- add a border to hover docs and signature help
+--     },
+-- })
 
 require("telescope").setup({
     defaults = {
-        initial_mode = "normal"
+        mappings = {
+            i = {
+                ["<A-q>"] = require("telescope.actions").close,
+            },
+            n = {
+                ["<A-q>"] = require("telescope.actions").close,
+            },
+        },
     }
 })
 
@@ -176,7 +197,7 @@ local on_attach = function(client, bufnr)
     vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, bufopts)
     vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, bufopts)
     vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
-    vim.keymap.set('n', '<leader>gr', vim.lsp.buf.references, bufopts)
+    vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
     vim.keymap.set('n', '<leader>f', function() vim.lsp.buf.format { async = true } end, bufopts)
 end
 
@@ -237,12 +258,6 @@ require("lspconfig")["tailwindcss"].setup({
     flags = lsp_flags
 })
 
--- Folder
-local ftMap = {
-    vim = 'indent',
-    python = { 'indent' },
-    git = ''
-}
 local handler = function(virtText, lnum, endLnum, width, truncate)
     local newVirtText = {}
     local suffix = ('  %d '):format(endLnum - lnum)
@@ -271,6 +286,12 @@ local handler = function(virtText, lnum, endLnum, width, truncate)
     return newVirtText
 end
 
+-- Folder
+-- local ftMap = {
+--     vim = 'indent',
+--     python = { 'indent' },
+--     git = ''
+-- }
 require('ufo').setup({
     open_fold_hl_timeout = 150,
     enable_get_fold_virt_text = true,

@@ -33,24 +33,24 @@ return require('packer').startup(function(use)
     use('https://github.com/nvim-telescope/telescope.nvim')
     -- use('https://github.com/nvim-telescope/telescope-project.nvim')
     use('https://github.com/preservim/tagbar') --  Tagbar for code navigation Alt-O
-    use('https://github.com/rcarriga/nvim-notify')
     use('https://github.com/folke/trouble.nvim')
-    use({
-        "https://github.com/folke/noice.nvim",
-        config = function()
-            require("noice").setup({
-                -- add any options here
-            })
-        end,
-        requires = {
-            -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-            "https://github.com/MunifTanjim/nui.nvim",
-            -- OPTIONAL:
-            --   `nvim-notify` is only needed, if you want to use the notification view.
-            --   If not available, we use `mini` as the fallback
-            "https://github.com/rcarriga/nvim-notify",
-        }
-    })
+    -- use('https://github.com/rcarriga/nvim-notify')
+    -- use({
+    --     "https://github.com/folke/noice.nvim",
+    --     config = function()
+    --         require("noice").setup({
+    --             -- add any options here
+    --         })
+    --     end,
+    --     requires = {
+    --         -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+    --         "https://github.com/MunifTanjim/nui.nvim",
+    --         -- OPTIONAL:
+    --         --   `nvim-notify` is only needed, if you want to use the notification view.
+    --         --   If not available, we use `mini` as the fallback
+    --         "https://github.com/rcarriga/nvim-notify",
+    --     }
+    -- })
 
     -- LSP -------
     use('https://github.com/williamboman/mason.nvim')
@@ -109,6 +109,7 @@ return require('packer').startup(function(use)
     use('https://github.com/stevearc/aerial.nvim')
     --  Visual
     -- use('https://github.com/Shatur/neovim-ayu')
+    use {"ellisonleao/glow.nvim", config = function() require("glow").setup() end}
     use('https://github.com/nvim-tree/nvim-web-devicons')
     use('https://github.com/catppuccin/nvim')
     use('https://github.com/folke/tokyonight.nvim')
