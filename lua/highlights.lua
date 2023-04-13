@@ -5,85 +5,85 @@ navic.setup {
 BREADCRUMBS = { navic.get_location, cond = navic.is_available }
 
 require('lualine').setup {
-  options = {
-    icons_enabled = true,
-    theme = 'auto',
-    component_separators = { left = '', right = ''},
-    section_separators = { left = '', right = ''},
-    disabled_filetypes = {
-        statusline = {
-            'startify',
-            'toggleterm',
-            'neo-tree',
+    options = {
+        icons_enabled = true,
+        theme = 'auto',
+        component_separators = { left = '', right = '' },
+        section_separators = { left = '', right = '' },
+        disabled_filetypes = {
+            statusline = {
+                'startify',
+                'toggleterm',
+                'neo-tree',
+            },
+            winbar = {
+                'startify',
+                'toggleterm',
+                'neo-tree',
+            },
         },
-        winbar = {
-            'startify',
-            'toggleterm',
-            'neo-tree',
-        },
+        ignore_focus = {},
+        always_divide_middle = true,
+        globalstatus = false,
+        refresh = {
+            statusline = 1000,
+            tabline = 1000,
+            winbar = 1000,
+        }
     },
-    ignore_focus = {},
-    always_divide_middle = true,
-    globalstatus = false,
-    refresh = {
-      statusline = 1000,
-      tabline = 1000,
-      winbar = 1000,
-    }
-  },
-  sections = {
-    lualine_a = {'mode'},
-    lualine_b = {'branch', 'diff', 'diagnostics'},
-    lualine_c = {'filename'},
-    lualine_x = {'encoding', 'fileformat', 'filetype'},
-    lualine_y = {'progress'},
-    lualine_z = {'location'}
-  },
-  inactive_sections = {
-    lualine_a = {},
-    lualine_b = {},
-    lualine_c = {'filename'},
-    lualine_x = {'location'},
-    lualine_y = {},
-    lualine_z = {}
-  },
-  tabline = {
-    -- lualine_a = {'buffers'},
-    -- lualine_b = {'branch'},
-    -- lualine_c = {},
-    -- lualine_x = {},
-    -- lualine_y = {},
-    -- lualine_z = {'tabs'}
-  },
-  winbar = {
-    lualine_a = {'filename'},
-    lualine_b = {BREADCRUMBS},
-    -- lualine_c = {},
-    -- lualine_x = {},
-    -- lualine_y = {},
-    -- lualine_z = {}
-  },
-  inactive_winbar = {
-    lualine_a = {'filename'},
-    lualine_b = {},
-    -- lualine_c = {},
-    -- lualine_x = {},
-    -- lualine_y = {},
-    -- lualine_z = {}
-  },
-  extensions = {'toggleterm', 'nvim-dap-ui', 'neo-tree', 'aerial'}
+    sections = {
+        lualine_a = { 'mode' },
+        lualine_b = { 'branch', 'diff', 'diagnostics' },
+        lualine_c = { 'filename' },
+        lualine_x = { 'encoding', 'fileformat', 'filetype' },
+        lualine_y = { 'progress' },
+        lualine_z = { 'location' }
+    },
+    inactive_sections = {
+        lualine_a = {},
+        lualine_b = {},
+        lualine_c = { 'filename' },
+        lualine_x = { 'location' },
+        lualine_y = {},
+        lualine_z = {}
+    },
+    tabline = {
+        -- lualine_a = {'buffers'},
+        -- lualine_b = {'branch'},
+        -- lualine_c = {},
+        -- lualine_x = {},
+        -- lualine_y = {},
+        -- lualine_z = {'tabs'}
+    },
+    winbar = {
+        lualine_a = { 'filename' },
+        lualine_b = { BREADCRUMBS },
+        -- lualine_c = {},
+        -- lualine_x = {},
+        -- lualine_y = {},
+        -- lualine_z = {}
+    },
+    inactive_winbar = {
+        lualine_a = { 'filename' },
+        lualine_b = {},
+        -- lualine_c = {},
+        -- lualine_x = {},
+        -- lualine_y = {},
+        -- lualine_z = {}
+    },
+    extensions = { 'toggleterm', 'nvim-dap-ui', 'neo-tree', 'aerial' }
 }
 
 require('bufferline').setup {
     options = {
-        mode = "buffers", -- set to "tabs" to only show tabpages instead
-        numbers = "none", -- "buffer_id"
+        mode = "buffers",                    -- set to "tabs" to only show tabpages instead
+        numbers = "none",                    -- "buffer_id"
         close_command = "bdelete! %d",       -- can be a string | function, see "Mouse actions"
         right_mouse_command = "bdelete! %d", -- can be a string | function, see "Mouse actions"
         left_mouse_command = "buffer %d",    -- can be a string | function, see "Mouse actions"
         middle_mouse_command = nil,          -- can be a string | function, see "Mouse actions"
         indicator = {
-            icon = '▎', -- this should be omitted if indicator style is not 'icon'
+            icon = '▎',                    -- this should be omitted if indicator style is not 'icon'
             style = 'icon',
         },
         buffer_close_icon = '',
@@ -93,7 +93,7 @@ require('bufferline').setup {
         right_trunc_marker = '',
         max_name_length = 18,
         max_prefix_length = 15, -- prefix used when a buffer is de-duplicated
-        truncate_names = true, -- whether or not tab names should be truncated
+        truncate_names = true,  -- whether or not tab names should be truncated
         tab_size = 18,
         diagnostics = "coc",
         diagnostics_update_in_insert = false,
@@ -105,21 +105,21 @@ require('bufferline').setup {
                 separator = true
             }
         },
-        color_icons = true, -- whether or not to add the filetype icon highlights
-        show_buffer_icons = true, -- disable filetype icons for buffers
+        color_icons = true,              -- whether or not to add the filetype icon highlights
+        show_buffer_icons = true,        -- disable filetype icons for buffers
         show_buffer_close_icons = true,
         show_buffer_default_icon = true, -- whether or not an unrecognised filetype should show a default icon
         show_close_icon = true,
         show_tab_indicators = true,
         show_duplicate_prefix = true, -- whether to show duplicate buffer prefix
-        persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
-        separator_style = "slant", -- "slant" | "thick" | "thin" | { 'any', 'any' },
+        persist_buffer_sort = true,   -- whether or not custom sorted buffers should persist
+        separator_style = "slant",    -- "slant" | "thick" | "thin" | { 'any', 'any' },
         enforce_regular_tabs = false,
         always_show_bufferline = true,
         hover = {
             enabled = true,
             delay = 200,
-            reveal = {'close'}
+            reveal = { 'close' }
         },
         sort_by = 'insert_at_end'
         -- 'insert_after_current' |'insert_at_end' | 'id' | 'extension' | 'relative_directory' | 'directory' | 'tabs'
@@ -128,7 +128,8 @@ require('bufferline').setup {
 
 require("catppuccin").setup({
     flavour = "mocha", -- latte, frappe, macchiato, mocha
-    background = { -- :h background
+    background = {
+                       -- :h background
         light = "latte",
         dark = "mocha",
     },
@@ -140,7 +141,7 @@ require("catppuccin").setup({
         percentage = 0.1,
     },
     no_italic = false, -- Force no italic
-    no_bold = false, -- Force no bold
+    no_bold = false,   -- Force no bold
     styles = {
         comments = { "italic" },
         conditionals = { "italic" },
@@ -152,7 +153,7 @@ require("catppuccin").setup({
         numbers = {},
         booleans = {},
         properties = {},
-        types = {"italic,bold"},
+        types = { "italic,bold" },
         operators = {},
     },
     color_overrides = {},
@@ -172,81 +173,83 @@ vim.cmd.colorscheme "catppuccin-macchiato"
 
 -- Default options
 require('nightfox').setup({
-  options = {
-    -- Compiled file's destination location
-    compile_path = vim.fn.stdpath("cache") .. "/nightfox",
-    compile_file_suffix = "_compiled", -- Compiled file suffix
-    transparent = false,    -- Disable setting background
-    terminal_colors = true, -- Set terminal colors (vim.g.terminal_color_*) used in `:terminal`
-    dim_inactive = true,   -- Non focused panes set to alternative background
-    module_default = true,  -- Default enable value for modules
-    styles = {              -- Style to be applied to different syntax groups
-      comments = "italic",    -- Value is any valid attr-list value `:help attr-list`
-      conditionals = "NONE",
-      constants = "NONE",
-      functions = "NONE",
-      keywords = "bold",
-      numbers = "NONE",
-      operators = "NONE",
-      strings = "NONE",
-      types = "italic,bold",
-      variables = "NONE",
+    options = {
+        -- Compiled file's destination location
+        compile_path = vim.fn.stdpath("cache") .. "/nightfox",
+        compile_file_suffix = "_compiled", -- Compiled file suffix
+        transparent = false,           -- Disable setting background
+        terminal_colors = true,        -- Set terminal colors (vim.g.terminal_color_*) used in `:terminal`
+        dim_inactive = true,           -- Non focused panes set to alternative background
+        module_default = true,         -- Default enable value for modules
+        styles = {
+                                       -- Style to be applied to different syntax groups
+            comments = "italic",       -- Value is any valid attr-list value `:help attr-list`
+            conditionals = "NONE",
+            constants = "NONE",
+            functions = "NONE",
+            keywords = "bold",
+            numbers = "NONE",
+            operators = "NONE",
+            strings = "NONE",
+            types = "italic,bold",
+            variables = "NONE",
+        },
+        inverse = {
+                -- Inverse highlight for different types
+            match_parent = false,
+            visual = false,
+            search = false,
+        },
+        -- modules = {             -- List of various plugins and additional options
+        --   -- ...
+        -- },
     },
-    inverse = {             -- Inverse highlight for different types
-      match_parent = false,
-      visual = false,
-      search = false,
-    },
-    -- modules = {             -- List of various plugins and additional options
-    --   -- ...
-    -- },
-  },
-  palettes = {},
-  specs = {},
-  groups = {},
+    palettes = {},
+    specs = {},
+    groups = {},
 })
 
 require("monokai-pro").setup({
-  transparent_background = false,
-  terminal_colors = true,
-  devicons = true, -- highlight the icons of `nvim-web-devicons`
-  styles = {
-    comment = { italic = true },
-    keyword = { italic = true }, -- any other keyword
-    type = { italic = true }, -- (preferred) int, long, char, etc
-    storageclass = { italic = true }, -- static, register, volatile, etc
-    structure = { italic = true }, -- struct, union, enum, etc
-    parameter = { italic = true }, -- parameter pass in function
-    annotation = { italic = true },
-    tag_attribute = { italic = true }, -- attribute of tag in reactjs
-  },
-  filter = "spectrum", -- classic | octagon | pro | machine | ristretto | spectrum
-  -- Enable this will disable filter option
-  day_night = {
-    enable = false, -- turn off by default
-    day_filter = "classic", -- classic | octagon | pro | machine | ristretto | spectrum
-    night_filter = "spectrum", -- classic | octagon | pro | machine | ristretto | spectrum
-  },
-  inc_search = "background", -- underline | background
-  background_clear = {
-    -- "float_win",
-    "toggleterm",
-    "telescope",
-    "which-key",
-    "renamer"
-  },-- "float_win", "toggleterm", "telescope", "which-key", "renamer", "neo-tree"
-  plugins = {
-    bufferline = {
-      underline_selected = false,
-      underline_visible = false,
+    transparent_background = false,
+    terminal_colors = true,
+    devicons = true, -- highlight the icons of `nvim-web-devicons`
+    styles = {
+        comment = { italic = true },
+        keyword = { italic = true },   -- any other keyword
+        type = { italic = true },      -- (preferred) int, long, char, etc
+        storageclass = { italic = true }, -- static, register, volatile, etc
+        structure = { italic = true }, -- struct, union, enum, etc
+        parameter = { italic = true }, -- parameter pass in function
+        annotation = { italic = true },
+        tag_attribute = { italic = true }, -- attribute of tag in reactjs
     },
-    indent_blankline = {
-      context_highlight = "pro", -- default | pro
-      context_start_underline = false,
+    filter = "spectrum",               -- classic | octagon | pro | machine | ristretto | spectrum
+    -- Enable this will disable filter option
+    day_night = {
+        enable = false,        -- turn off by default
+        day_filter = "classic", -- classic | octagon | pro | machine | ristretto | spectrum
+        night_filter = "spectrum", -- classic | octagon | pro | machine | ristretto | spectrum
     },
-  },
-  -- @param c Colorscheme
-  -- override = function(c) end,
+    inc_search = "background", -- underline | background
+    background_clear = {
+        -- "float_win",
+        "toggleterm",
+        "telescope",
+        "which-key",
+        "renamer"
+    }, -- "float_win", "toggleterm", "telescope", "which-key", "renamer", "neo-tree"
+    plugins = {
+        bufferline = {
+            underline_selected = false,
+            underline_visible = false,
+        },
+        indent_blankline = {
+            context_highlight = "pro", -- default | pro
+            context_start_underline = false,
+        },
+    },
+    -- @param c Colorscheme
+    -- override = function(c) end,
 })
 
 -- require('nightfox').load()
@@ -261,9 +264,9 @@ require("monokai-pro").setup({
 require("tokyonight").setup({
     -- your configuration comes here
     -- or leave it empty to use the default settings
-    style = "night", -- The theme comes in three styles, `storm`, `moon`, a darker variant `night` and `day`
-    light_style = "day", -- The theme is used when the background is set to light
-    transparent = false, -- Enable this to disable setting the background color
+    style = "night",        -- The theme comes in three styles, `storm`, `moon`, a darker variant `night` and `day`
+    light_style = "day",    -- The theme is used when the background is set to light
+    transparent = false,    -- Enable this to disable setting the background color
     terminal_colors = true, -- Configure the colors used when opening a `:terminal` in Neovim
     styles = {
         -- Style to be applied to different syntax groups
@@ -274,31 +277,34 @@ require("tokyonight").setup({
         variables = {},
         -- Background styles. Can be "dark", "transparent" or "normal"
         sidebars = "dark", -- style for sidebars, see below
-        floats = "dark", -- style for floating windows
+        floats = "dark",   -- style for floating windows
     },
-    sidebars = { "qf", "help" }, -- Set a darker background on sidebar-like windows. For example: `["qf", "vista_kind", "terminal", "packer"]`
-    day_brightness = 0.3, -- Adjusts the brightness of the colors of the **Day** style. Number between 0 and 1, from dull to vibrant colors
-    hide_inactive_statusline = false, -- Enabling this option, will hide inactive statuslines and replace them with a thin border instead. Should work with the standard **StatusLine** and **LuaLine**.
+    -- Set a darker background on sidebar-like windows. For example: `["qf", "vista_kind", "terminal", "packer"]`
+    sidebars = { "qf", "help" },
+    -- Adjusts the brightness of the colors of the **Day** style. Number between 0 and 1, from dull to vibrant colors
+    day_brightness = 0.2,
+    -- Enabling this option, will hide inactive statuslines and replace them with a thin border instead. Should work with the standard **StatusLine** and **LuaLine**.
+    hide_inactive_statusline = false,
     dim_inactive = false, -- dims inactive windows
-    lualine_bold = true, -- When `true`, section headers in the lualine theme will be bold
-
+    lualine_bold = true,  -- When `true`, section headers in the lualine theme will be bold
     --- You can override specific color groups to use other groups or a hex color
     --- function will be called with a ColorScheme table
     ---@param colors ColorScheme
-    on_colors = function(colors) end,
-
+    on_colors = function(colors)
+    end,
     --- You can override specific highlights to use other groups or a hex color
     --- function will be called with a Highlights and ColorScheme table
     ---@param highlights Highlights
     ---@param colors ColorScheme
-    on_highlights = function(highlights, colors) end,
+    on_highlights = function(highlights, colors)
+    end,
 })
 
 
 -- vim.cmd.colorscheme "catppuccin-mocha"
--- vim.cmd.colorscheme "nightfox"
+vim.cmd.colorscheme "nightfox"
 -- vim.cmd.colorscheme "terafox"
-vim.cmd.colorscheme "duskfox"
+-- vim.cmd.colorscheme "duskfox"
 -- vim.cmd.colorscheme "carbonfox"
 -- vim.cmd.colorscheme "vscode"
 -- vim.cmd.colorscheme "tokyonight"
