@@ -1,8 +1,15 @@
 local navic = require("nvim-navic")
-navic.setup {
-    highlight = false
+-- navic.setup {
+--     highlight = false
+-- }
+local breadcrumbs = {
+    function()
+        return navic.get_location()
+    end,
+    cond = function()
+        return navic.is_available()
+    end
 }
-BREADCRUMBS = { navic.get_location, cond = navic.is_available }
 
 require('lualine').setup {
     options = {
@@ -57,7 +64,7 @@ require('lualine').setup {
     },
     winbar = {
         lualine_a = { 'filename' },
-        lualine_b = { BREADCRUMBS },
+        lualine_b = { breadcrumbs },
         -- lualine_c = {},
         -- lualine_x = {},
         -- lualine_y = {},
@@ -129,7 +136,7 @@ require('bufferline').setup {
 require("catppuccin").setup({
     flavour = "mocha", -- latte, frappe, macchiato, mocha
     background = {
-                       -- :h background
+        -- :h background
         light = "latte",
         dark = "mocha",
     },
@@ -177,13 +184,13 @@ require('nightfox').setup({
         -- Compiled file's destination location
         compile_path = vim.fn.stdpath("cache") .. "/nightfox",
         compile_file_suffix = "_compiled", -- Compiled file suffix
-        transparent = false,           -- Disable setting background
-        terminal_colors = true,        -- Set terminal colors (vim.g.terminal_color_*) used in `:terminal`
-        dim_inactive = true,           -- Non focused panes set to alternative background
-        module_default = true,         -- Default enable value for modules
+        transparent = false,               -- Disable setting background
+        terminal_colors = true,            -- Set terminal colors (vim.g.terminal_color_*) used in `:terminal`
+        dim_inactive = true,               -- Non focused panes set to alternative background
+        module_default = true,             -- Default enable value for modules
         styles = {
-                                       -- Style to be applied to different syntax groups
-            comments = "italic",       -- Value is any valid attr-list value `:help attr-list`
+            -- Style to be applied to different syntax groups
+            comments = "italic", -- Value is any valid attr-list value `:help attr-list`
             conditionals = "NONE",
             constants = "NONE",
             functions = "NONE",
@@ -195,7 +202,7 @@ require('nightfox').setup({
             variables = "NONE",
         },
         inverse = {
-                -- Inverse highlight for different types
+            -- Inverse highlight for different types
             match_parent = false,
             visual = false,
             search = false,
@@ -215,22 +222,22 @@ require("monokai-pro").setup({
     devicons = true, -- highlight the icons of `nvim-web-devicons`
     styles = {
         comment = { italic = true },
-        keyword = { italic = true },   -- any other keyword
-        type = { italic = true },      -- (preferred) int, long, char, etc
-        storageclass = { italic = true }, -- static, register, volatile, etc
-        structure = { italic = true }, -- struct, union, enum, etc
-        parameter = { italic = true }, -- parameter pass in function
+        keyword = { italic = true },       -- any other keyword
+        type = { italic = true },          -- (preferred) int, long, char, etc
+        storageclass = { italic = true },  -- static, register, volatile, etc
+        structure = { italic = true },     -- struct, union, enum, etc
+        parameter = { italic = true },     -- parameter pass in function
         annotation = { italic = true },
         tag_attribute = { italic = true }, -- attribute of tag in reactjs
     },
-    filter = "spectrum",               -- classic | octagon | pro | machine | ristretto | spectrum
+    filter = "spectrum",                   -- classic | octagon | pro | machine | ristretto | spectrum
     -- Enable this will disable filter option
     day_night = {
-        enable = false,        -- turn off by default
-        day_filter = "classic", -- classic | octagon | pro | machine | ristretto | spectrum
+        enable = false,            -- turn off by default
+        day_filter = "classic",    -- classic | octagon | pro | machine | ristretto | spectrum
         night_filter = "spectrum", -- classic | octagon | pro | machine | ristretto | spectrum
     },
-    inc_search = "background", -- underline | background
+    inc_search = "background",     -- underline | background
     background_clear = {
         -- "float_win",
         "toggleterm",
@@ -302,6 +309,7 @@ require("tokyonight").setup({
 
 
 -- vim.cmd.colorscheme "catppuccin-mocha"
+-- vim.cmd.colorscheme "onedark_vivid"
 vim.cmd.colorscheme "nightfox"
 -- vim.cmd.colorscheme "terafox"
 -- vim.cmd.colorscheme "duskfox"
