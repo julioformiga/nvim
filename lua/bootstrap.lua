@@ -40,28 +40,23 @@ require("indent_blankline").setup {
 --             ["cmp.entry.get_documentation"] = true,
 --         },
 --     },
---     presets = {
---         bottom_search = true, -- use a classic bottom cmdline for search
---         command_palette = true, -- position the cmdline and popupmenu together
---         long_message_to_split = true, -- long messages will be sent to a split
---         inc_rename = false,   -- enables an input dialog for inc-rename.nvim
---         lsp_doc_border = false, -- add a border to hover docs and signature help
---     },
+--     -- presets = {
+--     --     bottom_search = false, -- use a classic bottom cmdline for search
+--     --     command_palette = true, -- position the cmdline and popupmenu together
+--     --     long_message_to_split = true, -- long messages will be sent to a split
+--     --     inc_rename = false,   -- enables an input dialog for inc-rename.nvim
+--     --     lsp_doc_border = false, -- add a border to hover docs and signature help
+--     -- },
 -- })
 
 require("telescope").setup({
     defaults = {
         mappings = {
-            i = {
-                ["<A-q>"] = require("telescope.actions").close,
-            },
-            n = {
-                ["<A-q>"] = require("telescope.actions").close,
-            },
+            i = { ["<A-q>"] = require("telescope.actions").close, },
+            n = { ["<A-q>"] = require("telescope.actions").close, },
         },
     }
 })
-
 require("mason").setup()
 require("mason-lspconfig").setup()
 
@@ -170,23 +165,83 @@ cmp.setup.cmdline(':', {
     })
 })
 
+require("hover").setup {
+    init = function()
+        -- Require providers
+        require("hover.providers.lsp")
+        -- require('hover.providers.gh')
+        -- require('hover.providers.gh_user')
+        -- require('hover.providers.jira')
+        require('hover.providers.man')
+        require('hover.providers.dictionary')
+    end,
+    preview_opts = {
+        border = 'rounded'
+    },
+    -- Whether the contents of a currently open hover window should be moved
+    -- to a :h preview-window when pressing the hover keymap.
+    preview_window = false,
+    title = true
+}
+-- Setup keymaps
+vim.keymap.set("n", "K", require("hover").hover, { desc = "hover.nvim" })
+vim.keymap.set("n", "gK", require("hover").hover_select, { desc = "hover.nvim (select)" })
+
+
+local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+require("null-ls").setup({
+    debug = false,
+    sources = {
+        require("null-ls").builtins.formatting.black,
+        -- require("null-ls").builtins.formatting.blue,
+        -- require("null-ls").builtins.diagnostics.vulture,
+        require("null-ls").builtins.code_actions.refactoring,
+        require("null-ls").builtins.hover.dictionary,
+        require("null-ls").builtins.diagnostics.write_good,
+        -- {
+        --     name = 'blackd',
+        --     method = require("null-ls").methods.FORMATTING,
+        --     filetypes = { 'python' },
+        --     generator = require("null-ls.helpers").formatter_factory {
+        --         command = 'blackd-client',
+        --         to_stdin = true,
+        --     },
+        -- }
+    },
+})
+local lsp_formatting = function(bufnr)
+    vim.lsp.buf.format({
+        filter = function(client)
+            -- apply whatever logic you want (in this example, we'll only use null-ls)
+            return client.name == "null-ls"
+        end,
+        -- async = true,
+        bufnr = bufnr,
+    })
+end
+local navic = require("nvim-navic")
+
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 capabilities.textDocument.foldingRange = {
     dynamicRegistration = true,
     lineFoldingOnly = false
 }
-local navic = require("nvim-navic")
-local on_attach = function(client, bufnr)
+
+local lsp_on_attach = function(client, bufnr)
+    local bufopts = { noremap = true, silent = true, buffer = bufnr }
+
     if client.server_capabilities.documentSymbolProvider then
-        navic.attach(client, bufnr)
+        -- Use only Pyright
+        if client.config.name ~= "pylsp" and client.config.name ~= "jedi_language_server" then
+            navic.attach(client, bufnr)
+        end
     end
 
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-    local bufopts = { noremap = true, silent = true, buffer = bufnr }
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+    -- vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
     vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
     vim.keymap.set('n', 'gsh', vim.lsp.buf.signature_help, bufopts)
     vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, bufopts)
@@ -199,6 +254,18 @@ local on_attach = function(client, bufnr)
     vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
     vim.keymap.set('n', '<leader>f', function() vim.lsp.buf.format { async = true } end, bufopts)
+
+    -- use null-ls for formatting
+    if client.supports_method("textDocument/formatting") then
+        vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+        vim.api.nvim_create_autocmd("BufWritePre", {
+            group = augroup,
+            buffer = bufnr,
+            callback = function()
+                lsp_formatting(bufnr)
+            end,
+        })
+    end
 end
 
 local lsp_flags = {
@@ -207,7 +274,12 @@ local lsp_flags = {
 
 -- For C++ in Ubuntu: sudo apt install g++-12
 local lspservers = {
-    "pyright", "graphql", "ruff_lsp", "yamlls",
+    "pyright",
+    "pylsp",
+    -- "pylyzer",
+    "jedi_language_server",
+    "ruff_lsp",
+    "graphql", "yamlls",
     "cmake", "neocmake", "clangd", "rust_analyzer",
     "marksman", "cssmodules_ls", "rome", "eslint",
     "emmet_ls", "html", "tsserver", "jsonls", "volar",
@@ -216,14 +288,14 @@ local lspservers = {
 
 for _, lsp in pairs(lspservers) do
     require("lspconfig")[lsp].setup {
-        on_attach = on_attach,
+        on_attach = lsp_on_attach,
         capabilities = capabilities,
         flags = lsp_flags
     }
 end
 
 require("lspconfig")["arduino_language_server"].setup {
-    on_attach = on_attach,
+    on_attach = lsp_on_attach,
     capabilities = capabilities,
     flags = lsp_flags,
     cmd = {
@@ -239,7 +311,7 @@ require("lspconfig")["arduino_language_server"].setup {
 }
 
 require("lspconfig")['cssls'].setup {
-    on_attach = on_attach,
+    on_attach = lsp_on_attach,
     capabilities = capabilities,
     settings = {
         validate = true,
@@ -358,7 +430,7 @@ vim.api.nvim_create_autocmd({ "CursorHold" }, {
     command = "lua OpenDiagnosticIfNoFloat()",
     group = "lsp_diagnostics_hold",
 })
-require('lspconfig.ui.windows').default_options.border = 'rounded'
+-- require('lspconfig.ui.windows').default_options.border = 'rounded'
 
 -- require("neotest").setup({
 --   adapters = {
@@ -480,6 +552,9 @@ require('gitsigns').setup {
     },
 }
 
+-- local helpers = require("null-ls.helpers")
+-- helpers.generator_factory()
+
 -- require("colortils").setup()
 -- require("colortils").setup({
 --     register = "+", -- Register in which color codes will be copied
@@ -510,7 +585,7 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
     {
         underline = true,
         virtual_text = {
-            spacing = 5,
+            spacing = 3,
             severity_limit = 'Warning',
         },
         update_in_insert = true,
@@ -528,6 +603,15 @@ require('nvim-treesitter.configs').setup({
     context_commentstring = {
         enable = true,
         enable_autocmd = false,
+    },
+    highlight = {
+        enable = true,
+        disable = { "" },
+        additional_vim_regex_highlighting = true
+    },
+    indent = {
+        enable = true,
+        disable = { "yaml" },
     },
     autotag = {
         enable = true

@@ -34,23 +34,18 @@ return require('packer').startup(function(use)
     -- use('https://github.com/nvim-telescope/telescope-project.nvim')
     use('https://github.com/preservim/tagbar') --  Tagbar for code navigation Alt-O
     use('https://github.com/folke/trouble.nvim')
-    -- use('https://github.com/rcarriga/nvim-notify')
-    -- use({
-    --     "https://github.com/folke/noice.nvim",
-    --     config = function()
-    --         require("noice").setup({
-    --             -- add any options here
-    --         })
-    --     end,
-    --     requires = {
-    --         -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-    --         "https://github.com/MunifTanjim/nui.nvim",
-    --         -- OPTIONAL:
-    --         --   `nvim-notify` is only needed, if you want to use the notification view.
-    --         --   If not available, we use `mini` as the fallback
-    --         "https://github.com/rcarriga/nvim-notify",
-    --     }
-    -- })
+    use('https://github.com/rcarriga/nvim-notify')
+    use({
+        "https://github.com/folke/noice.nvim",
+        requires = {
+            -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+            "https://github.com/MunifTanjim/nui.nvim",
+            -- OPTIONAL:
+            --   `nvim-notify` is only needed, if you want to use the notification view.
+            --   If not available, we use `mini` as the fallback
+            "https://github.com/rcarriga/nvim-notify",
+        }
+    })
 
     -- LSP -------
     use('https://github.com/williamboman/mason.nvim')
@@ -88,11 +83,64 @@ return require('packer').startup(function(use)
     -- use('https://github.com/dcampos/nvim-snippy')
     -- use('https://github.com/dcampos/cmp-snippy')
     use('https://github.com/rafamadriz/friendly-snippets')
+    -- use({
+    --     "https://github.com/jose-elias-alvarez/null-ls.nvim",
+    --     -- config = function()
+    --     --    require("null-ls").setup()
+    --     -- end,
+    --     requires = { "nvim-lua/plenary.nvim" },
+    -- })
+    use('https://github.com/jose-elias-alvarez/null-ls.nvim')
+    -- use({
+    --     'https://github.com/jose-elias-alvarez/null-ls.nvim',
+    --     event = 'BufReadPre',
+    --     opts = function()
+    --         local null_ls = require 'null-ls'
+    --         local h = require 'null-ls.helpers'
+    --         local blackd = {
+    --             name = 'blackd',
+    --             method = null_ls.methods.FORMATTING,
+    --             filetypes = { 'python' },
+    --             generator = h.formatter_factory {
+    --                 command = 'blackd-client',
+    --                 to_stdin = true,
+    --             },
+    --         }
+    --         local sources = {
+    --             -- null_ls.builtins.formatting.stylua.with {
+    --             --     condition = function(utils)
+    --             --         return utils.root_has_file 'stylua.toml'
+    --             --     end,
+    --             -- },
+    --             blackd,
+    --             null_ls.builtins.diagnostics.shellcheck,
+    --         }
+    --         return {
+    --             sources = sources,
+    --             debug = true,
+    --             root_dir = function(fname)
+    --                 return require('lspconfig').util.root_pattern(
+    --                         'tsconfig.json',
+    --                         'pyproject.toml'
+    --                     )(fname) or require('lspconfig').util.root_pattern(
+    --                         '.eslintrc.js',
+    --                         '.git'
+    --                     )(fname) or require('lspconfig').util.root_pattern(
+    --                         'package.json',
+    --                         '.git/'
+    --                     )(fname)
+    --             end,
+    --         }
+    --     end,
+    --     config = function()
+    --         require("configs.null-ls")
+    --     end
+    -- })
+
     -------------------------------
 
     use('https://github.com/onsails/lspkind.nvim')
     use('https://github.com/themaxmarchuk/tailwindcss-colors.nvim')
-    -- use('https://github.com/SmiteshP/nvim-navic')
     use {
         "https://github.com/SmiteshP/nvim-navic",
         requires = "neovim/nvim-lspconfig"
@@ -107,10 +155,13 @@ return require('packer').startup(function(use)
     use('https://github.com/kdheepak/lazygit.nvim')
     use('https://github.com/akinsho/toggleterm.nvim')
     use('https://github.com/stevearc/aerial.nvim')
+
+
     --  Visual
     -- use('https://github.com/Shatur/neovim-ayu')
-    use {"ellisonleao/glow.nvim", config = function() require("glow").setup() end}
+    use { "https://github.com/ellisonleao/glow.nvim", config = function() require("glow").setup() end }
     use('https://github.com/nvim-tree/nvim-web-devicons')
+    use('https://github.com/nvim-pack/nvim-spectre')
     use('https://github.com/catppuccin/nvim')
     use('https://github.com/folke/tokyonight.nvim')
     use('https://github.com/EdenEast/nightfox.nvim')
@@ -134,6 +185,7 @@ return require('packer').startup(function(use)
     }
     use { 'https://github.com/kevinhwang91/nvim-ufo', requires = 'https://github.com/kevinhwang91/promise-async' }
 
+    use('https://github.com/lewis6991/hover.nvim')
     -- DEBUG
     use 'https://github.com/folke/neodev.nvim'
     use { "https://github.com/rcarriga/nvim-dap-ui", requires = { "https://github.com/mfussenegger/nvim-dap" } }
