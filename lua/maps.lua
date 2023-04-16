@@ -11,7 +11,7 @@ local aucmd_dict = {
             pattern = { "arduino" },
             callback = function()
                 map('n', '<leader>vf', 'va{V', { noremap = false, silent = true })
-                map('n', '<S-CR>',
+                map('n', '<leader><CR>',
                     '<ESC><CMD>3TermExec cmd="arduino-cli compile --fqbn esp8266:esp8266:nodemcuv2 && arduino-cli upload -v -p /dev/ttyACM0 --fqbn esp8266:esp8266:nodemcuv2:baud=3000000 && arduino-cli monitor -p /dev/ttyACM0 -c baudrate=115200" direction=float<CR>')
             end
         },
@@ -19,32 +19,43 @@ local aucmd_dict = {
             pattern = { "c", "cpp" },
             callback = function()
                 map('n', '<leader>vf', 'va{V', { noremap = false, silent = true })
-                map('n', '<S-CR>', '<ESC><CMD>3TermExec cmd="g++ % -o main && ./main" direction=horizontal<CR><C-w>j')
+                map('n', '<leader><CR>', '<ESC><CMD>3TermExec cmd="g++ % -o main && ./main" direction=horizontal<CR><C-w>j')
             end
         },
         {
             pattern = { "rs", "rust" },
             callback = function()
                 map('n', '<leader>vf', 'va{V', { noremap = false, silent = true })
-                map('n', '<S-CR>', '<ESC><CMD>3TermExec cmd="cargo run" direction=horizontal<CR><C-w>j')
+                map('n', '<leader><CR>', '<ESC><CMD>3TermExec cmd="cargo run" direction=horizontal<CR><C-w>j')
             end
         },
         {
             pattern = { "markdown" },
             callback = function()
-                map('n', '<S-CR>', '<ESC><CMD>Glow %<CR>')
+                map('n', '<leader><CR>', '<ESC><CMD>Glow %<CR>')
             end
         },
         {
             pattern = { "python" },
             callback = function()
                 map('n', '<leader>vf', '[[V]M', { noremap = false, silent = true })
-                map('n', '<S-CR>', '<ESC><CMD>3TermExec cmd="python %" direction=horizontal<CR>')
+                map('n', '<leader><CR>', '<ESC><CMD>3TermExec cmd="python %" direction=horizontal<CR>')
             end
         }
     },
 }
-
+map('n', '<leader>S', '<cmd>lua require("spectre").open()<CR>', {
+    desc = "Open Spectre"
+})
+map('n', '<leader>sw', '<cmd>lua require("spectre").open_visual({select_word=true})<CR>', {
+    desc = "Search current word"
+})
+map('v', '<leader>sw', '<esc><cmd>lua require("spectre").open_visual()<CR>', {
+    desc = "Search current word"
+})
+map('n', '<leader>sp', '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', {
+    desc = "Search on current file"
+})
 for event, opt_tbls in pairs(aucmd_dict) do
     for _, opt_tbl in pairs(opt_tbls) do
         vim.api.nvim_create_autocmd(event, opt_tbl)
@@ -120,11 +131,12 @@ map('n', '<A-1>', '<ESC><CMD>1ToggleTerm direction=float<CR>')
 map('n', '<A-2>', '<ESC><CMD>2ToggleTerm direction=horizontal<CR>')
 map('n', '<A-3>', '<ESC><CMD>3ToggleTerm direction=float<CR>')
 map('n', '<leader>o', "<CMD>TagbarOpenAutoClose<CR>")
-map('n', '<leader>a', '<CMD>AerialToggle<cr>')
+map('n', '<leader>a', '<CMD>AerialNavToggle<cr>')
 map('n', '<A-z>', "<CMD>ZenMode<CR>")
 map('n', '<A-CR>', ':', { noremap = true, silent = false })
 
 -- Not rewrite clipboard
+map('n', 's', '"_s')
 map('n', 'd', '"_d')
 map('n', 'x', '"_x')
 map('n', 'X', '"_X')
