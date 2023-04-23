@@ -157,24 +157,21 @@ return require('packer').startup(function(use)
     use('https://github.com/stevearc/aerial.nvim')
 
 
-    --  Visual
+    --  === Visual ===
     -- use('https://github.com/Shatur/neovim-ayu')
     use { "https://github.com/ellisonleao/glow.nvim", config = function() require("glow").setup() end }
     use('https://github.com/nvim-tree/nvim-web-devicons')
     use('https://github.com/nvim-pack/nvim-spectre')
+
+    -- ===== Themes =====
     use('https://github.com/catppuccin/nvim')
-    use('https://github.com/folke/tokyonight.nvim')
+    -- use('https://github.com/folke/tokyonight.nvim')
     use('https://github.com/EdenEast/nightfox.nvim')
     -- use('https://github.com/navarasu/onedark.nvim')
     use('https://github.com/olimorris/onedarkpro.nvim')
     use('https://github.com/Mofiqul/vscode.nvim')
     use("https://github.com/loctvl842/monokai-pro.nvim")
-    -- use {
-    --     "https://github.com/loctvl842/monokai-pro.nvim",
-    --     config = function()
-    --         require("monokai-pro").setup()
-    --     end
-    -- }
+
     use {
         'https://github.com/akinsho/bufferline.nvim',
         tag = "v3.*",
