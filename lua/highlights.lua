@@ -268,10 +268,10 @@ require("monokai-pro").setup({
 -- }
 -- require('onedark').load()
 
--- vim.cmd.colorscheme "catppuccin-mocha"
+vim.cmd.colorscheme "catppuccin-mocha"
 -- vim.cmd.colorscheme "onedark_vivid"
 -- vim.cmd.colorscheme "onedark_dark"
-vim.cmd.colorscheme "nightfox"
+-- vim.cmd.colorscheme "nightfox"
 -- vim.cmd.colorscheme "terafox"
 -- vim.cmd.colorscheme "duskfox"
 -- vim.cmd.colorscheme "carbonfox"

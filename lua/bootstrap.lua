@@ -4,7 +4,7 @@ vim.api.nvim_create_autocmd("FileType", {
         "javascriptvue", "typescriptvue",
         "typescript", "typescriptreact",
         "javascript", "javascriptreact",
-        "c", "cpp", "arduino"
+        -- "c", "cpp", "arduino"
     },
     callback = function()
         vim.opt_local.shiftwidth = 2
@@ -31,7 +31,7 @@ require("indent_blankline").setup {
 -- ============ Bug with Neovim https://github.com/neovim/neovim/issues/22344 ===============
 -- ============ Bug with Noice https://github.com/folke/noice.nvim/issues/17 ===============
 -- ============ Bug with Neovide https://github.com/neovide/neovide/issues/1751 ===============
-if not vim.g.neovide then
+-- if not vim.g.neovide then
     require("noice").setup({
         lsp = {
             -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
@@ -49,7 +49,7 @@ if not vim.g.neovide then
         --     lsp_doc_border = false, -- add a border to hover docs and signature help
         -- },
     })
-end
+-- end
 
 require("telescope").setup({
     defaults = {
@@ -276,6 +276,7 @@ local lsp_flags = {
 
 -- For C++ in Ubuntu: sudo apt install g++-12
 local lspservers = {
+    "bashls", "awk_ls",
     "pyright",
     "pylsp",
     -- "pylyzer",
@@ -475,6 +476,30 @@ require("nvim-dap-virtual-text").setup()
 require("dapui").setup()
 -- require("dapui").open()
 local dap, dapui = require("dap"), require("dapui")
+dap.adapters.codelldb = {
+    type = 'server',
+    -- host = '127.0.0.1',
+    port = 13000,
+    executable = {
+        command = '/home/julio/.local/share/nvim/mason/bin/codelldb',
+        args = { "--port", "13000" }
+    }
+}
+
+dap.configurations.c = {
+    {
+        type = 'codelldb',
+        request = 'launch',
+        -- program = function()
+        --     return vim.fn.input('Path to executable: ', vim.fn.getcwd()..'/', 'file')
+        -- end,
+        program = '${fileDirname}/${fileBasenameNoExtension}',
+        -- program = '/home/julio/.local/share/nvim/mason/bin/codelldb',
+        cwd = '${workspaceFolder}',
+        terminal = 'integrated'
+    }
+}
+-- dap.configurations.cpp = dap.configurations.c
 dap.listeners.after.event_initialized["dapui_config"] = function()
     dapui.open()
 end
@@ -587,7 +612,7 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
     {
         underline = true,
         virtual_text = {
-            spacing = 3,
+            spacing = 5,
             severity_limit = 'Warning',
         },
         update_in_insert = true,
@@ -619,6 +644,8 @@ require('nvim-treesitter.configs').setup({
         enable = true
     }
 })
+
+require('nvim-ts-autotag').setup()
 
 require('nvim_comment').setup({
     hook = function()

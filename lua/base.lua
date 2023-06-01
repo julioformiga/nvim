@@ -15,6 +15,7 @@ o.smartindent = false                      -- auto indent on new lines, see :hel
 o.showmatch = true                         -- display matching bracket or parenthesis
 o.ic = true                                -- ignore case when searching
 o.hlsearch = true
+o.autoread = true
 o.incsearch = true                         -- highlight all pervious search pattern with incsearch
 o.expandtab = true
 o.autoindent = true
@@ -63,7 +64,7 @@ o.foldenable = true
 -- opt.foldexpr = "nvim_treesitter#foldexpr()"
 opt.termguicolors = true
 opt.iskeyword:append("-") -- Add '-' in command 'w' to select word
--- opt.guifont = {"JetBrainsMono Nerd Font Mono", ":h11"}
+-- opt.guifont = {"JetBrainsMono Nerd Font Mono", ":h14"}
 -- opt.guifont = {"Hack Nerd Font Mono", ":h11"}
 -- opt.guifont = {"SauceCodePro Nerd Font", ":h11"}
 -- opt.guifont = {"RobotoMono Nerd Font Mono", ":h13"}

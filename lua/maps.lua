@@ -12,21 +12,30 @@ local aucmd_dict = {
             callback = function()
                 map('n', '<leader>vf', 'va{V', { noremap = false, silent = true })
                 map('n', '<leader><CR>',
-                    '<ESC><CMD>3TermExec cmd="arduino-cli compile --fqbn esp8266:esp8266:nodemcuv2 && arduino-cli upload -v -p /dev/ttyACM0 --fqbn esp8266:esp8266:nodemcuv2:baud=3000000 && arduino-cli monitor -p /dev/ttyACM0 -c baudrate=115200" direction=float<CR>')
+                    '<ESC><CMD>2TermExec cmd="arduino-cli compile --fqbn esp8266:esp8266:nodemcuv2 && arduino-cli upload -v -p /dev/ttyACM0 --fqbn esp8266:esp8266:nodemcuv2:baud=3000000 && arduino-cli monitor -p /dev/ttyACM0 -c baudrate=115200" direction=float<CR>')
+            end
+        },
+        {
+            pattern = { "sh" },
+            callback = function()
+                map('n', '<leader><CR>', '<ESC><CMD>2TermExec cmd="bash %" direction=horizontal<CR>')
+                map('n', '<leader><CR><CR>', '<ESC><CMD>2TermExec cmd="bash %" direction=horizontal<CR><C-w>j')
             end
         },
         {
             pattern = { "c", "cpp" },
             callback = function()
                 map('n', '<leader>vf', 'va{V', { noremap = false, silent = true })
-                map('n', '<leader><CR>', '<ESC><CMD>3TermExec cmd="g++ % -o main && ./main" direction=horizontal<CR><C-w>j')
+                map('n', '<leader><CR>', '<ESC><CMD>2TermExec cmd="cc % -o main && ./main" direction=horizontal<CR>')
+                map('n', '<leader><CR><CR>', '<ESC><CMD>2TermExec cmd="cc % -o main && ./main" direction=horizontal<CR><C-w>j')
             end
         },
         {
             pattern = { "rs", "rust" },
             callback = function()
                 map('n', '<leader>vf', 'va{V', { noremap = false, silent = true })
-                map('n', '<leader><CR>', '<ESC><CMD>3TermExec cmd="cargo run" direction=horizontal<CR><C-w>j')
+                map('n', '<leader><CR>', '<ESC><CMD>2TermExec cmd="cargo run" direction=horizontal<CR>')
+                -- map('n', '<leader><CR>', '<ESC><CMD>3TermExec cmd="cargo run" direction=horizontal<CR><C-w>j')
             end
         },
         {
@@ -39,7 +48,7 @@ local aucmd_dict = {
             pattern = { "python" },
             callback = function()
                 map('n', '<leader>vf', '[[V]M', { noremap = false, silent = true })
-                map('n', '<leader><CR>', '<ESC><CMD>3TermExec cmd="python %" direction=horizontal<CR>')
+                map('n', '<leader><CR>', '<ESC><CMD>2TermExec cmd="python %" direction=horizontal<CR>')
             end
         }
     },
@@ -234,7 +243,9 @@ map('n', '<A-Home>', '<CMD>vertical resize -2<CR>')
 map('n', '<A-End>', '<CMD>vertical resize +2<CR>')
 map('n', '<A-Del>', 'ce')
 map('n', '<A-Backspace>', 'cb')
-map('n', '<A-x>', '"_dw')
+map('n', '<A-x>', '"_dd')
+map('n', '<A-o>', 'o<ESC>')
+-- map('n', '<A-x>', '"_dw')
 
 map('n', '<leader><Left>', 'za')
 map('n', '<leader><Up>', 'zM')

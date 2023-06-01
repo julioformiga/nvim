@@ -34,7 +34,7 @@ return require('packer').startup(function(use)
     -- use('https://github.com/nvim-telescope/telescope-project.nvim')
     use('https://github.com/preservim/tagbar') --  Tagbar for code navigation Alt-O
     use('https://github.com/folke/trouble.nvim')
-    use('https://github.com/rcarriga/nvim-notify')
+    -- use('https://github.com/rcarriga/nvim-notify')
     use({
         "https://github.com/folke/noice.nvim",
         requires = {
@@ -43,7 +43,7 @@ return require('packer').startup(function(use)
             -- OPTIONAL:
             --   `nvim-notify` is only needed, if you want to use the notification view.
             --   If not available, we use `mini` as the fallback
-            "https://github.com/rcarriga/nvim-notify",
+            -- "https://github.com/rcarriga/nvim-notify",
         }
     })
 
@@ -151,7 +151,16 @@ return require('packer').startup(function(use)
     use('https://github.com/JoosepAlviste/nvim-ts-context-commentstring')
     use('https://github.com/nvim-lua/plenary.nvim')
     use('https://github.com/MunifTanjim/nui.nvim')
-    use('https://github.com/nvim-neo-tree/neo-tree.nvim')
+    -- use('https://github.com/nvim-neo-tree/neo-tree.nvim')
+    use{
+        'https://github.com/nvim-neo-tree/neo-tree.nvim',
+        branch = "v2.x",
+        requires = {
+            "nvim-lua/plenary.nvim",
+            "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+            "MunifTanjim/nui.nvim",
+        }
+    }
     use('https://github.com/kdheepak/lazygit.nvim')
     use('https://github.com/akinsho/toggleterm.nvim')
     use('https://github.com/stevearc/aerial.nvim')
@@ -159,8 +168,9 @@ return require('packer').startup(function(use)
 
     --  === Visual ===
     -- use('https://github.com/Shatur/neovim-ayu')
-    use { "https://github.com/ellisonleao/glow.nvim", config = function() require("glow").setup() end }
+    use { 'https://github.com/ellisonleao/glow.nvim', config = function() require("glow").setup() end }
     use('https://github.com/nvim-tree/nvim-web-devicons')
+    -- use('https://github.com/kyazdani42/nvim-web-devicons')
     use('https://github.com/nvim-pack/nvim-spectre')
 
     -- ===== Themes =====
@@ -168,14 +178,15 @@ return require('packer').startup(function(use)
     -- use('https://github.com/folke/tokyonight.nvim')
     use('https://github.com/EdenEast/nightfox.nvim')
     -- use('https://github.com/navarasu/onedark.nvim')
-    use('https://github.com/olimorris/onedarkpro.nvim')
-    use('https://github.com/Mofiqul/vscode.nvim')
-    use("https://github.com/loctvl842/monokai-pro.nvim")
+    -- use('https://github.com/olimorris/onedarkpro.nvim')
+    -- use('https://github.com/Mofiqul/vscode.nvim')
+    use('https://github.com/loctvl842/monokai-pro.nvim')
 
     use {
         'https://github.com/akinsho/bufferline.nvim',
-        tag = "v3.*",
-        requires = 'https://github.com/nvim-tree/nvim-web-devicons' }
+        tag = "*",
+        requires = 'https://github.com/nvim-tree/nvim-web-devicons'
+    }
     use {
         'https://github.com/nvim-lualine/lualine.nvim',
         requires = { 'https://github.com/kyazdani42/nvim-web-devicons', opt = true }
@@ -192,7 +203,7 @@ return require('packer').startup(function(use)
 
     --  Focus + Editor
     use({
-        "https://github.com/kylechui/nvim-surround",
+        'https://github.com/kylechui/nvim-surround',
         tag = "*", -- Use for stability; omit to use `main` branch for the latest features
         config = function()
             require("nvim-surround").setup({
