@@ -26,8 +26,8 @@ local aucmd_dict = {
             pattern = { "c", "cpp" },
             callback = function()
                 map('n', '<leader>vf', 'va{V', { noremap = false, silent = true })
-                map('n', '<leader><CR>', '<ESC><CMD>2TermExec cmd="cc % -o main && ./main" direction=horizontal<CR>')
-                map('n', '<leader><CR><CR>', '<ESC><CMD>2TermExec cmd="cc % -o main && ./main" direction=horizontal<CR><C-w>j')
+                map('n', '<leader><CR>', '<ESC><CMD>2TermExec cmd="cc % -lm -o main && ./main" direction=horizontal<CR>')
+                map('n', '<leader><CR><CR>', '<ESC><CMD>2TermExec cmd="cc % -lm -o main && ./main" direction=horizontal<CR><C-w><C-w>')
             end
         },
         {
@@ -134,7 +134,8 @@ map('n', '<A-e>', '<CMD>NeoTreeFloatToggle<CR>', { noremap = true, silent = true
 -- map('n', '<A-b>', '<CMD>NeoTreeFloat buffers<CR>', {noremap = true, silent = true})
 map('n', '<A-b>', '<CMD>Telescope buffers<CR>', { noremap = true, silent = true })
 map('n', '<leader>r', ':so %<CR><CMD>echo "Settings reload!"<CR>') -- Reload configuration without restart nvim
-map('n', '<leader>e', '<CMD>TroubleToggle<CR>')
+map('n', '<leader>e', '<CMD>TroubleToggle document_diagnostics<CR>')
+map('n', '<leader>E', '<CMD>TroubleToggle workspace_diagnostics<CR>')
 map('n', '<leader>u', '<CMD>PackerUpdate<CR><CMD>Mason<CR>')
 map('n', '<A-1>', '<ESC><CMD>1ToggleTerm direction=float<CR>')
 map('n', '<A-2>', '<ESC><CMD>2ToggleTerm direction=horizontal<CR>')

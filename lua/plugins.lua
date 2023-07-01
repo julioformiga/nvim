@@ -43,7 +43,7 @@ return require('packer').startup(function(use)
             -- OPTIONAL:
             --   `nvim-notify` is only needed, if you want to use the notification view.
             --   If not available, we use `mini` as the fallback
-            -- "https://github.com/rcarriga/nvim-notify",
+            "https://github.com/rcarriga/nvim-notify",
         }
     })
 
