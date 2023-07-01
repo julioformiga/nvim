@@ -31,7 +31,7 @@ require("indent_blankline").setup {
 -- ============ Bug with Neovim https://github.com/neovim/neovim/issues/22344 ===============
 -- ============ Bug with Noice https://github.com/folke/noice.nvim/issues/17 ===============
 -- ============ Bug with Neovide https://github.com/neovide/neovide/issues/1751 ===============
--- if not vim.g.neovide then
+if not vim.g.neovide then
     require("noice").setup({
         lsp = {
             -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
@@ -49,7 +49,7 @@ require("indent_blankline").setup {
         --     lsp_doc_border = false, -- add a border to hover docs and signature help
         -- },
     })
--- end
+end
 
 require("telescope").setup({
     defaults = {
@@ -243,7 +243,7 @@ local lsp_on_attach = function(client, bufnr)
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-    -- vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+    vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
     vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
     vim.keymap.set('n', 'gsh', vim.lsp.buf.signature_help, bufopts)
     vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, bufopts)
@@ -279,6 +279,7 @@ local lspservers = {
     "bashls", "awk_ls",
     "pyright",
     "pylsp",
+    -- "mypy",
     -- "pylyzer",
     "jedi_language_server",
     "ruff_lsp",
@@ -478,7 +479,7 @@ require("dapui").setup()
 local dap, dapui = require("dap"), require("dapui")
 dap.adapters.codelldb = {
     type = 'server',
-    -- host = '127.0.0.1',
+    host = '127.0.0.1',
     port = 13000,
     executable = {
         command = '/home/julio/.local/share/nvim/mason/bin/codelldb',
