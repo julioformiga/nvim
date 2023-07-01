@@ -10,7 +10,26 @@ local breadcrumbs = {
         return navic.is_available()
     end
 }
-
+require("neo-tree").setup({
+  filesystem = {
+    window = {
+      mappings = {
+        ["o"] = "system_open",
+      },
+    },
+    commands = {
+      system_open = function(state)
+        local node = state.tree:get_node()
+        local path = node:get_id()
+        -- macOs: open file in default application in the background.
+        -- Probably you need to adapt the Linux recipe for manage path with spaces. I don't have a mac to try.
+        vim.api.nvim_command("silent !open -g " .. path)
+        -- Linux: open file in default application
+        vim.api.nvim_command(string.format("silent !xdg-open '%s'", path))
+      end,
+    },
+  },
+})
 require('lualine').setup {
     options = {
         icons_enabled = true,
@@ -115,7 +134,6 @@ require('bufferline').setup {
         color_icons = true,              -- whether or not to add the filetype icon highlights
         show_buffer_icons = true,        -- disable filetype icons for buffers
         show_buffer_close_icons = true,
-        show_buffer_default_icon = true, -- whether or not an unrecognised filetype should show a default icon
         show_close_icon = true,
         show_tab_indicators = true,
         show_duplicate_prefix = true, -- whether to show duplicate buffer prefix
@@ -268,10 +286,10 @@ require("monokai-pro").setup({
 -- }
 -- require('onedark').load()
 
-vim.cmd.colorscheme "catppuccin-mocha"
+-- vim.cmd.colorscheme "catppuccin-mocha"
 -- vim.cmd.colorscheme "onedark_vivid"
 -- vim.cmd.colorscheme "onedark_dark"
--- vim.cmd.colorscheme "nightfox"
+vim.cmd.colorscheme "nightfox"
 -- vim.cmd.colorscheme "terafox"
 -- vim.cmd.colorscheme "duskfox"
 -- vim.cmd.colorscheme "carbonfox"
