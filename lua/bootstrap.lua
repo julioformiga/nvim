@@ -13,6 +13,17 @@ vim.api.nvim_create_autocmd("FileType", {
     end
 })
 
+-- 42
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = {
+        "c", "cpp", "arduino"
+    },
+    callback = function()
+        vim.opt_local.expandtab = false
+    end
+})
+require("norminette").setup()
+
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
     pattern = { "*" },
     command = [[%s/\s\+$//e]]

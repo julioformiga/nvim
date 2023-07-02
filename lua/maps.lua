@@ -143,6 +143,7 @@ map('n', '<A-3>', '<ESC><CMD>3ToggleTerm direction=float<CR>')
 map('n', '<leader>o', "<CMD>TagbarOpenAutoClose<CR>")
 map('n', '<leader>a', '<CMD>AerialNavToggle<cr>')
 map('n', '<A-z>', "<CMD>ZenMode<CR>")
+map('n', '<F1>', "<CMD>Header42<CR>")
 map('n', '<A-CR>', ':', { noremap = true, silent = false })
 
 -- Not rewrite clipboard

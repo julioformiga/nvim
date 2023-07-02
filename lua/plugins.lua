@@ -192,8 +192,11 @@ return require('packer').startup(function(use)
         requires = { 'https://github.com/kyazdani42/nvim-web-devicons', opt = true }
     }
     use { 'https://github.com/kevinhwang91/nvim-ufo', requires = 'https://github.com/kevinhwang91/promise-async' }
-
     use('https://github.com/lewis6991/hover.nvim')
+
+    -- 42
+    use{'hardyrafael17/norminette42.nvim'}
+
     -- DEBUG
     use 'https://github.com/folke/neodev.nvim'
     use { "https://github.com/rcarriga/nvim-dap-ui", requires = { "https://github.com/mfussenegger/nvim-dap" } }
