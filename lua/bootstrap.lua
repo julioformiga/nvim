@@ -22,7 +22,7 @@ vim.api.nvim_create_autocmd("FileType", {
         vim.opt_local.expandtab = false
     end
 })
-require("norminette").setup()
+-- require("norminette").setup()
 
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
     pattern = { "*" },
@@ -42,25 +42,25 @@ require("indent_blankline").setup {
 -- ============ Bug with Neovim https://github.com/neovim/neovim/issues/22344 ===============
 -- ============ Bug with Noice https://github.com/folke/noice.nvim/issues/17 ===============
 -- ============ Bug with Neovide https://github.com/neovide/neovide/issues/1751 ===============
-if not vim.g.neovide then
-    require("noice").setup({
-        lsp = {
-            -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
-            override = {
-                ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-                ["vim.lsp.util.stylize_markdown"] = true,
-                ["cmp.entry.get_documentation"] = true,
-            },
+-- if not vim.g.neovide then
+require("noice").setup({
+    lsp = {
+        -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+        override = {
+            ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+            ["vim.lsp.util.stylize_markdown"] = true,
+            ["cmp.entry.get_documentation"] = true,
         },
-        -- presets = {
-        --     bottom_search = false, -- use a classic bottom cmdline for search
-        --     command_palette = true, -- position the cmdline and popupmenu together
-        --     long_message_to_split = true, -- long messages will be sent to a split
-        --     inc_rename = false,   -- enables an input dialog for inc-rename.nvim
-        --     lsp_doc_border = false, -- add a border to hover docs and signature help
-        -- },
-    })
-end
+    },
+    -- presets = {
+    --     bottom_search = false, -- use a classic bottom cmdline for search
+    --     command_palette = true, -- position the cmdline and popupmenu together
+    --     long_message_to_split = true, -- long messages will be sent to a split
+    --     inc_rename = false,   -- enables an input dialog for inc-rename.nvim
+    --     lsp_doc_border = false, -- add a border to hover docs and signature help
+    -- },
+})
+-- end
 
 require("telescope").setup({
     defaults = {
@@ -224,14 +224,14 @@ require("null-ls").setup({
 })
 local lsp_formatting = function(bufnr)
     vim.lsp.buf.format({
-        filter = function(client)
-            -- apply whatever logic you want (in this example, we'll only use null-ls)
-            return client.name == "null-ls"
-        end,
+        -- filter = function(client)
+        --     return client.name == "null-ls" -- apply whatever logic you want (in this example, we'll only use null-ls)
+        -- end,
         -- async = true,
         bufnr = bufnr,
     })
 end
+
 local navic = require("nvim-navic")
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -289,13 +289,15 @@ local lsp_flags = {
 local lspservers = {
     "bashls", "awk_ls",
     "pyright",
-    "pylsp",
+    -- "pylsp",
     -- "mypy",
     -- "pylyzer",
     "jedi_language_server",
     "ruff_lsp",
     "graphql", "yamlls",
-    "cmake", "neocmake", "clangd", "rust_analyzer",
+    "cmake",
+    "clangd",
+    "rust_analyzer",
     "marksman", "cssmodules_ls", "rome", "eslint",
     "emmet_ls", "html", "tsserver", "jsonls", "volar",
     "lua_ls", "dockerls"

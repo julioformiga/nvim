@@ -159,7 +159,7 @@ require("catppuccin").setup({
         dark = "mocha",
     },
     transparent_background = false,
-    term_colors = false,
+    term_colors = true,
     dim_inactive = {
         enabled = true,
         shade = "dark",
@@ -248,12 +248,12 @@ require("monokai-pro").setup({
         annotation = { italic = true },
         tag_attribute = { italic = true }, -- attribute of tag in reactjs
     },
-    filter = "spectrum",                   -- classic | octagon | pro | machine | ristretto | spectrum
+    -- filter = "spectrum",                   -- classic | octagon | pro | machine | ristretto | spectrum
     -- Enable this will disable filter option
     day_night = {
-        enable = false,            -- turn off by default
-        day_filter = "classic",    -- classic | octagon | pro | machine | ristretto | spectrum
-        night_filter = "spectrum", -- classic | octagon | pro | machine | ristretto | spectrum
+        enable = true,            -- turn off by default
+        -- day_filter = "classic",    -- classic | octagon | pro | machine | ristretto | spectrum
+        -- night_filter = "spectrum", -- classic | octagon | pro | machine | ristretto | spectrum
     },
     inc_search = "background",     -- underline | background
     background_clear = {
@@ -281,17 +281,11 @@ require("monokai-pro").setup({
 -- require('terafox').load()
 -- vim.cmd.colorscheme "terafox"
 
--- require('onedark').setup {
---     style = 'warmer',
--- }
--- require('onedark').load()
-
 -- vim.cmd.colorscheme "catppuccin-mocha"
--- vim.cmd.colorscheme "onedark_vivid"
--- vim.cmd.colorscheme "onedark_dark"
-vim.cmd.colorscheme "nightfox"
+vim.cmd.colorscheme "catppuccin-macchiato"
+-- vim.cmd.colorscheme "nightfox"
 -- vim.cmd.colorscheme "terafox"
 -- vim.cmd.colorscheme "duskfox"
 -- vim.cmd.colorscheme "carbonfox"
--- vim.cmd.colorscheme "vscode"
 -- vim.cmd.colorscheme "monokai-pro"
+-- vim.cmd.colorscheme "monokai-pro-octagon"

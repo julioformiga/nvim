@@ -1,25 +1,25 @@
---[[ local status, packer = pcall(require, "packer")
-if not status then
-    print("Packer is not installed")
-    return
-end
---]]
-local ensure_packer = function()
-    local fn = vim.fn
-    local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
-    if fn.empty(fn.glob(install_path)) > 0 then
-        fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
-        vim.cmd [[packadd packer.nvim]]
-        return true
-    end
-    return false
-end
+-- -- Install packer.nvim the first time
+-- local status, packer = pcall(require, "packer")
+-- if not status then
+--     print("Packer is not installed")
+--     return
+-- end
+-- local ensure_packer = function()
+--     local fn = vim.fn
+--     local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
+--     if fn.empty(fn.glob(install_path)) > 0 then
+--         fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
+--         vim.cmd [[packadd packer.nvim]]
+--         return true
+--     end
+--     return false
+-- end
 
--- Reloads Neovim after whenever you save useins.lua
+-- Reloads Neovim after whenever you save plugins.lua
 vim.cmd([[
     augroup packer_user_config
         autocmd!
-        autocmd BufWritePost useins.lua source <afile> | PackerSync
+        autocmd BufWritePost plugins.lua source <afile> | PackerSync
     augroup END
 ]])
 
@@ -43,7 +43,7 @@ return require('packer').startup(function(use)
             -- OPTIONAL:
             --   `nvim-notify` is only needed, if you want to use the notification view.
             --   If not available, we use `mini` as the fallback
-            "https://github.com/rcarriga/nvim-notify",
+            -- "https://github.com/rcarriga/nvim-notify",
         }
     })
 
@@ -177,9 +177,6 @@ return require('packer').startup(function(use)
     use('https://github.com/catppuccin/nvim')
     -- use('https://github.com/folke/tokyonight.nvim')
     use('https://github.com/EdenEast/nightfox.nvim')
-    -- use('https://github.com/navarasu/onedark.nvim')
-    -- use('https://github.com/olimorris/onedarkpro.nvim')
-    -- use('https://github.com/Mofiqul/vscode.nvim')
     use('https://github.com/loctvl842/monokai-pro.nvim')
 
     use {
@@ -195,7 +192,7 @@ return require('packer').startup(function(use)
     use('https://github.com/lewis6991/hover.nvim')
 
     -- 42
-    use{'hardyrafael17/norminette42.nvim'}
+    -- use{'hardyrafael17/norminette42.nvim'}
 
     -- DEBUG
     use 'https://github.com/folke/neodev.nvim'
@@ -218,7 +215,7 @@ return require('packer').startup(function(use)
     use('https://github.com/terrortylor/nvim-comment')
     use('https://github.com/tpope/vim-repeat')
     use('https://github.com/wellle/targets.vim')      --  Target.vim
-    use('https://github.com/leafOfTree/vim-matchtag') --  Target.vim
+    -- use('https://github.com/leafOfTree/vim-matchtag') --  Target.vim
     use('https://github.com/famiu/bufdelete.nvim')
     --  use('https://github.com/xiyaowong/nvim-cursorword')
     use('https://github.com/mg979/vim-visual-multi')       --, {'branch': 'master'}
