@@ -105,26 +105,6 @@ end
 map("n", "<C-=>", ":lua ChangeScaleFactor(1.1)<CR>")
 map("n", "<C-->", ":lua ChangeScaleFactor(1/1.1)<CR>")
 
-local Terminal = require("toggleterm.terminal").Terminal
--- local lazygit = Terminal:new({
---     cmd = "lazygit",
---     dir = "git_dir",
---     direction = "float",
---     float_opts = {
---         border = "double",
---     },
---     on_open = function(term)
---         vim.cmd("startinsert!")
---         vim.api.nvim_buf_set_keymap(term.bufnr, "n", "q", "<cmd>close<CR>", {noremap = true, silent = true})
---     end,
---     on_close = function(term)
---         vim.cmd("startinsert!")
---     end,
--- })
---
--- function _lazygit_toggle()
---     lazygit:toggle()
--- end
 M = {}
 M.HandleURL = function()
     local url = string.match(vim.fn.getline("."), "[a-z]*://[^ >,;]*")
@@ -138,11 +118,12 @@ end
 map("n", "gf", "<Cmd>lua M.HandleURL()<CR>")
 
 -- Find files using Telescope command-line sugar.
-map("n", "<leader>ff", "<CMD>Telescope find_files<cr>")
-map("n", "<leader>fg", "<CMD>Telescope live_grep<cr>")
-map("n", "<leader>fb", "<CMD>Telescope buffers<cr>")
-map("n", "<leader>fh", "<CMD>Telescope help_tags<cr>")
+map("n", "<leader>ff", "<CMD>Telescope find_files<CR>")
+map("n", "<leader>fg", "<CMD>Telescope live_grep<CR>")
+map("n", "<leader>fb", "<CMD>Telescope buffers<CR>")
+map("n", "<leader>fh", "<CMD>Telescope help_tags<CR>")
 map("n", "<leader>gg", "<CMD>LazyGitCurrentFile<CR>", { noremap = true, silent = true })
+map("n", "<leader>gd", "<CMD>Gitsigns diffthis<CR>", { noremap = true, silent = true })
 map("n", "<A-e>", "<CMD>NeoTreeFloatToggle<CR>", { noremap = true, silent = true })
 -- map('n', '<A-b>', '<CMD>NeoTreeFloat buffers<CR>', {noremap = true, silent = true})
 map("n", "<A-b>", "<CMD>Telescope buffers<CR>", { noremap = true, silent = true })
