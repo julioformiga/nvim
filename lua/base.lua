@@ -5,14 +5,14 @@ local opt = vim.opt
 
 -- syntax on                     -- syntax highlighting, see :help syntax
 wo.number = true
-wo.relativenumber = true
+wo.relativenumber = false
 wo.wrap = true
 o.noswapfile = true                        -- disable use of swap files
 o.wildmenu = true                          -- completion menu
 o.backspace = "indent,eol,start"           -- ensure proper backspace functionality
 o.undodir = HOMEDIR .. "/.cache/nvim/undo" -- undo ability will persist after exiting file
 o.undofile = true                          -- see :help undodir and :help undofile
-o.ic = true                                -- ignore case when searching
+o.ignorecase = false                       -- ignore case when searching
 o.incsearch = true                         -- see results while search is being typed, see :help incsearch
 o.showmatch = true                         -- display matching bracket or parenthesis
 o.hlsearch = true
@@ -69,13 +69,14 @@ o.foldenable = true
 opt.termguicolors = true
 opt.iskeyword:append("-") -- Add '-' in command 'w' to select word
 opt.guifont = { "JetBrainsMono Nerd Font Mono", ":h14" }
+-- opt.guifont = { "MesloLGS NF", ":h11" }
 -- opt.guifont = {"Hack Nerd Font Mono", ":h11"}
 -- opt.guifont = {"SauceCodePro Nerd Font", ":h11"}
 -- opt.guifont = {"RobotoMono Nerd Font Mono", ":h13"}
 -- opt.guifont = {"UbuntuMono Nerd Font Mono", ":h11"}
 -- opt.guifont = {"VictorMono Nerd Font Mono, Medium", ":h12"}
--- opt.spell = true
--- opt.spelllang = {"en", "pt"}
+opt.spell = true
+opt.spelllang = { "en", "pt" }
 -- opt.completeopt = {'menu', 'menuone'}
 -- opt.completeopt = {'menu','noinsert','noselect'}
 -- opt.completeopt = { 'menu', 'menuone', 'noinsert', 'noselect' }
