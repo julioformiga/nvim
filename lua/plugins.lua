@@ -1,19 +1,20 @@
--- -- Install packer.nvim the first time
--- local status, packer = pcall(require, "packer")
--- if not status then
---     print("Packer is not installed")
---     return
--- end
--- local ensure_packer = function()
---     local fn = vim.fn
---     local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
---     if fn.empty(fn.glob(install_path)) > 0 then
---         fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
---         vim.cmd [[packadd packer.nvim]]
---         return true
---     end
---     return false
--- end
+-- Install packer.nvim the first time
+local status, packer = pcall(require, "packer")
+if not status then
+    print("Packer is not installed")
+    return
+end
+local ensure_packer = function()
+    local fn = vim.fn
+    local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
+    if fn.empty(fn.glob(install_path)) > 0 then
+        fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
+        vim.cmd([[packadd packer.nvim]])
+        return true
+    end
+    return false
+end
+ensure_packer()
 
 -- Reloads Neovim after whenever you save plugins.lua
 vim.cmd([[
@@ -91,52 +92,6 @@ return require("packer").startup(function(use)
     --     requires = { "nvim-lua/plenary.nvim" },
     -- })
     use("https://github.com/jose-elias-alvarez/null-ls.nvim")
-    -- use({
-    --     'https://github.com/jose-elias-alvarez/null-ls.nvim',
-    --     event = 'BufReadPre',
-    --     opts = function()
-    --         local null_ls = require 'null-ls'
-    --         local h = require 'null-ls.helpers'
-    --         local blackd = {
-    --             name = 'blackd',
-    --             method = null_ls.methods.FORMATTING,
-    --             filetypes = { 'python' },
-    --             generator = h.formatter_factory {
-    --                 command = 'blackd-client',
-    --                 to_stdin = true,
-    --             },
-    --         }
-    --         local sources = {
-    --             -- null_ls.builtins.formatting.stylua.with {
-    --             --     condition = function(utils)
-    --             --         return utils.root_has_file 'stylua.toml'
-    --             --     end,
-    --             -- },
-    --             blackd,
-    --             null_ls.builtins.diagnostics.shellcheck,
-    --         }
-    --         return {
-    --             sources = sources,
-    --             debug = true,
-    --             root_dir = function(fname)
-    --                 return require('lspconfig').util.root_pattern(
-    --                         'tsconfig.json',
-    --                         'pyproject.toml'
-    --                     )(fname) or require('lspconfig').util.root_pattern(
-    --                         '.eslintrc.js',
-    --                         '.git'
-    --                     )(fname) or require('lspconfig').util.root_pattern(
-    --                         'package.json',
-    --                         '.git/'
-    --                     )(fname)
-    --             end,
-    --         }
-    --     end,
-    --     config = function()
-    --         require("configs.null-ls")
-    --     end
-    -- })
-
     -------------------------------
 
     use("https://github.com/onsails/lspkind.nvim")
@@ -151,7 +106,6 @@ return require("packer").startup(function(use)
     use("https://github.com/JoosepAlviste/nvim-ts-context-commentstring")
     use("https://github.com/nvim-lua/plenary.nvim")
     use("https://github.com/MunifTanjim/nui.nvim")
-    -- use('https://github.com/nvim-neo-tree/neo-tree.nvim')
     use({
         "https://github.com/nvim-neo-tree/neo-tree.nvim",
         branch = "v2.x",
