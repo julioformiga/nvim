@@ -221,8 +221,8 @@ null_ls.setup({
         null_ls.builtins.formatting.taplo,
         null_ls.builtins.formatting.yq,
         null_ls.builtins.formatting.beautysh,
-        null_ls.builtins.formatting.black,
-        -- null_ls.builtins.formatting.blue,
+        -- null_ls.builtins.formatting.black,
+        null_ls.builtins.formatting.blue,
         null_ls.builtins.formatting.ruff,
         null_ls.builtins.formatting.rustfmt,
         null_ls.builtins.formatting.stylua,
@@ -725,4 +725,18 @@ require("toggleterm").setup({
         enable = true,
     },
 })
+
+require("swenv").setup({
+    -- Should return a list of tables with a `name` and a `path` entry each.
+    -- Gets the argument `venvs_path` set below.
+    -- By default just lists the entries in `venvs_path`.
+    get_venvs = function(venvs_path)
+        return require("swenv.api").get_venvs(venvs_path)
+    end,
+    -- Path passed to `get_venvs`.
+    venvs_path = vim.fn.expand("~/.cache/pypoetry/virtualenvs"),
+    -- Something to do after setting an environment, for example call vim.cmd.LspRestart
+    post_set_venv = vim.cmd.LspRestart,
+})
+
 require("color-picker").setup()

@@ -47,7 +47,7 @@ return require("packer").startup(function(use)
             -- "https://github.com/rcarriga/nvim-notify",
         },
     })
-
+    use({ "https://github.com/stevearc/dressing.nvim" })
     -- LSP -------
     use("https://github.com/williamboman/mason.nvim")
     use("https://github.com/williamboman/mason-lspconfig.nvim")
@@ -160,6 +160,7 @@ return require("packer").startup(function(use)
     use("https://github.com/mortepau/codicons.nvim")
 
     --  Focus + Editor
+    use("https://github.com/AckslD/swenv.nvim")
     use({
         "https://github.com/kylechui/nvim-surround",
         tag = "*", -- Use for stability; omit to use `main` branch for the latest features
