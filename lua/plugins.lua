@@ -130,6 +130,14 @@ return require("packer").startup(function(use)
     use("https://github.com/nvim-tree/nvim-web-devicons")
     -- use('https://github.com/kyazdani42/nvim-web-devicons')
     use("https://github.com/nvim-pack/nvim-spectre")
+    use({
+        "ziontee113/icon-picker.nvim",
+        config = function()
+            require("icon-picker").setup({
+                disable_legacy_commands = true,
+            })
+        end,
+    })
 
     -- ===== Themes =====
     use("https://github.com/catppuccin/nvim")

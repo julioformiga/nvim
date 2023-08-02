@@ -131,6 +131,7 @@ map("n", "<leader>r", ':so %<CR><CMD>echo "Settings reload!"<CR>') -- Reload con
 map("n", "<leader>e", "<CMD>TroubleToggle document_diagnostics<CR>")
 map("n", "<leader>E", "<CMD>TroubleToggle workspace_diagnostics<CR>")
 map("n", "<leader>u", "<CMD>PackerUpdate<CR><CMD>Mason<CR>")
+map("n", "<leader>i", "<CMD>IconPickerInsert emoji<CR>")
 map("n", "<A-1>", "<ESC><CMD>1ToggleTerm direction=float<CR>")
 map("n", "<A-2>", "<ESC><CMD>2ToggleTerm direction=horizontal<CR>")
 map("n", "<A-3>", "<ESC><CMD>3ToggleTerm direction=float<CR>")
