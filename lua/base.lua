@@ -43,8 +43,8 @@ g.neovide_remember_window_size = true
 g.neovide_cursor_antialiasing = true
 g.neovide_cursor_unfocused_outline_width = 0.125
 g.neovide_scroll_animation_length = 0.3
-g.neovide_refresh_rate = 60
--- g.neovide_refresh_rate_idle = 5
+g.neovide_refresh_rate = 120
+g.neovide_refresh_rate_idle = 10
 -- Helper function for transparency formatting
 -- local alpha = function()
 --     return string.format("%x", math.floor((255 * g.transparency) or 0.95))
@@ -68,7 +68,7 @@ o.foldenable = true
 -- opt.foldexpr = "nvim_treesitter#foldexpr()"
 opt.termguicolors = true
 opt.iskeyword:append("-") -- Add '-' in command 'w' to select word
-opt.guifont = { "JetBrainsMono Nerd Font Mono", ":h14" }
+opt.guifont = { "JetBrainsMono Nerd Font Mono", ":h13" }
 -- opt.guifont = { "MesloLGS NF", ":h11" }
 -- opt.guifont = {"Hack Nerd Font Mono", ":h11"}
 -- opt.guifont = {"SauceCodePro Nerd Font", ":h11"}
