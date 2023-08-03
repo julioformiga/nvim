@@ -97,6 +97,8 @@ end
 
 -- if you only want these mappings for toggle term use term://*toggleterm#* instead
 vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
+vim.cmd("autocmd! TermOpen term://* set nospell")
+vim.cmd("autocmd! TermEnter term://* set nospell")
 
 function ChangeScaleFactor(delta)
     vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * delta
