@@ -219,7 +219,7 @@ null_ls.setup({
     debug = false,
     sources = {
         null_ls.builtins.formatting.taplo,
-        null_ls.builtins.formatting.yq,
+        -- null_ls.builtins.formatting.yq,
         null_ls.builtins.formatting.beautysh,
         -- null_ls.builtins.formatting.black,
         null_ls.builtins.formatting.blue,
@@ -237,10 +237,10 @@ null_ls.setup({
         -- null_ls.builtins.formatting.jq,
         -- null_ls.builtins.diagnostics.vulture,
         null_ls.builtins.hover.dictionary,
-        null_ls.builtins.diagnostics.mypy.with({
-            extra_args = { "--ignore-missing-imports" },
-        }),
-        null_ls.builtins.diagnostics.pycodestyle,
+        -- null_ls.builtins.diagnostics.mypy.with({
+        --     extra_args = { "--ignore-missing-imports" },
+        -- }),
+        -- null_ls.builtins.diagnostics.pycodestyle,
         -- null_ls.builtins.diagnostics.write_good,
         null_ls.builtins.code_actions.refactoring, -- go, javascript, lua, python, typescript
         -- null_ls.builtins.diagnostics.luacheck,
@@ -587,7 +587,10 @@ vim.cmd([[ let g:startify_lists = [
 \ ]
 ]])
 
-require("aerial").setup()
+require("aerial").setup({
+    autojump = true,
+    close_on_select = true,
+})
 
 require("gitsigns").setup({
     signs = {
@@ -736,6 +739,7 @@ require("swenv").setup({
     -- Path passed to `get_venvs`.
     venvs_path = vim.fn.expand("~/.cache/pypoetry/virtualenvs"),
     -- Something to do after setting an environment, for example call vim.cmd.LspRestart
+    -- post_set_venv = nil,
     post_set_venv = vim.cmd.LspRestart,
 })
 

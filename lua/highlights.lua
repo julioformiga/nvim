@@ -1,7 +1,7 @@
 local navic = require("nvim-navic")
--- navic.setup {
---     highlight = false
--- }
+-- navic.setup({
+--     highlight = true,
+-- })
 local breadcrumbs = {
     function()
         return navic.get_location()

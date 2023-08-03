@@ -32,6 +32,7 @@ o.clipboard = [[unnamed,unnamedplus]]
 o.encoding = "UTF-8"
 o.cursorline = true
 
+opt.linespace = 0
 g.neovide_padding_top = 0
 g.neovide_padding_bottom = 0
 g.neovide_padding_right = 0
@@ -51,10 +52,10 @@ g.neovide_refresh_rate_idle = 10
 -- end
 -- g.neovide_background_color = "#0f1117" .. alpha()
 -- g:neovide_transparency should be 0 if you want to unify transparency of content and title bar.
-g.neovide_transparency = 1
-g.transparency = 1
-g.neovide_floating_blur_amount_x = 4.0
-g.neovide_floating_blur_amount_y = 4.0
+g.neovide_transparency = 0.90
+-- g.transparency = 1
+g.neovide_floating_blur_amount_x = 2.0
+g.neovide_floating_blur_amount_y = 2.0
 
 o.list = true
 -- o.shell = HOMEDIR .. '/.local/bin/xonsh'
