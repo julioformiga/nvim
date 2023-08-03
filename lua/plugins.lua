@@ -168,7 +168,8 @@ return require("packer").startup(function(use)
     use("https://github.com/mortepau/codicons.nvim")
 
     --  Focus + Editor
-    use("https://github.com/AckslD/swenv.nvim")
+    -- use("https://github.com/AckslD/swenv.nvim")
+    use("https://github.com/julioformiga/swenv.nvim")
     use({
         "https://github.com/kylechui/nvim-surround",
         tag = "*", -- Use for stability; omit to use `main` branch for the latest features
