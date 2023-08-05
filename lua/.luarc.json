@@ -1,6 +1,7 @@
 {
     "diagnostics.globals": [
-        "vim", "HOMEDIR"
+        "vim", "HOMEDIR",
+        "packer_bootstrap"
     ],
     "workspace.checkThirdParty": false
 }
