@@ -718,12 +718,17 @@ require("toggleterm").setup({
     },
     highlights = {
         Normal = {
-            guibg = "#070C11",
+            guibg = "#0F151E",
+            guifg = "#69AD43",
+            -- guifg = "#A4FF4F",
         },
         NormalFloat = {
-            guibg = "#070C11",
+            guibg = "#0F151E",
+            guifg = "#69AD43",
+            -- guifg = "#A4FF4F",
         },
     },
+    persist_mode = false,
     winbar = {
         enable = true,
     },
@@ -738,6 +743,8 @@ require("swenv").setup({
     end,
     -- Path passed to `get_venvs`.
     venvs_path = vim.fn.expand("~/.cache/pypoetry/virtualenvs"),
+    -- venvs_path = vim.fn.expand("~/dev/python/estudo/pdmproject"),
+    -- venvs_path = vim.fn.expand("~/.local/share/pdm/venvs"),
     -- Something to do after setting an environment, for example call vim.cmd.LspRestart
     -- post_set_venv = nil,
     post_set_venv = vim.cmd.LspRestart,

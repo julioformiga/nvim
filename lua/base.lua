@@ -44,15 +44,15 @@ g.neovide_remember_window_size = true
 g.neovide_cursor_antialiasing = true
 g.neovide_cursor_unfocused_outline_width = 0.125
 g.neovide_scroll_animation_length = 0.3
-g.neovide_refresh_rate = 120
-g.neovide_refresh_rate_idle = 10
+g.neovide_refresh_rate = 144
+g.neovide_refresh_rate_idle = 5
 -- Helper function for transparency formatting
 -- local alpha = function()
 --     return string.format("%x", math.floor((255 * g.transparency) or 0.95))
 -- end
 -- g.neovide_background_color = "#0f1117" .. alpha()
 -- g:neovide_transparency should be 0 if you want to unify transparency of content and title bar.
-g.neovide_transparency = 0.90
+g.neovide_transparency = 0.95
 -- g.transparency = 1
 g.neovide_floating_blur_amount_x = 2.0
 g.neovide_floating_blur_amount_y = 2.0
@@ -60,6 +60,7 @@ g.neovide_floating_blur_amount_y = 2.0
 o.list = true
 -- o.shell = HOMEDIR .. '/.local/bin/xonsh'
 o.shell = "/usr/bin/zsh"
+-- o.shell = "/usr/bin/bash"
 o.fillchars = [[eob: ,fold: ,foldopen:,foldsep:│,foldclose:]]
 o.foldcolumn = "5" -- '0' is not bad
 o.foldlevel = 99   -- Using ufo provider need a large value, feel free to decrease the value
@@ -76,7 +77,7 @@ opt.guifont = { "JetBrainsMono Nerd Font Mono", ":h13" }
 -- opt.guifont = {"RobotoMono Nerd Font Mono", ":h13"}
 -- opt.guifont = {"UbuntuMono Nerd Font Mono", ":h11"}
 -- opt.guifont = {"VictorMono Nerd Font Mono, Medium", ":h12"}
-opt.spell = true
+opt.spell = false
 opt.spelllang = { "en", "pt" }
 -- opt.completeopt = {'menu', 'menuone'}
 -- opt.completeopt = {'menu','noinsert','noselect'}
@@ -98,15 +99,15 @@ local disabled_built_ins = {
     "tar",
     "tarPlugin",
     "rrhelper",
-    "spellfile_plugin",
+    -- "spellfile_plugin",
     "vimball",
     "vimballPlugin",
     "zip",
     "zipPlugin",
     "tutor",
     "rplugin",
-    "synmenu",
-    "optwin",
+    -- "synmenu",
+    -- "optwin",
     -- "compiler",
     -- "bugreport",
     "ftplugin",

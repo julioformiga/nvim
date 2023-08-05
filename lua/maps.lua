@@ -69,13 +69,13 @@ local aucmd_dict = {
 map("n", "<leader>S", '<cmd>lua require("spectre").open()<CR>', {
     desc = "Open Spectre",
 })
-map("n", "<leader>sw", '<cmd>lua require("spectre").open_visual({select_word=true})<CR>', {
+map("n", "<leader>Sw", '<cmd>lua require("spectre").open_visual({select_word=true})<CR>', {
     desc = "Search current word",
 })
-map("v", "<leader>sw", '<esc><cmd>lua require("spectre").open_visual()<CR>', {
+map("v", "<leader>Sw", '<esc><cmd>lua require("spectre").open_visual()<CR>', {
     desc = "Search current word",
 })
-map("n", "<leader>sp", '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', {
+map("n", "<leader>Sp", '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', {
     desc = "Search on current file",
 })
 for event, opt_tbls in pairs(aucmd_dict) do
@@ -87,18 +87,19 @@ end
 function _G.set_terminal_keymaps()
     local opts = { buffer = 0 }
     vim.keymap.set("t", "<ESC>", [[<C-\><C-n><CMD>wincmd k<CR>]], opts)
-    vim.keymap.set("t", "<C-q>", [[<C-\><C-n><CMD>ToggleTerm<CR>]], opts)
+    vim.keymap.set("t", "<C-q>", [[<C-\><C-n>]], opts)
     vim.keymap.set("t", "<A-q>", [[<C-\><C-n><CMD>ToggleTerm<CR>]], opts)
-    vim.keymap.set("t", "<C-h>", [[<CMD>wincmd h<CR>]], opts)
-    vim.keymap.set("t", "<C-j>", [[<CMD>wincmd j<CR>]], opts)
-    vim.keymap.set("t", "<C-k>", [[<CMD>wincmd k<CR>]], opts)
-    vim.keymap.set("t", "<C-l>", [[<CMD>wincmd l<CR>]], opts)
+    -- vim.keymap.set("t", "<C-h>", [[<CMD>wincmd h<CR>]], opts)
+    -- vim.keymap.set("t", "<C-j>", [[<CMD>wincmd j<CR>]], opts)
+    -- vim.keymap.set("t", "<C-k>", [[<CMD>wincmd k<CR>]], opts)
+    -- vim.keymap.set("t", "<C-l>", [[<CMD>wincmd l<CR>]], opts)
 end
 
 -- if you only want these mappings for toggle term use term://*toggleterm#* instead
 vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
-vim.cmd("autocmd! TermOpen term://* set nospell")
 vim.cmd("autocmd! TermEnter term://* set nospell")
+map("t", "<ESC>", "<C-\\><C-n><CMD>wincmd k<CR>")
+map("t", "<A-q>", "<C-\\><C-n><CMD>ToggleTerm<CR>")
 
 function ChangeScaleFactor(delta)
     vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * delta
@@ -129,7 +130,7 @@ map("n", "<leader>gd", "<CMD>Gitsigns diffthis<CR>", { noremap = true, silent = 
 map("n", "<A-e>", "<CMD>NeoTreeFloatToggle<CR>", { noremap = true, silent = true })
 -- map('n', '<A-b>', '<CMD>NeoTreeFloat buffers<CR>', {noremap = true, silent = true})
 map("n", "<A-b>", "<CMD>Telescope buffers<CR>", { noremap = true, silent = true })
-map("n", "<leader>r", ':so %<CR><CMD>echo "Settings reload!"<CR>') -- Reload configuration without restart nvim
+map("n", "<leader>r", ':so %<CR><CMD>echo "Settings reload!"<CR>')
 map("n", "<leader>e", "<CMD>TroubleToggle document_diagnostics<CR>")
 map("n", "<leader>E", "<CMD>TroubleToggle workspace_diagnostics<CR>")
 map("n", "<leader>u", "<CMD>PackerUpdate<CR><CMD>Mason<CR>")
@@ -143,6 +144,7 @@ map("n", "<leader>a", "<CMD>AerialToggle float<cr>")
 map("n", "<A-z>", "<CMD>ZenMode<CR>")
 map("n", "<F1>", "<CMD>Header42<CR>")
 map("n", "<A-CR>", ":", { noremap = true, silent = false })
+map("", "<leader>s", "<CMD>set spell!<CR>")
 
 -- Not rewrite clipboard
 -- map('n', 'd', '"_d')
@@ -173,7 +175,7 @@ map("n", "<F10>", "<CMD>DapTerminate<CR>")
 map("n", "<F12>", '<CMD>lua require("dapui").toggle()<CR>')
 
 -- Windows and Tabs
-map("n", "<C-tab>", "<C-w>w") -- Alternate
+map("", "<leader><Tab>", "<C-w>w") -- Alternate
 map("n", "<C-S-Up>", "<C-w><Up>")
 map("n", "<C-S-Down>", "<C-w><Down>")
 map("n", "<C-S-Left>", "<C-w><Left>")
