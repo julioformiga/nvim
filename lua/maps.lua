@@ -108,17 +108,17 @@ end
 map("n", "<C-=>", ":lua ChangeScaleFactor(1.1)<CR>")
 map("n", "<C-->", ":lua ChangeScaleFactor(1/1.1)<CR>")
 
+-- Go to URL in current line
 M = {}
 M.HandleURL = function()
-    local url = string.match(vim.fn.getline("."), "[a-z]*://[^ >,;]*")
+    local url = string.match(vim.fn.getline("."), "%f[%a]([a-zA-Z]+://[^%s,;\"'<>%(%)]*)")
     if url ~= "" then
         vim.cmd("exec '!xdg-open " .. url .. "'")
     else
         vim.cmd('echo "No URI found in line."')
     end
 end
-
-map("n", "gf", "<Cmd>lua M.HandleURL()<CR>")
+map("n", "gu", "<Cmd>lua M.HandleURL()<CR>")
 
 -- Find files using Telescope command-line sugar.
 map("n", "<leader>ff", "<CMD>Telescope find_files<CR>")
