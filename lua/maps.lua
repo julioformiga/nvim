@@ -88,7 +88,7 @@ function _G.set_terminal_keymaps()
     local opts = { buffer = 0 }
     vim.keymap.set("t", "<ESC>", [[<C-\><C-n><CMD>wincmd k<CR>]], opts)
     vim.keymap.set("t", "<C-q>", [[<C-\><C-n>]], opts)
-    vim.keymap.set("t", "<A-q>", [[<C-\><C-n><CMD>ToggleTerm<CR>]], opts)
+    -- vim.keymap.set("t", "<A-q>", [[<C-\><C-n><CMD>ToggleTerm<CR>]], opts)
     -- vim.keymap.set("t", "<C-h>", [[<CMD>wincmd h<CR>]], opts)
     -- vim.keymap.set("t", "<C-j>", [[<CMD>wincmd j<CR>]], opts)
     -- vim.keymap.set("t", "<C-k>", [[<CMD>wincmd k<CR>]], opts)
@@ -98,8 +98,11 @@ end
 -- if you only want these mappings for toggle term use term://*toggleterm#* instead
 vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
 vim.cmd("autocmd! TermEnter term://* set nospell")
+
 map("t", "<ESC>", "<C-\\><C-n><CMD>wincmd k<CR>")
-map("t", "<A-q>", "<C-\\><C-n><CMD>ToggleTerm<CR>")
+map("t", "<A-q>", "<C-\\><C-n>")
+map("t", "<A-1>", "<C-\\><C-n><CMD>ToggleTerm<CR>")
+map("t", "<A-2>", "<C-\\><C-n><CMD>ToggleTerm<CR>")
 
 function ChangeScaleFactor(delta)
     vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * delta
@@ -118,7 +121,7 @@ M.HandleURL = function()
         vim.cmd('echo "No URI found in line."')
     end
 end
-map("n", "gu", "<Cmd>lua M.HandleURL()<CR>")
+map("n", "gf", "<Cmd>lua M.HandleURL()<CR>")
 
 -- Find files using Telescope command-line sugar.
 map("n", "<leader>ff", "<CMD>Telescope find_files<CR>")
@@ -229,6 +232,7 @@ map("v", "<A-Down>", "<ESC><CMD>'<,'>m '>+1<CR>gv=gv")
 
 -- Normal and Visual mode
 map("n", "<CR>", "i")
+map("n", "<C-i>", "<C-I>")
 map("n", "<leader>tr", "<CMD>Telescope registers<CR>")
 map("n", "<A-l>", "w")
 map("n", "<A-[>", "ysiw", { noremap = false, silent = true })
