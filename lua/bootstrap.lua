@@ -223,7 +223,9 @@ null_ls.setup({
         null_ls.builtins.formatting.beautysh,
         -- null_ls.builtins.formatting.black,
         null_ls.builtins.formatting.blue,
-        null_ls.builtins.formatting.ruff,
+        null_ls.builtins.formatting.ruff.with({
+            extra_args = { "--ignore-unused" },
+        }),
         null_ls.builtins.formatting.rustfmt,
         null_ls.builtins.formatting.stylua,
         -- null_ls.builtins.formatting.lua_format,
