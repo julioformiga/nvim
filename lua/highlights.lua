@@ -104,6 +104,7 @@ require("lualine").setup({
 require("bufferline").setup({
     options = {
         mode = "buffers", -- set to "tabs" to only show tabpages instead
+        themable = true,
         numbers = "none", -- "buffer_id"
         close_command = "bdelete! %d", -- can be a string | function, see "Mouse actions"
         right_mouse_command = "bdelete! %d", -- can be a string | function, see "Mouse actions"
@@ -122,7 +123,7 @@ require("bufferline").setup({
         max_prefix_length = 15, -- prefix used when a buffer is de-duplicated
         truncate_names = true, -- whether or not tab names should be truncated
         tab_size = 18,
-        diagnostics = "coc",
+        diagnostics = "false",
         diagnostics_update_in_insert = false,
         offsets = {
             {
@@ -148,6 +149,7 @@ require("bufferline").setup({
             reveal = { "close" },
         },
         sort_by = "insert_at_end",
+        -- sort_by = "relative_directory",
         -- 'insert_after_current' |'insert_at_end' | 'id' | 'extension' | 'relative_directory' | 'directory' | 'tabs'
     },
 })
@@ -155,7 +157,6 @@ require("bufferline").setup({
 require("catppuccin").setup({
     flavour = "mocha", -- latte, frappe, macchiato, mocha
     background = {
-        -- :h background
         light = "latte",
         dark = "mocha",
     },
