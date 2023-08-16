@@ -312,7 +312,7 @@ local lsp_on_attach = function(client, bufnr)
 end
 
 local lsp_flags = {
-    debounce_text_changes = 150,
+    debounce_text_changes = 250,
 }
 
 -- For C++ in Ubuntu: sudo apt install g++-12
@@ -416,12 +416,6 @@ local handler = function(virtText, lnum, endLnum, width, truncate)
     return newVirtText
 end
 
--- Folder
--- local ftMap = {
---     vim = 'indent',
---     python = { 'indent' },
---     git = ''
--- }
 require("ufo").setup({
     open_fold_hl_timeout = 150,
     enable_get_fold_virt_text = true,
@@ -452,13 +446,6 @@ require("ufo").setup({
 })
 -- End Folder
 
-local signs = {
-    Error = " ",
-    Warn = " ",
-    Hint = " ",
-    Info = " ",
-}
-
 -- Function to check if a floating dialog exists and if not
 -- then check for diagnostics under the cursor
 function OpenDiagnosticIfNoFloat()
@@ -481,6 +468,18 @@ function OpenDiagnosticIfNoFloat()
     })
 end
 
+local signs = {
+    Error = " ",
+    Warn = " ",
+    Hint = " ",
+    Info = " ",
+}
+
+for type, icon in pairs(signs) do
+    local hl = "DiagnosticSign" .. type
+    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+end
+
 -- Show diagnostics under the cursor when holding position
 vim.api.nvim_create_augroup("lsp_diagnostics_hold", { clear = true })
 vim.api.nvim_create_autocmd({ "CursorHold" }, {
@@ -490,94 +489,10 @@ vim.api.nvim_create_autocmd({ "CursorHold" }, {
 })
 -- require('lspconfig.ui.windows').default_options.border = 'rounded'
 
--- require("neotest").setup({
---   adapters = {
---     require("neotest-python")({
---       dap = { justMyCode = false },
---     }),
---     require("neotest-vitest"),
---     require("neotest-plenary"),
---   },
--- })
-
-for type, icon in pairs(signs) do
-    local hl = "DiagnosticSign" .. type
-    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-end
 require("nvim-autopairs").setup()
 require("nvim-ts-autotag").setup()
 
-require("neodev").setup({
-    library = { plugins = { "nvim-dap-ui", "neotest" }, types = true },
-})
-
-require("codicons").setup()
-
--- require("dap").setup()
--- local dap = require('dap')
--- dap.configurations.python = {
---   {
---     type = 'python';
---     request = 'launch';
---     name = "Launch file";
---     program = "${file}";
---     pythonPath = function()
---       return '/usr/bin/python'
---     end;
---   },
--- }
-require("dap-python").setup(".venv/bin/python")
-require("nvim-dap-virtual-text").setup()
-require("dapui").setup()
--- require("dapui").open()
-local dap, dapui = require("dap"), require("dapui")
-dap.adapters.codelldb = {
-    type = "server",
-    host = "127.0.0.1",
-    port = 13000,
-    executable = {
-        command = "/home/julio/.local/share/nvim/mason/bin/codelldb",
-        args = { "--port", "13000" },
-    },
-}
-
-dap.configurations.c = {
-    {
-        type = "codelldb",
-        request = "launch",
-        -- program = function()
-        --     return vim.fn.input('Path to executable: ', vim.fn.getcwd()..'/', 'file')
-        -- end,
-        program = "${fileDirname}/${fileBasenameNoExtension}",
-        -- program = '/home/julio/.local/share/nvim/mason/bin/codelldb',
-        cwd = "${workspaceFolder}",
-        terminal = "integrated",
-    },
-}
--- dap.configurations.cpp = dap.configurations.c
-dap.listeners.after.event_initialized["dapui_config"] = function()
-    dapui.open()
-end
--- dap.listeners.before.event_terminated["dapui_config"] = function()
---   dapui.close()
--- end
--- dap.listeners.before.event_exited["dapui_config"] = function()
---   dapui.close()
--- end
-
-vim.cmd([[ let g:ascii = [
-\ '',
-\ '',
-\ '   ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗  ',
-\ '   ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║  ',
-\ '   ██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║  ',
-\ '   ██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║  ',
-\ '   ██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║  ',
-\ '   ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝  ',
-\ '',
-\ '']
-]])
-vim.cmd([[ let g:startify_custom_header = g:ascii ]])
+vim.cmd([[ let g:startify_custom_header = g:boot_ascii ]])
 vim.cmd([[ let g:startify_session_autoload = 1 ]])
 vim.cmd([[ let g:startify_session_persistence = 1 ]])
 vim.cmd([[ let g:startify_lists = [
@@ -700,8 +615,6 @@ require("nvim-treesitter.configs").setup({
     },
 })
 
-require("nvim-ts-autotag").setup()
-
 require("nvim_comment").setup({
     hook = function()
         if vim.api.nvim_buf_get_option(0, "filetype") == "vue" then
@@ -736,6 +649,7 @@ require("toggleterm").setup({
     },
 })
 
+-- Select Python venv
 require("swenv").setup({
     -- Should return a list of tables with a `name` and a `path` entry each.
     -- Gets the argument `venvs_path` set below.

@@ -59,17 +59,17 @@ return require("packer").startup(function(use)
     use("https://github.com/hrsh7th/cmp-path")
     use("https://github.com/hrsh7th/cmp-cmdline")
 
-    -- use {
-    --     "https://github.com/nvim-neotest/neotest",
-    --     requires = {
-    --         "https://github.com/nvim-lua/plenary.nvim",
-    --         "https://github.com/nvim-treesitter/nvim-treesitter",
-    --         "https://github.com/antoinemadec/FixCursorHold.nvim",
-    --         "https://github.com/nvim-neotest/neotest-python",
-    --         "https://github.com/nvim-neotest/neotest-plenary",
-    --         "https://github.com/marilari88/neotest-vitest",
-    --     }
-    -- }
+    use({
+        "https://github.com/nvim-neotest/neotest",
+        requires = {
+            "https://github.com/nvim-lua/plenary.nvim",
+            "https://github.com/nvim-treesitter/nvim-treesitter",
+            "https://github.com/antoinemadec/FixCursorHold.nvim",
+            "https://github.com/nvim-neotest/neotest-python",
+            "https://github.com/nvim-neotest/neotest-plenary",
+            "https://github.com/marilari88/neotest-vitest",
+        },
+    })
 
     -- SNIPPETS ------------------
     -- use('https://github.com/hrsh7th/cmp-vsnip')
