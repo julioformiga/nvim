@@ -109,7 +109,7 @@ function ChangeScaleFactor(delta)
 end
 
 map("n", "<C-=>", ":lua ChangeScaleFactor(1.1)<CR>")
-map("n", "<C-->", ":lua ChangeScaleFactor(1/1.1)<CR>")
+map("n", "<C-->", ":lua ChangeScaleFactor(0.9)<CR>")
 
 -- Go to URL in current line
 M = {}
@@ -190,10 +190,13 @@ map("n", "<C-S-L>", "<CMD>vertical resize +4<CR>")
 map("n", "<C-S-PageUp>", "<CMD>BufferLineMovePrev<CR>")
 map("n", "<C-S-PageDown>", "<CMD>BufferLineMoveNext<CR>")
 
-map("n", "<A-->", '"_dd')
-map("i", "<A-->", '<ESC>"_ddi')
-map("n", "<C-d>", '"_dd')
-map("i", "<C-d>", '<ESC>"_ddi')
+-- map("n", "<A-->", '"_dd')
+-- map("i", "<A-->", '<ESC>"_ddi')
+-- map("n", "<C-d>", '"_dd')
+-- map("i", "<C-d>", '<ESC>"_ddi')
+map("n", "<A-d>", "yyp")
+map("i", "<A-d>", "<ESC>yypi")
+map("v", "<A-d>", "ygv<ESC>p")
 map("n", "<C-s>", "<CMD>w<CR>")
 map("n", "<A-s>", "<CMD>w<CR>")
 map("i", "<A-s>", "<ESC><CMD>w<CR>")
@@ -218,9 +221,6 @@ map("i", "<C-PageUp>", "<ESC><CMD>bprevious<CR>")
 map("n", "<C-PageDown>", "<CMD>bnext<CR>")
 map("n", "<C-PageUp>", "<CMD>bprevious<CR>")
 map("n", "<A-a>", "ggVGo")
-map("i", "<A-d>", "<ESC>yypi")
-map("n", "<A-d>", "yyp")
-map("v", "<A-d>", "ygv<ESC>p")
 
 -- Move lines up and down
 map("i", "<A-Up>", "<ESC><CMD>m .-2<CR>==gi")
@@ -250,6 +250,7 @@ map("n", "<A-End>", "<CMD>vertical resize +2<CR>")
 map("n", "<A-Del>", "ce")
 map("n", "<A-Backspace>", "cb")
 map("n", "<A-x>", '"_dd')
+map("i", "<A-x>", '<ESC>"_dd')
 map("n", "<A-o>", "o<ESC>")
 -- map('n', '<A-x>', '"_dw')
 
@@ -337,3 +338,7 @@ map("n", "<leader>c", '<CMD>nohl<CR><CMD>echo "Search Cleared"<CR>')
 
 map("n", "<C-c>", "<CMD>PickColor<CR>", { noremap = true, silent = true })
 map("i", "<C-c>", "<CMD>PickColorInsert<CR>", { noremap = true, silent = true })
+
+-- Debug + tests
+-- map("", "<F4>", "<CMD>lua require('neotest').summary.toggle()<CR>", { noremap = true, silent = true })
+map("", "<leader>tt", "<CMD>lua require('neotest').summary.toggle()<CR>")

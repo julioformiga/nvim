@@ -38,7 +38,7 @@ g.neovide_padding_bottom = 0
 g.neovide_padding_right = 0
 g.neovide_padding_left = 0
 g.neovide_cursor_vfx_mode = "railgun"
--- g.neovide_scale_factor = 0.9
+g.neovide_scale_factor = 1
 g.neovide_cursor_animate_in_insert_mode = false
 g.neovide_remember_window_size = true
 g.neovide_cursor_antialiasing = true
@@ -46,16 +46,19 @@ g.neovide_cursor_unfocused_outline_width = 0.125
 g.neovide_scroll_animation_length = 0.3
 g.neovide_refresh_rate = 144
 g.neovide_refresh_rate_idle = 5
--- Helper function for transparency formatting
--- local alpha = function()
---     return string.format("%x", math.floor((255 * g.transparency) or 0.95))
--- end
--- g.neovide_background_color = "#0f1117" .. alpha()
--- g:neovide_transparency should be 0 if you want to unify transparency of content and title bar.
 g.neovide_transparency = 0.95
 -- g.transparency = 1
-g.neovide_floating_blur_amount_x = 2.0
-g.neovide_floating_blur_amount_y = 2.0
+-- Helper function for transparency formatting
+-- g:neovide_transparency should be 0 if you want to unify transparency of content and title bar.
+-- local alpha = function()
+--     return string.format("%x", math.floor((255 * g.transparency) or 0.8))
+-- end
+-- g.neovide_transparency = 0.8
+-- g.transparency = 0.8
+-- g.neovide_background_color = "#0f1117" .. alpha()
+-- g.neovide_window_floating_blur = 0.8
+-- g.neovide_floating_blur_amount_x = 2.0
+-- g.neovide_floating_blur_amount_y = 2.0
 
 o.list = true
 -- o.shell = HOMEDIR .. '/.local/bin/xonsh'
@@ -70,13 +73,14 @@ o.foldenable = true
 -- opt.foldexpr = "nvim_treesitter#foldexpr()"
 opt.termguicolors = true
 opt.iskeyword:append("-") -- Add '-' in command 'w' to select word
-opt.guifont = { "JetBrainsMono Nerd Font Mono", ":h13" }
+opt.guifont = { "JetBrains Mono NL", ":h12" }
+-- opt.guifont = { "JetBrainsMono Nerd Font Mono", ":h13" }
 -- opt.guifont = { "MesloLGS NF", ":h11" }
--- opt.guifont = {"Hack Nerd Font Mono", ":h11"}
+-- opt.guifont = { "Hack Nerd Font Mono", ":h13" }
 -- opt.guifont = {"SauceCodePro Nerd Font", ":h11"}
--- opt.guifont = {"RobotoMono Nerd Font Mono", ":h13"}
--- opt.guifont = {"UbuntuMono Nerd Font Mono", ":h11"}
--- opt.guifont = {"VictorMono Nerd Font Mono, Medium", ":h12"}
+-- opt.guifont = { "RobotoMono Nerd Font Mono", ":h13" }
+-- opt.guifont = { "UbuntuMono Nerd Font Mono", ":h13" }
+-- opt.guifont = { "VictorMono Nerd Font Mono, Medium", ":h12" }
 opt.spell = false
 opt.spelllang = { "en", "pt" }
 -- opt.completeopt = {'menu', 'menuone'}

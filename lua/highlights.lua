@@ -30,6 +30,24 @@ require("neo-tree").setup({
         },
     },
 })
+local mode_map = {
+    ["NORMAL"] = "NORM",
+    ["O-PENDING"] = "O-PE",
+    ["INSERT"] = "INSE",
+    ["VISUAL"] = "VISU",
+    ["V-BLOCK"] = "V-BL",
+    ["V-LINE"] = "V-LI",
+    ["V-REPLACE"] = "V-RE",
+    ["REPLACE"] = "REPL",
+    ["COMMAND"] = "COM!",
+    ["SHELL"] = "SHEL",
+    ["TERMINAL"] = "TERM",
+    ["EX"] = "EXE:",
+    ["S-BLOCK"] = "S-BL",
+    ["S-LINE"] = "S-LI",
+    ["SELECT"] = "SELE",
+    ["CONFIRM"] = "OK ?",
+}
 require("lualine").setup({
     options = {
         icons_enabled = true,
@@ -58,11 +76,18 @@ require("lualine").setup({
         },
     },
     sections = {
-        lualine_a = { "mode" },
+        lualine_a = {
+            {
+                "mode",
+                fmt = function(s)
+                    return mode_map[s] or s
+                end,
+            },
+        },
         lualine_b = { "branch", "diff", "diagnostics" },
         lualine_c = { { "filename", path = 4 } },
         -- lualine_x = { "encoding", "fileformat", "filetype" },
-        lualine_x = { { "swenv", icon = "" }, "fileformat", "filetype" },
+        lualine_x = { { "swenv", icon = "" }, { "filetype", icon_only = true } },
         lualine_y = { "progress" },
         lualine_z = { "location" },
     },
