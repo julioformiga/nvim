@@ -178,7 +178,7 @@ map("n", "<F10>", "<CMD>DapTerminate<CR>")
 map("n", "<F12>", '<CMD>lua require("dapui").toggle()<CR>')
 
 -- Windows and Tabs
-map("", "<leader><Tab>", "<C-w>w") -- Alternate
+map("", "<leader><Tab>", "<C-w>w")
 map("n", "<C-S-Up>", "<C-w><Up>")
 map("n", "<C-S-Down>", "<C-w><Down>")
 map("n", "<C-S-Left>", "<C-w><Left>")
@@ -196,7 +196,7 @@ map("n", "<C-S-PageDown>", "<CMD>BufferLineMoveNext<CR>")
 -- map("i", "<C-d>", '<ESC>"_ddi')
 map("n", "<A-d>", "yyp")
 map("i", "<A-d>", "<ESC>yypi")
-map("v", "<A-d>", "ygv<ESC>p")
+map("v", "<A-d>", "ygv<ESC>pgv")
 map("n", "<C-s>", "<CMD>w<CR>")
 map("n", "<A-s>", "<CMD>w<CR>")
 map("i", "<A-s>", "<ESC><CMD>w<CR>")
