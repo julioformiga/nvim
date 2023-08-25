@@ -35,7 +35,7 @@ vim.api.nvim_create_autocmd("FileType", {
         vim.opt_local.expandtab = false
     end,
 })
--- require("norminette").setup()
+require("norminette").setup()
 
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
     pattern = { "*" },
@@ -230,8 +230,8 @@ null_ls.setup({
         null_ls.builtins.formatting.stylua,
         -- null_ls.builtins.formatting.lua_format,
         -- null_ls.builtins.diagnostics.cpplint,
-        null_ls.builtins.formatting.clang_format,
-        null_ls.builtins.formatting.astyle,
+        -- null_ls.builtins.formatting.clang_format,
+        -- null_ls.builtins.formatting.astyle,
         -- null_ls.builtins.formatting.prettierd,
         -- null_ls.builtins.formatting.prettier,
         -- null_ls.builtins.formatting.mdformat,
@@ -416,34 +416,34 @@ local handler = function(virtText, lnum, endLnum, width, truncate)
     return newVirtText
 end
 
-require("ufo").setup({
-    open_fold_hl_timeout = 150,
-    enable_get_fold_virt_text = true,
-    close_fold_kinds = { "imports", "comment" },
-    preview = {
-        win_config = {
-            -- border = {'', '─', '', '', '', '─', '', ''},
-            border = "rounded",
-            winhighlight = "Normal:Folded",
-            -- winhighlight = 'Normal:Normal',
-            winblend = 12,
-            maxheight = 20,
-        },
-        mappings = {
-            scrollU = "<C-u>",
-            scrollD = "<C-d>",
-            jumpTop = "[",
-            jumpBot = "]",
-        },
-    },
-    fold_virt_text_handler = handler,
-    provider_selector = function(bufnr, filetype, buftype)
-        -- if you prefer treesitter provider rather than lsp,
-        -- return ftMap[filetype] or {'treesitter', 'indent'}
-        return { "treesitter", "indent" }
-        -- return ftMap[filetype]
-    end,
-})
+-- require("ufo").setup({
+--     open_fold_hl_timeout = 250,
+--     enable_get_fold_virt_text = true,
+--     close_fold_kinds = { "imports", "comment" },
+--     preview = {
+--         win_config = {
+--             -- border = {'', '─', '', '', '', '─', '', ''},
+--             border = "rounded",
+--             winhighlight = "Normal:Folded",
+--             -- winhighlight = 'Normal:Normal',
+--             winblend = 12,
+--             maxheight = 20,
+--         },
+--         -- mappings = {
+--         --     scrollU = "<C-u>",
+--         --     scrollD = "<C-d>",
+--         --     jumpTop = "[",
+--         --     jumpBot = "]",
+--         -- },
+--     },
+--     fold_virt_text_handler = handler,
+--     provider_selector = function(bufnr, filetype, buftype)
+--         -- if you prefer treesitter provider rather than lsp,
+--         -- return ftMap[filetype] or {'treesitter', 'indent'}
+--         return { "treesitter", "indent" }
+--         -- return ftMap[filetype]
+--     end,
+-- })
 -- End Folder
 
 -- Function to check if a floating dialog exists and if not
