@@ -157,7 +157,7 @@ return require("packer").startup(function(use)
     use({ "https://github.com/kevinhwang91/nvim-ufo", requires = "https://github.com/kevinhwang91/promise-async" })
     use("https://github.com/lewis6991/hover.nvim")
     -- 42
-    -- use{'hardyrafael17/norminette42.nvim'}
+    use({ "https://github.com/hardyrafael17/norminette42.nvim" })
 
     -- DEBUG
     use("https://github.com/folke/neodev.nvim")
