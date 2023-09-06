@@ -170,6 +170,12 @@ return require("packer").startup(function(use)
     -- use("https://github.com/AckslD/swenv.nvim")
     use("https://github.com/julioformiga/swenv.nvim")
     use({
+        "https://github.com/danymat/neogen",
+        config = function()
+            require("neogen").setup({})
+        end,
+    })
+    use({
         "https://github.com/kylechui/nvim-surround",
         tag = "*", -- Use for stability; omit to use `main` branch for the latest features
         config = function()
