@@ -330,9 +330,9 @@ local lspservers = {
     "rust_analyzer",
     "marksman",
     "cssmodules_ls",
-    "rome",
+    "biome",
     "eslint",
-    "emmet_ls",
+    "emmet_language_server",
     "html",
     "tsserver",
     "jsonls",
@@ -416,34 +416,34 @@ local handler = function(virtText, lnum, endLnum, width, truncate)
     return newVirtText
 end
 
--- require("ufo").setup({
---     open_fold_hl_timeout = 250,
---     enable_get_fold_virt_text = true,
---     close_fold_kinds = { "imports", "comment" },
---     preview = {
---         win_config = {
---             -- border = {'', '─', '', '', '', '─', '', ''},
---             border = "rounded",
---             winhighlight = "Normal:Folded",
---             -- winhighlight = 'Normal:Normal',
---             winblend = 12,
---             maxheight = 20,
---         },
---         -- mappings = {
---         --     scrollU = "<C-u>",
---         --     scrollD = "<C-d>",
---         --     jumpTop = "[",
---         --     jumpBot = "]",
---         -- },
---     },
---     fold_virt_text_handler = handler,
---     provider_selector = function(bufnr, filetype, buftype)
---         -- if you prefer treesitter provider rather than lsp,
---         -- return ftMap[filetype] or {'treesitter', 'indent'}
---         return { "treesitter", "indent" }
---         -- return ftMap[filetype]
---     end,
--- })
+require("ufo").setup({
+    open_fold_hl_timeout = 250,
+    enable_get_fold_virt_text = true,
+    close_fold_kinds = { "imports", "comment" },
+    preview = {
+        win_config = {
+            -- border = {'', '─', '', '', '', '─', '', ''},
+            border = "rounded",
+            winhighlight = "Normal:Folded",
+            -- winhighlight = 'Normal:Normal',
+            winblend = 12,
+            maxheight = 20,
+        },
+        -- mappings = {
+        --     scrollU = "<C-u>",
+        --     scrollD = "<C-d>",
+        --     jumpTop = "[",
+        --     jumpBot = "]",
+        -- },
+    },
+    fold_virt_text_handler = handler,
+    provider_selector = function(bufnr, filetype, buftype)
+        -- if you prefer treesitter provider rather than lsp,
+        -- return ftMap[filetype] or {'treesitter', 'indent'}
+        return { "treesitter", "indent" }
+        -- return ftMap[filetype]
+    end,
+})
 -- End Folder
 
 -- Function to check if a floating dialog exists and if not
