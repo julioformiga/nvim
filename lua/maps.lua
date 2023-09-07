@@ -33,14 +33,14 @@ local aucmd_dict = {
                 map(
                     "n",
                     "<leader><CR>",
-                    '<ESC><CMD>2TermExec cmd="cc % -Wall -Wextra -Werror -o main && ./main" direction=horizontal<CR>'
+                    '<ESC><CMD>2TermExec cmd="cc % -Wall -Wextra -Werror -g -o main && ./main" direction=horizontal<CR>'
                 )
                 -- map('n', '<leader><CR>', '<ESC><CMD>2TermExec cmd="cc % -lm -o main && ./main" direction=vertical<CR>')
-                map(
-                    "n",
-                    "<leader><CR><CR>",
-                    '<ESC><CMD>2TermExec cmd="cc % -lm -o main && ./main" direction=horizontal<CR><C-w><C-w>'
-                )
+                -- map(
+                --     "n",
+                --     "<leader><CR><CR>",
+                --     '<ESC><CMD>2TermExec cmd="cc % -Wall -Wextra -Werror -g -o main && ./main" direction=horizontal<CR><C-w><C-w>'
+                -- )
             end,
         },
         {
