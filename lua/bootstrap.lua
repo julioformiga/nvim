@@ -21,22 +21,6 @@ vim.api.nvim_create_autocmd("FileType", {
     end,
 })
 
--- 42
-vim.api.nvim_create_autocmd("FileType", {
-    pattern = {
-        "c",
-        "cpp",
-        "arduino",
-    },
-    callback = function()
-        vim.opt_local.shiftwidth = 4
-        vim.opt_local.tabstop = 4
-        vim.opt_local.softtabstop = 4
-        vim.opt_local.expandtab = false
-    end,
-})
-require("norminette").setup()
-
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
     pattern = { "*" },
     command = [[%s/\s\+$//e]],
@@ -46,15 +30,6 @@ vim.g.VM_maps = {
     ["I BS"] = "", -- disable backspace mapping, to resolve incompatibility with multi select
 }
 
-require("indent_blankline").setup({
-    space_char_blankline = " ",
-    show_current_context = true,
-    filetype_exclude = { "dashboard" },
-})
-
--- ============ Bug with Neovim https://github.com/neovim/neovim/issues/22344 ===============
--- ============ Bug with Noice https://github.com/folke/noice.nvim/issues/17 ===============
--- ============ Bug with Neovide https://github.com/neovide/neovide/issues/1751 ===============
 -- if not vim.g.neovide then
 require("noice").setup({
     lsp = {
@@ -74,17 +49,6 @@ require("noice").setup({
     -- },
 })
 -- end
-
-require("telescope").setup({
-    defaults = {
-        mappings = {
-            i = { ["<A-q>"] = require("telescope.actions").close },
-            n = { ["<A-q>"] = require("telescope.actions").close },
-        },
-    },
-})
-require("mason").setup()
-require("mason-lspconfig").setup()
 
 local has_words_before = function()
     unpack = unpack or table.unpack
@@ -191,28 +155,6 @@ cmp.setup.cmdline(":", {
     }),
 })
 
-require("hover").setup({
-    init = function()
-        -- Require providers
-        require("hover.providers.lsp")
-        -- require('hover.providers.gh')
-        -- require('hover.providers.gh_user')
-        -- require('hover.providers.jira')
-        require("hover.providers.man")
-        require("hover.providers.dictionary")
-    end,
-    preview_opts = {
-        border = "rounded",
-    },
-    -- Whether the contents of a currently open hover window should be moved
-    -- to a :h preview-window when pressing the hover keymap.
-    preview_window = false,
-    title = true,
-})
--- Setup keymaps
-vim.keymap.set("n", "K", require("hover").hover, { desc = "hover.nvim" })
-vim.keymap.set("n", "gK", require("hover").hover_select, { desc = "hover.nvim (select)" })
-
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 local null_ls = require("null-ls")
 null_ls.setup({
@@ -292,7 +234,7 @@ local lsp_on_attach = function(client, bufnr)
     vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
     vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts)
     vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
-    vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
+    -- vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
     vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
     vim.keymap.set("n", "gsh", vim.lsp.buf.signature_help, bufopts)
     vim.keymap.set("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, bufopts)
@@ -312,7 +254,7 @@ local lsp_on_attach = function(client, bufnr)
 end
 
 local lsp_flags = {
-    debounce_text_changes = 250,
+    debounce_text_changes = 150,
 }
 
 -- For C++ in Ubuntu: sudo apt install g++-12
@@ -489,9 +431,6 @@ vim.api.nvim_create_autocmd({ "CursorHold" }, {
 })
 -- require('lspconfig.ui.windows').default_options.border = 'rounded'
 
-require("nvim-autopairs").setup()
-require("nvim-ts-autotag").setup()
-
 vim.cmd([[ let g:startify_custom_header = g:boot_ascii ]])
 vim.cmd([[ let g:startify_session_autoload = 1 ]])
 vim.cmd([[ let g:startify_session_persistence = 1 ]])
@@ -503,11 +442,6 @@ vim.cmd([[ let g:startify_lists = [
     \ { 'type': 'commands',  'header': ['   Commands']       },
 \ ]
 ]])
-
-require("aerial").setup({
-    autojump = true,
-    close_on_select = true,
-})
 
 require("gitsigns").setup({
     signs = {
@@ -558,27 +492,27 @@ require("gitsigns").setup({
 -- require("colortils").setup()
 -- require("colortils").setup({
 --     register = "+", -- Register in which color codes will be copied
---     color_preview =  "███ %s", -- Preview for colors, if it contains `%s` this will be replaced with a hex color code of the color
+--     color_preview = "███ %s", -- Preview for colors, if it contains `%s` this will be replaced with a hex color code of the color
 --     -- The default in which colors should be saved
 --     -- This can be hex, hsl or rgb
 --     default_format = "hex",
---     border = "rounded", -- Border for the float
---     mappings = { -- Some mappings which are used inside the tools
---         increment = "l", -- increment values
---         decrement = "h", -- decrement values
---         increment_big = "L", -- increment values with bigger steps
---         decrement_big = "H", -- decrement values with bigger steps
---         min_value = "0", -- set values to the minimum
---         max_value = "$", -- set values to the maximum
+--     border = "rounded",                 -- Border for the float
+--     mappings = {                        -- Some mappings which are used inside the tools
+--         increment = "l",                -- increment values
+--         decrement = "h",                -- decrement values
+--         increment_big = "L",            -- increment values with bigger steps
+--         decrement_big = "H",            -- decrement values with bigger steps
+--         min_value = "0",                -- set values to the minimum
+--         max_value = "$",                -- set values to the maximum
 --         set_register_default_format = "<cr>", -- save the current color in the register specified above with the format specified above
 --         set_register_cjoose_format = "g<cr>", -- save the current color in the register specified above with a format you can choose
 --         replace_default_format = "<m-cr>", -- replace the color under the cursor with the current color in the format specified above
 --         replace_choose_format = "g<m-cr>", -- replace the color under the cursor with the current color in a format you can choose
---         export = "E", -- export the current color to a different tool
---         set_value = "c", -- set the value to a certain number (done by just entering numbers)
---         transparency = "T", -- toggle transparency
---         choose_background = "B", -- choose the background (for transparent colors)
---     }
+--         export = "E",                   -- export the current color to a different tool
+--         set_value = "c",                -- set the value to a certain number (done by just entering numbers)
+--         transparency = "T",             -- toggle transparency
+--         choose_background = "B",        -- choose the background (for transparent colors)
+--     },
 -- })
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
     underline = true,
@@ -587,13 +521,6 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
         severity_limit = "Warning",
     },
     update_in_insert = true,
-})
-require("renamer").setup()
-require("zen-mode").setup({
-    window = {
-        backdrop = 0.8,
-        width = 160,
-    },
 })
 
 require("nvim-treesitter.configs").setup({
@@ -615,40 +542,6 @@ require("nvim-treesitter.configs").setup({
     },
 })
 
-require("nvim_comment").setup({
-    hook = function()
-        if vim.api.nvim_buf_get_option(0, "filetype") == "vue" then
-            require("ts_context_commentstring.internal").update_commentstring()
-        end
-    end,
-})
-
--- require('nvim_comment').setup()
-require("nvim-surround").setup()
-require("toggleterm").setup({
-    -- shading_factor = 1,
-    shade_terminals = false,
-    float_opts = {
-        border = "curved",
-    },
-    highlights = {
-        Normal = {
-            guibg = "#0F151E",
-            guifg = "#69AD43",
-            -- guifg = "#A4FF4F",
-        },
-        NormalFloat = {
-            guibg = "#0F151E",
-            guifg = "#69AD43",
-            -- guifg = "#A4FF4F",
-        },
-    },
-    persist_mode = false,
-    winbar = {
-        enable = true,
-    },
-})
-
 -- Select Python venv
 require("swenv").setup({
     -- Should return a list of tables with a `name` and a `path` entry each.
@@ -665,5 +558,3 @@ require("swenv").setup({
     -- post_set_venv = nil,
     post_set_venv = vim.cmd.LspRestart,
 })
-
-require("color-picker").setup()
