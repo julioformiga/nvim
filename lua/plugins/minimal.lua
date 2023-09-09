@@ -1,7 +1,19 @@
 return {
     "https://github.com/mhinz/vim-startify",
-    "https://github.com/folke/neodev.nvim",
-    "https://github.com/folke/which-key.nvim",
+    "https://github.com/stevearc/dressing.nvim",
+    "https://github.com/nvim-lua/plenary.nvim",
+    "https://github.com/MunifTanjim/nui.nvim",
+    "https://github.com/nvim-tree/nvim-web-devicons",
+    {
+        "https://github.com/folke/which-key.nvim",
+        config = function()
+            require("which-key").setup()
+        end,
+        init = function()
+            vim.o.timeout = true
+            vim.o.timeoutlen = 500
+        end,
+    },
     {
         "https://github.com/williamboman/mason.nvim",
         config = function()
@@ -50,6 +62,13 @@ return {
     },
     {
         "https://github.com/nvim-telescope/telescope.nvim",
+        keys = {
+            { "<leader>ff", "<CMD>Telescope find_files<CR>", desc = "Find files" },
+            { "<leader>fg", "<CMD>Telescope live_grep<CR>",  desc = "Find in files" },
+            { "<leader>fb", "<CMD>Telescope buffers<CR>",    desc = "Buffers" },
+            { "<leader>fh", "<CMD>Telescope help_tags<CR>",  desc = "Help tags" },
+            { "<A-b>",      "<CMD>Telescope buffers<CR>",    desc = "Buffers" },
+        },
         config = function()
             require("telescope").setup({
                 defaults = {
@@ -73,7 +92,7 @@ return {
     },
     {
         "https://github.com/folke/noice.nvim",
-        requires = {
+        dependencies = {
             -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
             "https://github.com/MunifTanjim/nui.nvim",
             -- OPTIONAL:
@@ -81,10 +100,28 @@ return {
             --   If not available, we use `mini` as the fallback
             -- "https://github.com/rcarriga/nvim-notify",
         },
+        config = function()
+            -- if not vim.g.neovide then
+            require("noice").setup({
+                lsp = {
+                    -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+                    override = {
+                        ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+                        ["vim.lsp.util.stylize_markdown"] = true,
+                        ["cmp.entry.get_documentation"] = true,
+                    },
+                },
+                -- presets = {
+                --     bottom_search = false, -- use a classic bottom cmdline for search
+                --     command_palette = true, -- position the cmdline and popupmenu together
+                --     long_message_to_split = true, -- long messages will be sent to a split
+                --     inc_rename = false,   -- enables an input dialog for inc-rename.nvim
+                --     lsp_doc_border = false, -- add a border to hover docs and signature help
+                -- },
+            })
+            -- end
+        end,
     },
-    { "https://github.com/stevearc/dressing.nvim" },
-    "https://github.com/nvim-lua/plenary.nvim",
-    "https://github.com/MunifTanjim/nui.nvim",
     {
         "https://github.com/kdheepak/lazygit.nvim",
         keys = {
@@ -93,10 +130,11 @@ return {
     },
     {
         "https://github.com/akinsho/toggleterm.nvim",
+        event = "BufEnter",
         keys = {
-            { "<A-1>", "<ESC><CMD>1ToggleTerm direction=float<CR>",      desc = "Terminal float" },
-            { "<A-2>", "<ESC><CMD>2ToggleTerm direction=horizontal<CR>", desc = "Terminal horizontal" },
-            { "<A-3>", "<ESC><CMD>3ToggleTerm direction=float<CR>",      desc = "Terminal 2 float" },
+            { "<A-1>", "<CMD>1ToggleTerm direction=float<CR>",      desc = "Terminal float" },
+            { "<A-2>", "<CMD>2ToggleTerm direction=horizontal<CR>", desc = "Terminal horizontal" },
+            { "<A-3>", "<CMD>3ToggleTerm direction=float<CR>",      desc = "Terminal 2 float" },
         },
         config = function()
             require("toggleterm").setup({
@@ -142,62 +180,15 @@ return {
             require("glow").setup()
         end,
     },
-    "https://github.com/nvim-tree/nvim-web-devicons",
     {
         "https://github.com/ziontee113/icon-picker.nvim",
+        keys = {
+            { "<leader>i", "<cmd>IconPickerInsert emoji<cr>", desc = "Select icon" },
+        },
         config = function()
             require("icon-picker").setup({
                 disable_legacy_commands = true,
             })
-        end,
-    },
-
-    {
-        "https://github.com/catppuccin/nvim",
-        config = function()
-            require("catppuccin").setup({
-                flavour = "macchiato", -- latte, frappe, macchiato, mocha
-                background = {
-                    light = "latte",
-                    dark = "macchiato",
-                },
-                transparent_background = false,
-                term_colors = true,
-                dim_inactive = {
-                    enabled = true,
-                    shade = "dark",
-                    percentage = 0.1,
-                },
-                no_italic = false, -- Force no italic
-                no_bold = false, -- Force no bold
-                styles = {
-                    comments = { "italic" },
-                    conditionals = { "italic" },
-                    loops = {},
-                    functions = {},
-                    keywords = { "bold" },
-                    strings = {},
-                    variables = {},
-                    numbers = {},
-                    booleans = {},
-                    properties = {},
-                    types = { "italic,bold" },
-                    operators = {},
-                },
-                color_overrides = {},
-                custom_highlights = {},
-                integrations = {
-                    cmp = true,
-                    gitsigns = true,
-                    nvimtree = true,
-                    telescope = true,
-                    notify = false,
-                    mini = false,
-                    -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
-                },
-            })
-            require("catppuccin").load()
-            vim.cmd.colorscheme("catppuccin-macchiato")
         end,
     },
 }

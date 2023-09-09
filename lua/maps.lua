@@ -8,72 +8,70 @@ local aucmd_dict = {
         {
             pattern = { "arduino" },
             callback = function()
-                map("n", "<leader>vf", "va{V", { noremap = false, silent = true })
+                map("n", "<leader>vf", "va{V")
                 map(
                     "n",
-                    "<leader><CR>",
-                    '<ESC><CMD>2TermExec cmd="arduino-cli compile --fqbn esp8266:esp8266:nodemcuv2 && arduino-cli upload -v -p /dev/ttyACM0 --fqbn esp8266:esp8266:nodemcuv2:baud=3000000 && arduino-cli monitor -p /dev/ttyACM0 -c baudrate=115200" direction=float<CR>'
+                    "<leader><cr>",
+                    '<esc><cmd>2TermExec cmd="arduino-cli compile --fqbn esp8266:esp8266:nodemcuv2 && arduino-cli upload -v -p /dev/ttyACM0 --fqbn esp8266:esp8266:nodemcuv2:baud=3000000 && arduino-cli monitor -p /dev/ttyACM0 -c baudrate=115200" direction=float<cr>'
                 )
             end,
         },
         {
             pattern = { "sh" },
             callback = function()
-                map("n", "<leader><CR>", '<ESC><CMD>2TermExec cmd="bash %" direction=horizontal<CR>')
-                map("n", "<leader><CR><CR>", '<ESC><CMD>2TermExec cmd="bash %" direction=horizontal<CR><C-w>j')
+                map("n", "<leader><cr>", '<esc><cmd>2TermExec cmd="bash %" direction=horizontal<cr>')
+                map("n", "<leader><cr><cr>", '<esc><cmd>2TermExec cmd="bash %" direction=horizontal<cr><C-w>j')
             end,
         },
         {
             pattern = { "c", "cpp" },
             callback = function()
-                map("n", "<leader>vf", "va{V", { noremap = false, silent = true })
-                -- map('n', '<leader><CR>', '<ESC><CMD>2TermExec cmd="cc % -Wall -Wextra -Werror -o main && ./main" direction=vertical<CR>')
+                map("n", "<leader>vf", "va{V")
                 map(
                     "n",
-                    "<leader><CR>",
-                    '<ESC><CMD>2TermExec cmd="cc % -Wall -Wextra -Werror -g -o main && ./main" direction=horizontal<CR>'
+                    "<leader><cr>",
+                    '<cmd>2TermExec cmd="cc % -Wall -Wextra -Werror -g -o main && ./main" direction=horizontal<cr>'
                 )
-                -- map('n', '<leader><CR>', '<ESC><CMD>2TermExec cmd="cc % -lm -o main && ./main" direction=vertical<CR>')
                 -- map(
                 --     "n",
-                --     "<leader><CR><CR>",
-                --     '<ESC><CMD>2TermExec cmd="cc % -Wall -Wextra -Werror -g -o main && ./main" direction=horizontal<CR><C-w><C-w>'
+                --     "<leader><cr><cr>",
+                --     '<esc><cmd>2TermExec cmd="cc % -Wall -Wextra -Werror -g -o main && ./main" direction=horizontal<cr><C-w><C-w>'
                 -- )
             end,
         },
         {
             pattern = { "rs", "rust" },
             callback = function()
-                map("n", "<leader>vf", "va{V", { noremap = false, silent = true })
-                map("n", "<leader><CR>", '<ESC><CMD>2TermExec cmd="cargo run" direction=horizontal<CR>')
-                -- map('n', '<leader><CR>', '<ESC><CMD>3TermExec cmd="cargo run" direction=horizontal<CR><C-w>j')
+                map("n", "<leader>vf", "va{V")
+                map("n", "<leader><cr>", '<esc><cmd>2TermExec cmd="cargo run" direction=horizontal<cr>')
+                -- map('n', '<leader><cr>', '<esc><cmd>3TermExec cmd="cargo run" direction=horizontal<cr><C-w>j')
             end,
         },
         {
             pattern = { "markdown" },
             callback = function()
-                map("n", "<leader><CR>", "<ESC><CMD>Glow %<CR>")
+                map("n", "<leader><cr>", "<esc><cmd>Glow %<cr>")
             end,
         },
         {
             pattern = { "python" },
             callback = function()
-                map("n", "<leader>vf", "[[V]M", { noremap = false, silent = true })
-                map("n", "<leader><CR>", '<ESC><CMD>2TermExec cmd="python %" direction=horizontal<CR>')
+                map("n", "<leader>vf", "[[V]M")
+                map("n", "<leader><cr>", '<esc><cmd>2TermExec cmd="python %" direction=horizontal<cr>')
             end,
         },
     },
 }
-map("n", "<leader>S", '<cmd>lua require("spectre").open()<CR>', {
+map("n", "<leader>S", '<cmd>lua require("spectre").open()<cr>', {
     desc = "Open Spectre",
 })
-map("n", "<leader>Sw", '<cmd>lua require("spectre").open_visual({select_word=true})<CR>', {
+map("n", "<leader>Sw", '<cmd>lua require("spectre").open_visual({select_word=true})<cr>', {
     desc = "Search current word",
 })
-map("v", "<leader>Sw", '<esc><cmd>lua require("spectre").open_visual()<CR>', {
+map("v", "<leader>Sw", '<esc><cmd>lua require("spectre").open_visual()<cr>', {
     desc = "Search current word",
 })
-map("n", "<leader>Sp", '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', {
+map("n", "<leader>Sp", '<cmd>lua require("spectre").open_file_search({select_word=true})<cr>', {
     desc = "Search on current file",
 })
 for event, opt_tbls in pairs(aucmd_dict) do
@@ -84,11 +82,11 @@ end
 
 function _G.set_terminal_keymaps()
     local opts = { buffer = 0 }
-    vim.keymap.set("t", "<ESC>", [[<C-\><C-n><CMD>wincmd k<CR>]], opts)
+    vim.keymap.set("t", "<esc>", [[<C-\><C-n><cmd>wincmd k<cr>]], opts)
     vim.keymap.set("t", "<C-q>", [[<C-\><C-n>]], opts)
     vim.keymap.set("t", "<A-q>", [[<C-\><C-n>]], opts)
-    vim.keymap.set("t", "<A-1>", [[<C-\><C-n><CMD>ToggleTerm<CR>]], opts)
-    vim.keymap.set("t", "<A-2>", [[<C-\><C-n><CMD>ToggleTerm<CR>]], opts)
+    vim.keymap.set("t", "<A-1>", [[<C-\><C-n><cmd>ToggleTerm<cr>]], opts)
+    vim.keymap.set("t", "<A-2>", [[<C-\><C-n><cmd>ToggleTerm<cr>]], opts)
 end
 
 -- if you only want these mappings for toggle term use term://*toggleterm#* instead
@@ -99,8 +97,8 @@ function ChangeScaleFactor(delta)
     vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * delta
 end
 
-map("n", "<C-=>", ":lua ChangeScaleFactor(1.1)<CR>")
-map("n", "<C-->", ":lua ChangeScaleFactor(0.9)<CR>")
+map("n", "<C-=>", ":lua ChangeScaleFactor(1.1)<cr>")
+map("n", "<C-->", ":lua ChangeScaleFactor(0.9)<cr>")
 
 -- Go to URL in current line
 M = {}
@@ -112,23 +110,11 @@ M.HandleURL = function()
         vim.cmd('echo "No URI found in line."')
     end
 end
-map("n", "gf", "<Cmd>lua M.HandleURL()<CR>")
+map("n", "gf", "<Cmd>lua M.HandleURL()<cr>")
 
--- Find files using Telescope command-line sugar.
-map("n", "<leader>ff", "<CMD>Telescope find_files<CR>")
-map("n", "<leader>fg", "<CMD>Telescope live_grep<CR>")
-map("n", "<leader>fb", "<CMD>Telescope buffers<CR>")
-map("n", "<leader>fh", "<CMD>Telescope help_tags<CR>")
-map("n", "<A-b>", "<CMD>Telescope buffers<CR>", { noremap = true, silent = true })
-map("n", "<leader>r", ':so %<CR><CMD>echo "Settings reload!"<CR>')
-map("n", "<leader>e", "<CMD>TroubleToggle document_diagnostics<CR>")
-map("n", "<leader>E", "<CMD>TroubleToggle workspace_diagnostics<CR>")
-map("n", "<leader>i", "<CMD>IconPickerInsert emoji<CR>")
-map("n", "<leader>ve", "<CMD>lua require('swenv.api').pick_venv()<CR>")
-map("n", "<A-z>", "<CMD>ZenMode<CR>")
-map("n", "<F1>", "<CMD>Header42<CR>")
-map("n", "<A-CR>", ":", { noremap = true, silent = false })
-map("", "<leader>s", "<CMD>set spell!<CR>")
+map("n", "<leader>r", ':so %<cr><cmd>echo "Settings reload!"<cr>', { desc = "Reload settings" })
+map("n", "<A-cr>", ":", { noremap = true, silent = false })
+map("", "<leader>s", "<cmd>set spell!<cr>", { desc = "Spell Toggle" })
 
 -- Not rewrite clipboard
 -- map('n', 'd', '"_d')
@@ -137,83 +123,83 @@ map("", "x", '"_x')
 map("", "X", '"_X')
 map("", "<Del>", '"_x')
 map("", "<S-Del>", '"_dd')
-map("i", "<S-Del>", '<ESC>"_dd')
+map("i", "<S-Del>", '<esc>"_dd')
 -- Edit words with copy and paste
--- map('n', '<A-CR>', 'b"_ce')
--- map('i', '<A-CR>', '<ESC>b"_ce')
+-- map('n', '<A-cr>', 'b"_ce')
+-- map('i', '<A-cr>', '<esc>b"_ce')
 map("n", "<A-i>", 'b"_ce')
-map("n", "<A-p>", 'b"_ce<ESC>p')
--- map('i', '<A-p>', '<ESC>b"_ce<ESC>pi')
+map("n", "<A-p>", 'b"_ce<esc>p')
+-- map('i', '<A-p>', '<esc>b"_ce<esc>pi')
 map("n", "<A-y>", "byew")
-map("i", "<A-y>", "<ESC>byew")
+map("i", "<A-y>", "<esc>byew")
 
-map("n", "<F2>", '<CMD>lua require("renamer").rename()<CR>')
-map("i", "<F2>", '<CMD>lua require("renamer").rename()<CR>')
-map("v", "<F2>", '<CMD>lua require("renamer").rename()<CR>')
+map("n", "<F2>", '<cmd>lua require("renamer").rename()<cr>')
+map("i", "<F2>", '<cmd>lua require("renamer").rename()<cr>')
+map("v", "<F2>", '<cmd>lua require("renamer").rename()<cr>')
 
 -- Debugger
-map("n", "<F7>", "<CMD>DapToggleBreakpoint<CR>")
-map("n", "<F8>", "<CMD>DapContinue<CR>")
-map("n", "<F9>", "<CMD>DapStepInto<CR>")
-map("n", "<F10>", "<CMD>DapTerminate<CR>")
-map("n", "<F12>", '<CMD>lua require("dapui").toggle()<CR>')
+-- map("n", "<F7>", "<cmd>DapToggleBreakpoint<cr>")
+-- map("n", "<F8>", "<cmd>DapContinue<cr>")
+-- map("n", "<F9>", "<cmd>DapStepInto<cr>")
+-- map("n", "<F10>", "<cmd>DapTerminate<cr>")
+-- map("n", "<F12>", '<cmd>lua require("dapui").toggle()<cr>')
 
 -- Windows and Tabs
-map("", "<leader><Tab>", "<C-w>w")
+map("", "<leader><Tab>", "<C-w>w", { desc = "Next window" })
 map("n", "<C-S-Up>", "<C-w><Up>")
 map("n", "<C-S-Down>", "<C-w><Down>")
 map("n", "<C-S-Left>", "<C-w><Left>")
 map("n", "<C-S-Right>", "<C-w><Right>")
-map("n", "<leader>wh", "<CMD>vertical resize -4<CR>")
-map("n", "<leader>wj", "<CMD>horizontal resize +4<CR>")
-map("n", "<leader>wk", "<CMD>horizontal resize -4<CR>")
-map("n", "<leader>wl", "<CMD>vertical resize +4<CR>")
-map("n", "<C-S-PageUp>", "<CMD>BufferLineMovePrev<CR>")
-map("n", "<C-S-PageDown>", "<CMD>BufferLineMoveNext<CR>")
+map("n", "<leader>wh", "<cmd>vertical resize -4<cr>")
+map("n", "<leader>wj", "<cmd>horizontal resize +4<cr>")
+map("n", "<leader>wk", "<cmd>horizontal resize -4<cr>")
+map("n", "<leader>wl", "<cmd>vertical resize +4<cr>")
+map("n", "<C-S-PageUp>", "<cmd>BufferLineMovePrev<cr>")
+map("n", "<C-S-PageDown>", "<cmd>BufferLineMoveNext<cr>")
 
 -- map("n", "<A-->", '"_dd')
--- map("i", "<A-->", '<ESC>"_ddi')
+-- map("i", "<A-->", '<esc>"_ddi')
 -- map("n", "<C-d>", '"_dd')
--- map("i", "<C-d>", '<ESC>"_ddi')
+-- map("i", "<C-d>", '<esc>"_ddi')
 map("n", "<A-d>", "yyp")
-map("i", "<A-d>", "<ESC>yypi")
-map("v", "<A-d>", "ygv<ESC>pgv")
-map("n", "<C-s>", "<CMD>w<CR>")
-map("n", "<A-s>", "<CMD>w<CR>")
-map("i", "<A-s>", "<ESC><CMD>w<CR>")
-map("v", "<A-s>", "<ESC><CMD>w<CR>")
-map("i", "<C-s>", "<ESC><CMD>w<CR>")
-map("v", "<C-s>", "<ESC><CMD>w<CR>")
-map("s", "<C-s>", "<ESC><CMD>w<CR>")
-map("n", "<C-z>", "<CMD>undo<CR>")
-map("n", "<S-u>", "<CMD>redo<CR>")
-map("n", "<A-q>", '<CMD>lua require("dapui").close()<CR><CMD>SClose<CR>')
+map("i", "<A-d>", "<esc>yypi")
+map("v", "<A-d>", "ygv<esc>pgv")
+map("n", "<C-s>", "<cmd>w<cr>")
+map("n", "<A-s>", "<cmd>w<cr>")
+map("i", "<A-s>", "<esc><cmd>w<cr>")
+map("v", "<A-s>", "<esc><cmd>w<cr>")
+map("i", "<C-s>", "<esc><cmd>w<cr>")
+map("v", "<C-s>", "<esc><cmd>w<cr>")
+map("s", "<C-s>", "<esc><cmd>w<cr>")
+map("n", "<C-z>", "<cmd>undo<cr>")
+map("n", "<S-u>", "<cmd>redo<cr>")
+map("n", "<A-q>", '<cmd>lua require("dapui").close()<cr><cmd>SClose<cr>')
 
-map("i", "<A-/>", "<ESC><CMD>CommentToggle<CR>i<Right>")
-map("n", "<A-/>", "<S-V><ESC><CMD>'<,'>CommentToggle<CR>gv<ESC>")
-map("v", "<A-/>", "<ESC><CMD>'<,'>CommentToggle<CR>gv<ESC>")
-map("i", "<A-u>", "<ESC><CMD>CommentToggle<CR>i<Right>")
-map("n", "<A-u>", "<S-V><ESC><CMD>'<,'>CommentToggle<CR>gv<ESC>")
-map("v", "<A-u>", "<ESC><CMD>'<,'>CommentToggle<CR>gv<ESC>")
+map("i", "<A-/>", "<esc><cmd>CommentToggle<cr>i<Right>")
+map("n", "<A-/>", "<S-V><esc><cmd>'<,'>CommentToggle<cr>gv<esc>")
+map("v", "<A-/>", "<esc><cmd>'<,'>CommentToggle<cr>gv<esc>")
+map("i", "<A-u>", "<esc><cmd>CommentToggle<cr>i<Right>")
+map("n", "<A-u>", "<S-V><esc><cmd>'<,'>CommentToggle<cr>gv<esc>")
+map("v", "<A-u>", "<esc><cmd>'<,'>CommentToggle<cr>gv<esc>")
 
-map("i", "<C-PageDown>", "<ESC><CMD>bnext<CR>")
-map("i", "<C-PageUp>", "<ESC><CMD>bprevious<CR>")
-map("n", "<C-PageDown>", "<CMD>bnext<CR>")
-map("n", "<C-PageUp>", "<CMD>bprevious<CR>")
+map("i", "<C-PageDown>", "<esc><cmd>bnext<cr>")
+map("i", "<C-PageUp>", "<esc><cmd>bprevious<cr>")
+map("n", "<C-PageDown>", "<cmd>bnext<cr>")
+map("n", "<C-PageUp>", "<cmd>bprevious<cr>")
 map("n", "<A-a>", "ggVGo")
 
 -- Move lines up and down
-map("i", "<A-Up>", "<ESC><CMD>m .-2<CR>==gi")
-map("n", "<A-Up>", "<CMD>m .-2<CR>==")
-map("v", "<A-Up>", "<ESC><CMD>'<,'>m '<-2<CR>gv")
-map("i", "<A-Down>", "<ESC><CMD>m .+1<CR>==gi")
-map("n", "<A-Down>", "<CMD>m .+1<CR>==")
-map("v", "<A-Down>", "<ESC><CMD>'<,'>m '>+1<CR>gv=gv")
+map("i", "<A-Up>", "<esc><cmd>m .-2<cr>==gi")
+map("n", "<A-Up>", "<cmd>m .-2<cr>==")
+map("v", "<A-Up>", "<esc><cmd>'<,'>m '<-2<cr>gv")
+map("i", "<A-Down>", "<esc><cmd>m .+1<cr>==gi")
+map("n", "<A-Down>", "<cmd>m .+1<cr>==")
+map("v", "<A-Down>", "<esc><cmd>'<,'>m '>+1<cr>gv=gv")
 
 -- Normal and Visual mode
-map("n", "<CR>", "i")
+map("n", "<cr>", "i")
 map("n", "<C-i>", "<C-I>")
-map("n", "<leader>tr", "<CMD>Telescope registers<CR>")
+map("n", "<leader>tr", "<cmd>Telescope registers<cr>")
 map("n", "<A-l>", "w")
 map("n", "<A-[>", "ysiw", { noremap = false, silent = true })
 map("n", "<A-]>", "ds", { noremap = false, silent = true })
@@ -222,16 +208,16 @@ map("n", "<A-0>", "dsb", { noremap = false, silent = false })
 map("n", "<A-,>", "ysiwt", { noremap = false, silent = false })
 map("n", "<A-.>", "dst", { noremap = false, silent = false })
 map("v", "<A-,>", "ST", { noremap = false, silent = false })
-map("n", "<C-\\>", "<CMD>vsplit<CR><C-w>l<CR>:bnext<CR>")
-map("n", "<C-/>", "<CMD>split<CR><C-w>j<CR>:bnext<CR>")
+map("n", "<C-\\>", "<cmd>vsplit<cr><C-w>l<cr>:bnext<cr>")
+map("n", "<C-/>", "<cmd>split<cr><C-w>j<cr>:bnext<cr>")
 map("n", "<C-q>", "<C-w>q")
-map("n", "<A-Home>", "<CMD>vertical resize -2<CR>")
-map("n", "<A-End>", "<CMD>vertical resize +2<CR>")
+map("n", "<A-Home>", "<cmd>vertical resize -2<cr>")
+map("n", "<A-End>", "<cmd>vertical resize +2<cr>")
 map("n", "<A-Del>", "ce")
 map("n", "<A-Backspace>", "cb")
 map("n", "<A-x>", '"_dd')
-map("i", "<A-x>", '<ESC>"_dd')
-map("n", "<A-o>", "o<ESC>")
+map("i", "<A-x>", '<esc>"_dd')
+map("n", "<A-o>", "o<esc>")
 -- map('n', '<A-x>', '"_dw')
 
 map("n", "<leader><Left>", "za")
@@ -241,13 +227,13 @@ map("n", "<leader>h", "za")
 map("n", "<leader>j", "zR")
 map("n", "<leader>k", "zM")
 
-map("n", "<A-j>", "<CMD>m .+1<CR>==")
-map("v", "<A-j>", "<ESC><CMD>'<,'>m '>+1<CR>gv=gv")
-map("n", "<A-k>", "<CMD>m .-2<CR>==")
-map("v", "<A-k>", "<ESC><CMD>'<,'>m '<-2<CR>gv=gv")
+map("n", "<A-j>", "<cmd>m .+1<cr>==")
+map("v", "<A-j>", "<esc><cmd>'<,'>m '>+1<cr>gv=gv")
+map("n", "<A-k>", "<cmd>m .-2<cr>==")
+map("v", "<A-k>", "<esc><cmd>'<,'>m '<-2<cr>gv=gv")
 map("n", "<A-h>", "b")
-map("n", "<C-j>", "<CMD>bprevious<CR>")
-map("n", "<C-k>", "<CMD>bnext<CR>")
+map("n", "<C-j>", "<cmd>bprevious<cr>")
+map("n", "<C-k>", "<cmd>bnext<cr>")
 
 -- Insert mode
 -- Movements
@@ -258,11 +244,11 @@ map("i", "<A-l>", "<Right>")
 map("i", "<S-A-h>", "<C-o>b")
 map("i", "<S-A-l>", "<C-o>w")
 
--- map('i', '<A-u>', '<ESC>ui')
-map("n", "<A-m>", "<ESC>o")
-map("i", "<A-i>", "<ESC><Right>")
+-- map('i', '<A-u>', '<esc>ui')
+map("n", "<A-m>", "<esc>o")
+map("i", "<A-i>", "<esc><Right>")
 
-map("i", "<A-,>", "<ESC>lylli, <ESC>ppi")
+map("i", "<A-,>", "<esc>lylli, <esc>ppi")
 
 map("i", "<A-Left>", "<C-o>b")
 map("i", "<A-Right>", "<C-o>e")
@@ -278,12 +264,12 @@ map("i", "<A-S-Backspace>", "<C-o>dib")
 
 map("n", "<A-Left>", "<C-w>h")
 map("n", "<A-Right>", "<C-w>l")
-map("n", "<A-PageDown>", "<CMD>bnext<CR>")
-map("i", "<A-PageDown>", "<ESC><CMD>bnext<CR>")
-map("n", "<A-PageUp>", "<CMD>bprevious<CR>")
-map("i", "<A-PageUp>", "<ESC><CMD>bprevious<CR>")
-map("i", "<A-w>", "<ESC><CMD>Bdelete<CR>")
-map("n", "<A-w>", "<CMD>Bdelete<CR>")
+map("n", "<A-PageDown>", "<cmd>bnext<cr>")
+map("i", "<A-PageDown>", "<esc><cmd>bnext<cr>")
+map("n", "<A-PageUp>", "<cmd>bprevious<cr>")
+map("i", "<A-PageUp>", "<esc><cmd>bprevious<cr>")
+map("i", "<A-w>", "<esc><cmd>Bdelete<cr>")
+map("n", "<A-w>", "<cmd>Bdelete<cr>")
 map("n", "<A-t>", "cstt")
 
 -- retab
@@ -314,11 +300,7 @@ map("v", "<Up>", "<Esc><Up>")
 map("v", "<Down>", "<Esc><Down>")
 
 -- Keybind to clear search
-map("n", "<leader>c", '<CMD>nohl<CR><CMD>echo "Search Cleared"<CR>')
+map("n", "<leader>c", '<cmd>nohl<cr><cmd>echo "Search Cleared"<cr>')
 
-map("n", "<C-c>", "<CMD>PickColor<CR>", { noremap = true, silent = true })
-map("i", "<C-c>", "<CMD>PickColorInsert<CR>", { noremap = true, silent = true })
-
--- Debug + tests
--- map("", "<F4>", "<CMD>lua require('neotest').summary.toggle()<CR>", { noremap = true, silent = true })
-map("", "<leader>tt", "<CMD>lua require('neotest').summary.toggle()<CR>")
+map("n", "<C-c>", "<cmd>PickColor<cr>", { noremap = true, silent = true })
+map("i", "<C-c>", "<cmd>PickColorInsert<cr>", { noremap = true, silent = true })

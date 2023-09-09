@@ -1,4 +1,33 @@
 return {
+    "https://github.com/nvim-pack/nvim-spectre",
+    "https://github.com/wellle/targets.vim",
+    "https://github.com/tpope/vim-repeat",
+    {
+        "https://github.com/nvim-treesitter/nvim-treesitter",
+        config = function()
+            require("nvim-treesitter.configs").setup({
+                context_commentstring = {
+                    enable = true,
+                    enable_autocmd = false,
+                },
+                highlight = {
+                    enable = true,
+                    disable = { "" },
+                    additional_vim_regex_highlighting = true,
+                },
+                indent = {
+                    enable = true,
+                    disable = { "yaml" },
+                },
+                autotag = {
+                    enable = true,
+                },
+            })
+        end,
+    },
+    "https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
+    "https://github.com/JoosepAlviste/nvim-ts-context-commentstring",
+    "https://github.com/danymat/neogen",
     {
         "https://github.com/akinsho/bufferline.nvim",
         dependencies = "https://github.com/nvim-tree/nvim-web-devicons",
@@ -71,18 +100,72 @@ return {
             { "<leader>gd", "<CMD>Gitsigns diffthis<CR>", desc = "Git diff" },
         },
     },
-    "https://github.com/nvim-treesitter/nvim-treesitter",
-    "https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
-    "https://github.com/JoosepAlviste/nvim-ts-context-commentstring",
     {
         "https://github.com/kevinhwang91/nvim-ufo",
         dependencies = "https://github.com/kevinhwang91/promise-async",
+        config = function()
+            local handler = function(virtText, lnum, endLnum, width, truncate)
+                local newVirtText = {}
+                local suffix = ("  %d "):format(endLnum - lnum)
+                local sufWidth = vim.fn.strdisplaywidth(suffix)
+                local targetWidth = width - sufWidth
+                local curWidth = 0
+                for _, chunk in ipairs(virtText) do
+                    local chunkText = chunk[1]
+                    local chunkWidth = vim.fn.strdisplaywidth(chunkText)
+                    if targetWidth > curWidth + chunkWidth then
+                        table.insert(newVirtText, chunk)
+                    else
+                        chunkText = truncate(chunkText, targetWidth - curWidth)
+                        local hlGroup = chunk[2]
+                        table.insert(newVirtText, { chunkText, hlGroup })
+                        chunkWidth = vim.fn.strdisplaywidth(chunkText)
+                        -- str width returned from truncate() may less than 2nd argument, need padding
+                        if curWidth + chunkWidth < targetWidth then
+                            suffix = suffix .. (" "):rep(targetWidth - curWidth - chunkWidth)
+                        end
+                        break
+                    end
+                    curWidth = curWidth + chunkWidth
+                end
+                table.insert(newVirtText, { suffix, "MoreMsg" })
+                return newVirtText
+            end
+            require("ufo").setup({
+                open_fold_hl_timeout = 250,
+                enable_get_fold_virt_text = true,
+                close_fold_kinds = { "imports", "comment" },
+                preview = {
+                    win_config = {
+                        -- border = {'', '─', '', '', '', '─', '', ''},
+                        border = "rounded",
+                        winhighlight = "Normal:Folded",
+                        -- winhighlight = 'Normal:Normal',
+                        winblend = 12,
+                        maxheight = 20,
+                    },
+                    -- mappings = {
+                    --     scrollU = "<C-u>",
+                    --     scrollD = "<C-d>",
+                    --     jumpTop = "[",
+                    --     jumpBot = "]",
+                    -- },
+                },
+                fold_virt_text_handler = handler,
+                provider_selector = function(bufnr, filetype, buftype)
+                    -- if you prefer treesitter provider rather than lsp,
+                    -- return ftMap[filetype] or {'treesitter', 'indent'}
+                    return { "treesitter", "indent" }
+                    -- return ftMap[filetype]
+                end,
+            })
+        end,
     },
     {
         "https://github.com/lewis6991/hover.nvim",
         keys = {
-            { "K",  require("hover").hover,        desc = "hover" },
-            { "gK", require("hover").hover_select, desc = "hover (select)" },
+            { "K",  "<cmd>lua require('hover').hover()<cr>",        desc = "hover" },
+            { "gK", "<cmd>lua require('hover').hover_select()<cr>", desc = "hover (select)" },
         },
         config = function()
             require("hover").setup({
@@ -126,6 +209,9 @@ return {
     "https://github.com/famiu/bufdelete.nvim",
     {
         "https://github.com/folke/zen-mode.nvim",
+        keys = {
+            { "<A-z>", "<cmd>ZenMode<cr>", desc = "Zen mode" },
+        },
         config = function()
             require("zen-mode").setup({
                 window = {
@@ -135,8 +221,4 @@ return {
             })
         end,
     },
-    "https://github.com/nvim-pack/nvim-spectre",
-    "https://github.com/wellle/targets.vim",
-    "https://github.com/tpope/vim-repeat",
-    "https://github.com/danymat/neogen",
 }

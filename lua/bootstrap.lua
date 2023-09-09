@@ -30,26 +30,6 @@ vim.g.VM_maps = {
     ["I BS"] = "", -- disable backspace mapping, to resolve incompatibility with multi select
 }
 
--- if not vim.g.neovide then
-require("noice").setup({
-    lsp = {
-        -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
-        override = {
-            ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-            ["vim.lsp.util.stylize_markdown"] = true,
-            ["cmp.entry.get_documentation"] = true,
-        },
-    },
-    -- presets = {
-    --     bottom_search = false, -- use a classic bottom cmdline for search
-    --     command_palette = true, -- position the cmdline and popupmenu together
-    --     long_message_to_split = true, -- long messages will be sent to a split
-    --     inc_rename = false,   -- enables an input dialog for inc-rename.nvim
-    --     lsp_doc_border = false, -- add a border to hover docs and signature help
-    -- },
-})
--- end
-
 local has_words_before = function()
     unpack = unpack or table.unpack
     local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -257,6 +237,10 @@ local lsp_flags = {
     debounce_text_changes = 150,
 }
 
+require("neodev").setup({
+    library = { plugins = { "nvim-dap-ui", "neotest" }, types = true },
+})
+
 -- For C++ in Ubuntu: sudo apt install g++-12
 local lspservers = {
     "bashls",
@@ -330,64 +314,6 @@ require("lspconfig")["tailwindcss"].setup({
     flags = lsp_flags,
 })
 
-local handler = function(virtText, lnum, endLnum, width, truncate)
-    local newVirtText = {}
-    local suffix = ("  %d "):format(endLnum - lnum)
-    local sufWidth = vim.fn.strdisplaywidth(suffix)
-    local targetWidth = width - sufWidth
-    local curWidth = 0
-    for _, chunk in ipairs(virtText) do
-        local chunkText = chunk[1]
-        local chunkWidth = vim.fn.strdisplaywidth(chunkText)
-        if targetWidth > curWidth + chunkWidth then
-            table.insert(newVirtText, chunk)
-        else
-            chunkText = truncate(chunkText, targetWidth - curWidth)
-            local hlGroup = chunk[2]
-            table.insert(newVirtText, { chunkText, hlGroup })
-            chunkWidth = vim.fn.strdisplaywidth(chunkText)
-            -- str width returned from truncate() may less than 2nd argument, need padding
-            if curWidth + chunkWidth < targetWidth then
-                suffix = suffix .. (" "):rep(targetWidth - curWidth - chunkWidth)
-            end
-            break
-        end
-        curWidth = curWidth + chunkWidth
-    end
-    table.insert(newVirtText, { suffix, "MoreMsg" })
-    return newVirtText
-end
-
-require("ufo").setup({
-    open_fold_hl_timeout = 250,
-    enable_get_fold_virt_text = true,
-    close_fold_kinds = { "imports", "comment" },
-    preview = {
-        win_config = {
-            -- border = {'', '─', '', '', '', '─', '', ''},
-            border = "rounded",
-            winhighlight = "Normal:Folded",
-            -- winhighlight = 'Normal:Normal',
-            winblend = 12,
-            maxheight = 20,
-        },
-        -- mappings = {
-        --     scrollU = "<C-u>",
-        --     scrollD = "<C-d>",
-        --     jumpTop = "[",
-        --     jumpBot = "]",
-        -- },
-    },
-    fold_virt_text_handler = handler,
-    provider_selector = function(bufnr, filetype, buftype)
-        -- if you prefer treesitter provider rather than lsp,
-        -- return ftMap[filetype] or {'treesitter', 'indent'}
-        return { "treesitter", "indent" }
-        -- return ftMap[filetype]
-    end,
-})
--- End Folder
-
 -- Function to check if a floating dialog exists and if not
 -- then check for diagnostics under the cursor
 function OpenDiagnosticIfNoFloat()
@@ -430,18 +356,6 @@ vim.api.nvim_create_autocmd({ "CursorHold" }, {
     group = "lsp_diagnostics_hold",
 })
 -- require('lspconfig.ui.windows').default_options.border = 'rounded'
-
-vim.cmd([[ let g:startify_custom_header = g:boot_ascii ]])
-vim.cmd([[ let g:startify_session_autoload = 1 ]])
-vim.cmd([[ let g:startify_session_persistence = 1 ]])
-vim.cmd([[ let g:startify_lists = [
-    \ { 'type': 'sessions',  'header': ['   Sessions']       },
-    \ { 'type': 'files',     'header': ['   MRU']            },
-    \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
-    \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
-    \ { 'type': 'commands',  'header': ['   Commands']       },
-\ ]
-]])
 
 require("gitsigns").setup({
     signs = {
@@ -489,31 +403,6 @@ require("gitsigns").setup({
 -- local helpers = require("null-ls.helpers")
 -- helpers.generator_factory()
 
--- require("colortils").setup()
--- require("colortils").setup({
---     register = "+", -- Register in which color codes will be copied
---     color_preview = "███ %s", -- Preview for colors, if it contains `%s` this will be replaced with a hex color code of the color
---     -- The default in which colors should be saved
---     -- This can be hex, hsl or rgb
---     default_format = "hex",
---     border = "rounded",                 -- Border for the float
---     mappings = {                        -- Some mappings which are used inside the tools
---         increment = "l",                -- increment values
---         decrement = "h",                -- decrement values
---         increment_big = "L",            -- increment values with bigger steps
---         decrement_big = "H",            -- decrement values with bigger steps
---         min_value = "0",                -- set values to the minimum
---         max_value = "$",                -- set values to the maximum
---         set_register_default_format = "<cr>", -- save the current color in the register specified above with the format specified above
---         set_register_cjoose_format = "g<cr>", -- save the current color in the register specified above with a format you can choose
---         replace_default_format = "<m-cr>", -- replace the color under the cursor with the current color in the format specified above
---         replace_choose_format = "g<m-cr>", -- replace the color under the cursor with the current color in a format you can choose
---         export = "E",                   -- export the current color to a different tool
---         set_value = "c",                -- set the value to a certain number (done by just entering numbers)
---         transparency = "T",             -- toggle transparency
---         choose_background = "B",        -- choose the background (for transparent colors)
---     },
--- })
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
     underline = true,
     virtual_text = {
@@ -521,40 +410,4 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
         severity_limit = "Warning",
     },
     update_in_insert = true,
-})
-
-require("nvim-treesitter.configs").setup({
-    context_commentstring = {
-        enable = true,
-        enable_autocmd = false,
-    },
-    highlight = {
-        enable = true,
-        disable = { "" },
-        additional_vim_regex_highlighting = true,
-    },
-    indent = {
-        enable = true,
-        disable = { "yaml" },
-    },
-    autotag = {
-        enable = true,
-    },
-})
-
--- Select Python venv
-require("swenv").setup({
-    -- Should return a list of tables with a `name` and a `path` entry each.
-    -- Gets the argument `venvs_path` set below.
-    -- By default just lists the entries in `venvs_path`.
-    get_venvs = function(venvs_path)
-        return require("swenv.api").get_venvs(venvs_path)
-    end,
-    -- Path passed to `get_venvs`.
-    venvs_path = vim.fn.expand("~/.cache/pypoetry/virtualenvs"),
-    -- venvs_path = vim.fn.expand("~/dev/python/estudo/pdmproject"),
-    -- venvs_path = vim.fn.expand("~/.local/share/pdm/venvs"),
-    -- Something to do after setting an environment, for example call vim.cmd.LspRestart
-    -- post_set_venv = nil,
-    post_set_venv = vim.cmd.LspRestart,
 })

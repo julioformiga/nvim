@@ -46,7 +46,7 @@ g.neovide_cursor_unfocused_outline_width = 0.125
 g.neovide_scroll_animation_length = 0.3
 g.neovide_refresh_rate = 144
 g.neovide_refresh_rate_idle = 5
-g.neovide_transparency = 0.95
+-- g.neovide_transparency = 0.95
 -- g.transparency = 1
 -- Helper function for transparency formatting
 -- g:neovide_transparency should be 0 if you want to unify transparency of content and title bar.
@@ -65,7 +65,7 @@ o.list = true
 o.shell = "/usr/bin/zsh"
 -- o.shell = "/usr/bin/bash"
 o.fillchars = [[eob: ,fold: ,foldopen:,foldsep:│,foldclose:]]
-o.foldcolumn = "5" -- '0' is not bad
+o.foldcolumn = "6" -- '0' is not bad
 o.foldlevel = 99   -- Using ufo provider need a large value, feel free to decrease the value
 o.foldlevelstart = 99
 o.foldenable = true

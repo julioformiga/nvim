@@ -25,8 +25,18 @@ vim.cmd([[ let g:boot_ascii = [
 \ '',
 \ '']
 ]])
+vim.cmd([[ let g:startify_custom_header = g:boot_ascii ]])
+vim.cmd([[ let g:startify_session_autoload = 1 ]])
+vim.cmd([[ let g:startify_session_persistence = 1 ]])
+vim.cmd([[ let g:startify_lists = [
+    \ { 'type': 'sessions',  'header': ['   Sessions']       },
+    \ { 'type': 'files',     'header': ['   MRU']            },
+    \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
+    \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
+    \ { 'type': 'commands',  'header': ['   Commands']       },
+\ ]
+]])
 require("base")
 require("highlights")
 require("maps")
 require("bootstrap")
-require("daptests")
