@@ -13,23 +13,11 @@ return {
     "https://github.com/onsails/lspkind.nvim",
     {
         "https://github.com/hardyrafael17/norminette42.nvim",
+        lazy = false,
         keys = {
             { "<F1>", "<CMD>Header42<CR>", desc = "Add 42 header" },
         },
         config = function()
-            vim.api.nvim_create_autocmd("FileType", {
-                pattern = {
-                    "c",
-                    "cpp",
-                    "arduino",
-                },
-                callback = function()
-                    vim.opt_local.shiftwidth = 4
-                    vim.opt_local.tabstop = 4
-                    vim.opt_local.softtabstop = 4
-                    vim.opt_local.expandtab = false
-                end,
-            })
             require("norminette").setup()
         end,
     },
