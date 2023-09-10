@@ -8,6 +8,9 @@ return {
     "https://github.com/MaxMEllon/vim-jsx-pretty",
     {
         "https://github.com/ziontee113/color-picker.nvim",
+        keys = {
+            { "<leader>c", "<cmd>PickColor<cr>", desc = "Color picker" },
+        },
         config = function()
             require("color-picker").setup()
         end,

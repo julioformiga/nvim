@@ -114,6 +114,7 @@ map("n", "gf", "<Cmd>lua M.HandleURL()<cr>")
 
 map("n", "<leader>r", ':so %<cr><cmd>echo "Settings reload!"<cr>', { desc = "Reload settings" })
 map("n", "<A-cr>", ":", { noremap = true, silent = false })
+map("n", "<leader>c", '<cmd>nohl<cr><cmd>echo "Search Cleared"<cr>')
 map("", "<leader>s", "<cmd>set spell!<cr>", { desc = "Spell Toggle" })
 
 -- Not rewrite clipboard
@@ -125,37 +126,55 @@ map("", "<Del>", '"_x')
 map("", "<S-Del>", '"_dd')
 map("i", "<S-Del>", '<esc>"_dd')
 -- Edit words with copy and paste
--- map('n', '<A-cr>', 'b"_ce')
--- map('i', '<A-cr>', '<esc>b"_ce')
 map("n", "<A-i>", 'b"_ce')
 map("n", "<A-p>", 'b"_ce<esc>p')
--- map('i', '<A-p>', '<esc>b"_ce<esc>pi')
+map("i", "<A-p>", '<esc>b"_ce<esc>pi')
 map("n", "<A-y>", "byew")
 map("i", "<A-y>", "<esc>byew")
+
+-- Edit
+map("s", "<C-s>", "<esc><cmd>w<cr>")
+map("n", "<C-z>", "<cmd>undo<cr>")
+map("n", "<S-u>", "<cmd>redo<cr>")
 
 map("n", "<F2>", '<cmd>lua require("renamer").rename()<cr>')
 map("i", "<F2>", '<cmd>lua require("renamer").rename()<cr>')
 map("v", "<F2>", '<cmd>lua require("renamer").rename()<cr>')
 
--- Debugger
--- map("n", "<F7>", "<cmd>DapToggleBreakpoint<cr>")
--- map("n", "<F8>", "<cmd>DapContinue<cr>")
--- map("n", "<F9>", "<cmd>DapStepInto<cr>")
--- map("n", "<F10>", "<cmd>DapTerminate<cr>")
--- map("n", "<F12>", '<cmd>lua require("dapui").toggle()<cr>')
-
--- Windows and Tabs
+-- Windows
 map("", "<leader><Tab>", "<C-w>w", { desc = "Next window" })
-map("n", "<C-S-Up>", "<C-w><Up>")
-map("n", "<C-S-Down>", "<C-w><Down>")
-map("n", "<C-S-Left>", "<C-w><Left>")
-map("n", "<C-S-Right>", "<C-w><Right>")
-map("n", "<leader>wh", "<cmd>vertical resize -4<cr>")
-map("n", "<leader>wj", "<cmd>horizontal resize +4<cr>")
-map("n", "<leader>wk", "<cmd>horizontal resize -4<cr>")
-map("n", "<leader>wl", "<cmd>vertical resize +4<cr>")
+map("n", "<A-q>", '<cmd>lua require("dapui").close()<cr><cmd>SClose<cr>')
+map("n", "<C-q>", "<C-w>q")
+map("n", "<leader>k", "<C-w><Up>")
+map("n", "<leader>j", "<C-w><Down>")
+map("n", "<leader>h", "<C-w><Left>")
+map("n", "<leader>l", "<C-w><Right>")
+map("n", "<leader><Up>", "<C-w><Up>")
+map("n", "<leader><Down>", "<C-w><Down>")
+map("n", "<leader><Left>", "<C-w><Left>")
+map("n", "<leader><Right>", "<C-w><Right>")
+map("n", "<C-S-Left>", "<cmd>vertical resize -4<cr>")
+map("n", "<C-S-Up>", "<cmd>horizontal resize +4<cr>")
+map("n", "<C-S-Down>", "<cmd>horizontal resize -4<cr>")
+map("n", "<C-S-Right>", "<cmd>vertical resize +4<cr>")
+map("n", "<C-\\>", "<cmd>vsplit<cr><C-w>l<cr>:bnext<cr>")
+map("n", "<C-]>", "<cmd>split<cr><C-w>j<cr>:bnext<cr>")
+
+-- Tabs
 map("n", "<C-S-PageUp>", "<cmd>BufferLineMovePrev<cr>")
 map("n", "<C-S-PageDown>", "<cmd>BufferLineMoveNext<cr>")
+map("n", "<C-j>", "<cmd>bprevious<cr>")
+map("n", "<C-k>", "<cmd>bnext<cr>")
+map("i", "<C-PageDown>", "<esc><cmd>bnext<cr>")
+map("i", "<C-PageUp>", "<esc><cmd>bprevious<cr>")
+map("n", "<C-PageDown>", "<cmd>bnext<cr>")
+map("n", "<C-PageUp>", "<cmd>bprevious<cr>")
+map("n", "<A-PageDown>", "<cmd>bnext<cr>")
+map("i", "<A-PageDown>", "<esc><cmd>bnext<cr>")
+map("n", "<A-PageUp>", "<cmd>bprevious<cr>")
+map("i", "<A-PageUp>", "<esc><cmd>bprevious<cr>")
+map("n", "<A-w>", "<cmd>Bdelete<cr>")
+map("i", "<A-w>", "<esc><cmd>Bdelete<cr>")
 
 -- map("n", "<A-->", '"_dd')
 -- map("i", "<A-->", '<esc>"_ddi')
@@ -170,11 +189,8 @@ map("i", "<A-s>", "<esc><cmd>w<cr>")
 map("v", "<A-s>", "<esc><cmd>w<cr>")
 map("i", "<C-s>", "<esc><cmd>w<cr>")
 map("v", "<C-s>", "<esc><cmd>w<cr>")
-map("s", "<C-s>", "<esc><cmd>w<cr>")
-map("n", "<C-z>", "<cmd>undo<cr>")
-map("n", "<S-u>", "<cmd>redo<cr>")
-map("n", "<A-q>", '<cmd>lua require("dapui").close()<cr><cmd>SClose<cr>')
 
+-- Code comment
 map("i", "<A-/>", "<esc><cmd>CommentToggle<cr>i<Right>")
 map("n", "<A-/>", "<S-V><esc><cmd>'<,'>CommentToggle<cr>gv<esc>")
 map("v", "<A-/>", "<esc><cmd>'<,'>CommentToggle<cr>gv<esc>")
@@ -182,10 +198,6 @@ map("i", "<A-u>", "<esc><cmd>CommentToggle<cr>i<Right>")
 map("n", "<A-u>", "<S-V><esc><cmd>'<,'>CommentToggle<cr>gv<esc>")
 map("v", "<A-u>", "<esc><cmd>'<,'>CommentToggle<cr>gv<esc>")
 
-map("i", "<C-PageDown>", "<esc><cmd>bnext<cr>")
-map("i", "<C-PageUp>", "<esc><cmd>bprevious<cr>")
-map("n", "<C-PageDown>", "<cmd>bnext<cr>")
-map("n", "<C-PageUp>", "<cmd>bprevious<cr>")
 map("n", "<A-a>", "ggVGo")
 
 -- Move lines up and down
@@ -208,11 +220,6 @@ map("n", "<A-0>", "dsb", { noremap = false, silent = false })
 map("n", "<A-,>", "ysiwt", { noremap = false, silent = false })
 map("n", "<A-.>", "dst", { noremap = false, silent = false })
 map("v", "<A-,>", "ST", { noremap = false, silent = false })
-map("n", "<C-\\>", "<cmd>vsplit<cr><C-w>l<cr>:bnext<cr>")
-map("n", "<C-/>", "<cmd>split<cr><C-w>j<cr>:bnext<cr>")
-map("n", "<C-q>", "<C-w>q")
-map("n", "<A-Home>", "<cmd>vertical resize -2<cr>")
-map("n", "<A-End>", "<cmd>vertical resize +2<cr>")
 map("n", "<A-Del>", "ce")
 map("n", "<A-Backspace>", "cb")
 map("n", "<A-x>", '"_dd')
@@ -220,39 +227,25 @@ map("i", "<A-x>", '<esc>"_dd')
 map("n", "<A-o>", "o<esc>")
 -- map('n', '<A-x>', '"_dw')
 
-map("n", "<leader><Left>", "za")
-map("n", "<leader><Up>", "zM")
-map("n", "<leader><Down>", "zR")
-map("n", "<leader>h", "za")
-map("n", "<leader>j", "zR")
-map("n", "<leader>k", "zM")
-
+-- Move lines
 map("n", "<A-j>", "<cmd>m .+1<cr>==")
 map("v", "<A-j>", "<esc><cmd>'<,'>m '>+1<cr>gv=gv")
 map("n", "<A-k>", "<cmd>m .-2<cr>==")
 map("v", "<A-k>", "<esc><cmd>'<,'>m '<-2<cr>gv=gv")
 map("n", "<A-h>", "b")
-map("n", "<C-j>", "<cmd>bprevious<cr>")
-map("n", "<C-k>", "<cmd>bnext<cr>")
 
--- Insert mode
--- Movements
+-- Movements insert mode
 map("i", "<A-j>", "<Down>")
 map("i", "<A-k>", "<Up>")
 map("i", "<A-h>", "<Left>")
 map("i", "<A-l>", "<Right>")
 map("i", "<S-A-h>", "<C-o>b")
 map("i", "<S-A-l>", "<C-o>w")
-
--- map('i', '<A-u>', '<esc>ui')
 map("n", "<A-m>", "<esc>o")
 map("i", "<A-i>", "<esc><Right>")
-
 map("i", "<A-,>", "<esc>lylli, <esc>ppi")
-
 map("i", "<A-Left>", "<C-o>b")
 map("i", "<A-Right>", "<C-o>e")
-
 map("i", "<A-z>", "<Backspace>")
 map("i", "<A-x>", "<Del>")
 map("i", "<A-g>", "<Home>")
@@ -261,18 +254,9 @@ map("i", "<A-Del>", "<C-o>de")
 map("i", "<A-Backspace>", "<C-o>db")
 map("i", "<A-S-Del>", "<C-o>die")
 map("i", "<A-S-Backspace>", "<C-o>dib")
-
-map("n", "<A-Left>", "<C-w>h")
-map("n", "<A-Right>", "<C-w>l")
-map("n", "<A-PageDown>", "<cmd>bnext<cr>")
-map("i", "<A-PageDown>", "<esc><cmd>bnext<cr>")
-map("n", "<A-PageUp>", "<cmd>bprevious<cr>")
-map("i", "<A-PageUp>", "<esc><cmd>bprevious<cr>")
-map("i", "<A-w>", "<esc><cmd>Bdelete<cr>")
-map("n", "<A-w>", "<cmd>Bdelete<cr>")
 map("n", "<A-t>", "cstt")
 
--- retab
+-- Tab indent
 map("n", "<Tab>", ">>_")
 map("n", "<S-Tab>", "<<_")
 map("i", "<S-Tab>", "<C-D>")
@@ -298,9 +282,3 @@ map("v", "<Left>", "<Esc>")
 map("v", "<Right>", "<Esc><Right>")
 map("v", "<Up>", "<Esc><Up>")
 map("v", "<Down>", "<Esc><Down>")
-
--- Keybind to clear search
-map("n", "<leader>c", '<cmd>nohl<cr><cmd>echo "Search Cleared"<cr>')
-
-map("n", "<C-c>", "<cmd>PickColor<cr>", { noremap = true, silent = true })
-map("i", "<C-c>", "<cmd>PickColorInsert<cr>", { noremap = true, silent = true })
