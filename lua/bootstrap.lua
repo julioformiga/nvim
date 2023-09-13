@@ -248,12 +248,12 @@ local lsp_on_attach = function(client, bufnr)
 end
 
 local lsp_flags = {
-    debounce_text_changes = 150,
+    debounce_text_changes = 250,
 }
 
-require("neodev").setup({
-    library = { plugins = { "nvim-dap-ui", "neotest" }, types = true },
-})
+-- require("neodev").setup({
+--     library = { plugins = { "nvim-dap-ui", "neotest" }, types = true },
+-- })
 
 -- For C++ in Ubuntu: sudo apt install g++-12
 local lspservers = {

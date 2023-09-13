@@ -18,16 +18,27 @@ require("lualine").setup({
         component_separators = { left = "", right = "" },
         section_separators = { left = "", right = "" },
         disabled_filetypes = {
-
-            statusline = {
-                "startify",
-                "toggleterm",
-                "neo-tree",
-            },
             winbar = {
                 "startify",
                 "toggleterm",
                 "neo-tree",
+                "dap-repl",
+                "dapui_console",
+                -- "dapui_watches",
+                -- "dapui_stacks",
+                -- "dapui_breakpoints",
+                -- "dapui_scopes",
+            },
+            statusline = {
+                "startify",
+                "toggleterm",
+                "neo-tree",
+                "dap-repl",
+                -- "dapui_console",
+                "dapui_watches",
+                "dapui_stacks",
+                "dapui_breakpoints",
+                "dapui_scopes",
             },
         },
         ignore_focus = {},

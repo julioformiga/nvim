@@ -20,43 +20,43 @@ return {
             require("dapui").setup()
             local dap, dapui = require("dap"), require("dapui")
 
-            dap.adapters.python = function(cb, config)
-                if config.request == "attach" then
-                    local port = (config.connect or config).port
-                    local host = (config.connect or config).host or "127.0.0.1"
-                    cb({
-                        type = "server",
-                        port = assert(port, "`connect.port` is required for a python `attach` configuration"),
-                        host = host,
-                        options = {
-                            source_filetype = "python",
-                        },
-                    })
-                else
-                    cb({
-                        type = "executable",
-                        command = os.getenv("VIRTUAL_ENV") .. "/bin/python",
-                        -- command = "/home/julio/.cache/pypoetry/virtualenvs/fast-zero-Mp744fZZ-py3.11/bin/python",
-                        args = { "-m", "debugpy.adapter" },
-                        options = {
-                            source_filetype = "python",
-                        },
-                    })
-                end
-            end
-
-            dap.configurations.python = {
-                {
-                    type = "python",
-                    request = "launch",
-                    name = "Launch file",
-                    program = "${file}",
-                    pythonPath = function()
-                        -- return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
-                        return "/home/julio/.cache/pypoetry/virtualenvs/fast-zero-Mp744fZZ-py3.11/bin/python"
-                    end,
-                },
-            }
+            -- dap.adapters.python = function(cb, config)
+            --     if config.request == "attach" then
+            --         local port = (config.connect or config).port
+            --         local host = (config.connect or config).host or "127.0.0.1"
+            --         cb({
+            --             type = "server",
+            --             port = assert(port, "`connect.port` is required for a python `attach` configuration"),
+            --             host = host,
+            --             options = {
+            --                 source_filetype = "python",
+            --             },
+            --         })
+            --     else
+            --         cb({
+            --             type = "executable",
+            --             command = os.getenv("VIRTUAL_ENV") .. "/bin/python",
+            --             -- command = "/home/julio/.cache/pypoetry/virtualenvs/fast-zero-Mp744fZZ-py3.11/bin/python",
+            --             args = { "-m", "debugpy.adapter" },
+            --             options = {
+            --                 source_filetype = "python",
+            --             },
+            --         })
+            --     end
+            -- end
+            --
+            -- dap.configurations.python = {
+            --     {
+            --         type = "python",
+            --         request = "launch",
+            --         name = "Launch file",
+            --         program = "${file}",
+            --         -- pythonPath = function()
+            --         --     -- return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+            --         --     return "/home/julio/.cache/pypoetry/virtualenvs/fast-zero-Mp744fZZ-py3.11/bin/python"
+            --         -- end,
+            --     },
+            -- }
 
             dap.adapters.codelldb = {
                 type = "server",
@@ -110,7 +110,14 @@ return {
             "https://github.com/mfussenegger/nvim-dap",
         },
     },
-    "https://github.com/mfussenegger/nvim-dap-python",
+    {
+        "https://github.com/mfussenegger/nvim-dap-python",
+        -- lazy = false,
+        config = function()
+            -- require("dap-python").setup()
+            require("dap-python").setup("~/.local/share/nvim/mason/packages/debugpy/venv/bin/python")
+        end,
+    },
     {
         "https://github.com/mortepau/codicons.nvim",
         config = function()
@@ -119,11 +126,11 @@ return {
     },
     {
         "https://github.com/folke/neodev.nvim",
-        -- config = function()
-        --     require("neodev").setup({
-        --         library = { plugins = { "nvim-dap-ui", "neotest" }, types = true },
-        --     })
-        -- end,
+        config = function()
+            require("neodev").setup({
+                library = { plugins = { "nvim-dap-ui", "neotest" }, types = true },
+            })
+        end,
     },
     {
         "https://github.com/theHamsta/nvim-dap-virtual-text",
