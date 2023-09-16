@@ -1,21 +1,19 @@
-# Personal neovim conf
+# Personal Neovim conf
 
-err.... only this
+## Examples
 
-# Examples
-
-## Neovim conf
+### Neovim conf
 
 ![Nvim conf](https://github.com/julioformiga/.nvim/blob/main/assets/nvim.png)
 
-## Python
+### Python
 
 ![Python](https://github.com/julioformiga/.nvim/blob/main/assets/python.png)
 
-## Rust
+### Rust
 
 ![Rust](https://github.com/julioformiga/.nvim/blob/main/assets/rust.png)
 
-## C++
+### C++
 
 ![C++](https://github.com/julioformiga/.nvim/blob/main/assets/c.png)
