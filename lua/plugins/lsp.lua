@@ -11,6 +11,7 @@ return {
     "https://github.com/rafamadriz/friendly-snippets",
     "https://github.com/jose-elias-alvarez/null-ls.nvim",
     "https://github.com/onsails/lspkind.nvim",
+    "https://github.com/RRethy/vim-illuminate",
     {
         "https://github.com/hardyrafael17/norminette42.nvim",
         lazy = false,
