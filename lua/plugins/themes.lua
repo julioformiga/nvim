@@ -3,10 +3,10 @@ return {
         "https://github.com/catppuccin/nvim",
         config = function()
             require("catppuccin").setup({
-                flavour = "macchiato", -- latte, frappe, macchiato, mocha
+                flavour = "mocha", -- latte, frappe, macchiato, mocha
                 background = {
                     light = "latte",
-                    dark = "macchiato",
+                    dark = "mocha",
                 },
                 transparent_background = false,
                 term_colors = true,
@@ -36,7 +36,7 @@ return {
                 integrations = {
                     cmp = true,
                     gitsigns = true,
-                    nvimtree = true,
+                    nvimtree = false,
                     telescope = true,
                     notify = false,
                     mini = false,
@@ -44,7 +44,7 @@ return {
                 },
             })
             require("catppuccin").load()
-            vim.cmd.colorscheme("catppuccin-macchiato")
+            vim.cmd.colorscheme("catppuccin-mocha")
         end,
     },
     {
@@ -88,6 +88,7 @@ return {
             })
             -- require("nightfox").load()
             -- vim.cmd.colorscheme("nightfox")
+            -- vim.cmd.colorscheme("carbonfox")
         end,
     },
     {
@@ -135,6 +136,7 @@ return {
                 -- @param c Colorscheme
                 -- override = function(c) end,
             })
+            -- require("monokai-pro").load()
             -- vim.cmd.colorscheme("monokai-pro")
         end,
     },
