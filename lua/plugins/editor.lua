@@ -1,6 +1,15 @@
 return {
     "https://github.com/nvim-pack/nvim-spectre",
+    {
+        "https://github.com/VonHeikemen/searchbox.nvim",
+        -- keys = {
+        --     { "/", "<cmd>SearchBoxMatchAll<cr>", desc = "Search All" },
+        -- },
+        dependencies = "https://github.com/MunifTanjim/nui.nvim",
+    },
     "https://github.com/wellle/targets.vim",
+    "https://github.com/mg979/vim-visual-multi",
+    "https://github.com/farmergreg/vim-lastplace",
     "https://github.com/tpope/vim-repeat",
     {
         "https://github.com/nvim-treesitter/nvim-treesitter",
@@ -25,6 +34,58 @@ return {
             })
         end,
     },
+    {
+        "https://github.com/lukas-reineke/indent-blankline.nvim",
+        main = "ibl",
+        opts = {
+            enable = true,
+            show_start = true,
+            show_end = true,
+            scope = {
+                enable = true,
+                show_start = true,
+                show_end = true,
+                highlight = { "Function", "Label" },
+            },
+            indent = {
+                -- char = { "." },
+                tab_char = { "▎" },
+                smart_indent_cap = true,
+                -- highlight = { "Function", "Label" },
+                priority = 2,
+            },
+            -- whitespace = {
+            --     highlight = { "Function", "Label" },
+            --     remove_blankline_trail = true,
+            -- },
+            show_current_context = true,
+            exclude = { filetypes = { "startify" } },
+        },
+        -- config = function()
+        --     local hooks = require("ibl.hooks")
+        --     hooks.register(hooks.type.SKIP_LINE, hooks.builtin.skip_preproc_lines, { bufnr = 0 })
+        --     require("ibl").setup({
+        --         space_char_blankline = " ",
+        --         show_start = true,
+        --         show_end = true,
+        --         show_current_context = true,
+        --         exclude = { filetypes = { "startify" } },
+        --     })
+        -- end,
+    },
+    {
+        "https://github.com/filipdutescu/renamer.nvim",
+        config = function()
+            require("renamer").setup()
+        end,
+    },
+    {
+        "https://github.com/windwp/nvim-autopairs",
+        event = "InsertEnter",
+        config = function()
+            require("nvim-autopairs").setup()
+        end,
+    },
     "https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
     "https://github.com/JoosepAlviste/nvim-ts-context-commentstring",
     "https://github.com/danymat/neogen",
@@ -36,7 +97,7 @@ return {
                 options = {
                     mode = "buffers", -- set to "tabs" to only show tabpages instead
                     themable = true,
-                    numbers = "none", -- "buffer_id"
+                    numbers = "none", -- buffer_id, none
                     close_command = "bdelete! %d", -- can be a string | function, see "Mouse actions"
                     right_mouse_command = "bdelete! %d", -- can be a string | function, see "Mouse actions"
                     left_mouse_command = "buffer %d", -- can be a string | function, see "Mouse actions"
