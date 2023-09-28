@@ -30,7 +30,7 @@ local aucmd_dict = {
                 map(
                     "n",
                     "<leader><cr>",
-                    '<cmd>2TermExec cmd="cc % -Wall -Wextra -Werror -g -o main && ./main" direction=horizontal<cr>'
+                    '<cmd>2TermExec cmd="cc % -Wall -Wextra -Werror -g -o main && ./main" direction=vertical<cr>'
                 )
                 -- map(
                 --     "n",
@@ -58,6 +58,7 @@ local aucmd_dict = {
             callback = function()
                 map("n", "<leader>vf", "[[V]M")
                 map("n", "<leader><cr>", '<esc><cmd>2TermExec cmd="python %" direction=horizontal<cr>')
+                -- map("n", "<leader><cr>", '<esc><cmd>2TermExec cmd="python %" direction=horizontal<cr><C-w>j')
             end,
         },
     },
@@ -97,8 +98,8 @@ function ChangeScaleFactor(delta)
     vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * delta
 end
 
-map("n", "<C-=>", ":lua ChangeScaleFactor(1.1)<cr>")
-map("n", "<C-->", ":lua ChangeScaleFactor(0.9)<cr>")
+map("n", "<C-=>", ":lua ChangeScaleFactor(1.15)<cr>")
+map("n", "<C-->", ":lua ChangeScaleFactor(0.85)<cr>")
 
 -- Go to URL in current line
 M = {}
@@ -118,17 +119,17 @@ map("n", "<leader>c", '<cmd>nohl<cr><cmd>echo "Search Cleared"<cr>')
 map("", "<leader>s", "<cmd>set spell!<cr>", { desc = "Spell Toggle" })
 
 -- Not rewrite clipboard
--- map('n', 'd', '"_d')
+map("n", "d", '"_d')
 map("", "s", '"_s')
-map("", "x", '"_x')
-map("", "X", '"_X')
+-- map("", "x", '"_x')
+-- map("", "X", '"_X')
 map("", "<Del>", '"_x')
 map("", "<S-Del>", '"_dd')
 map("i", "<S-Del>", '<esc>"_dd')
 -- Edit words with copy and paste
 map("n", "<A-i>", 'b"_ce')
 map("n", "<A-p>", 'b"_ce<esc>p')
-map("i", "<A-p>", '<esc>b"_ce<esc>pi')
+-- map("i", "<A-p>", '<esc>b"_ce<esc>pi')
 map("n", "<A-y>", "byew")
 map("i", "<A-y>", "<esc>byew")
 
@@ -154,11 +155,15 @@ map("n", "<leader><Down>", "<C-w><Down>")
 map("n", "<leader><Left>", "<C-w><Left>")
 map("n", "<leader><Right>", "<C-w><Right>")
 map("n", "<C-S-Left>", "<cmd>vertical resize -4<cr>")
-map("n", "<C-S-Up>", "<cmd>horizontal resize +4<cr>")
-map("n", "<C-S-Down>", "<cmd>horizontal resize -4<cr>")
+map("n", "<C-S-Up>", "<cmd>horizontal resize -4<cr>")
+map("n", "<C-S-Down>", "<cmd>horizontal resize +4<cr>")
 map("n", "<C-S-Right>", "<cmd>vertical resize +4<cr>")
 map("n", "<C-\\>", "<cmd>vsplit<cr><C-w>l<cr>:bnext<cr>")
 map("n", "<C-]>", "<cmd>split<cr><C-w>j<cr>:bnext<cr>")
+map("n", "<A-Left>", "<C-w><Left>")
+map("n", "<A-Right>", "<C-w><Right>")
+map("n", "<A-h>", "<C-w><Left>")
+map("n", "<A-l>", "<C-w><Right>")
 
 -- Tabs
 map("n", "<C-S-PageUp>", "<cmd>BufferLineMovePrev<cr>")
@@ -211,8 +216,7 @@ map("v", "<A-Down>", "<esc><cmd>'<,'>m '>+1<cr>gv=gv")
 -- Normal and Visual mode
 map("n", "<cr>", "i")
 map("n", "<C-i>", "<C-I>")
-map("n", "<leader>tr", "<cmd>Telescope registers<cr>")
-map("n", "<A-l>", "w")
+-- map("n", "<A-l>", "w")
 map("n", "<A-[>", "ysiw", { noremap = false, silent = true })
 map("n", "<A-]>", "ds", { noremap = false, silent = true })
 map("n", "<A-9>", "ysiwb", { noremap = false, silent = false })
@@ -232,13 +236,14 @@ map("n", "<A-j>", "<cmd>m .+1<cr>==")
 map("v", "<A-j>", "<esc><cmd>'<,'>m '>+1<cr>gv=gv")
 map("n", "<A-k>", "<cmd>m .-2<cr>==")
 map("v", "<A-k>", "<esc><cmd>'<,'>m '<-2<cr>gv=gv")
-map("n", "<A-h>", "b")
+-- map("n", "<A-h>", "b")
 
 -- Movements insert mode
 map("i", "<A-j>", "<Down>")
 map("i", "<A-k>", "<Up>")
 map("i", "<A-h>", "<Left>")
 map("i", "<A-l>", "<Right>")
+map("i", "<A-r>", "<C-r>")
 map("i", "<S-A-h>", "<C-o>b")
 map("i", "<S-A-l>", "<C-o>w")
 map("n", "<A-m>", "<esc>o")
