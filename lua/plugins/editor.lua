@@ -38,11 +38,7 @@ return {
         "https://github.com/lukas-reineke/indent-blankline.nvim",
         main = "ibl",
         opts = {
-            enable = true,
-            show_start = true,
-            show_end = true,
             scope = {
-                enable = true,
                 show_start = true,
                 show_end = true,
                 highlight = { "Function", "Label" },
@@ -58,7 +54,6 @@ return {
             --     highlight = { "Function", "Label" },
             --     remove_blankline_trail = true,
             -- },
-            show_current_context = true,
             exclude = { filetypes = { "startify" } },
         },
         -- config = function()
