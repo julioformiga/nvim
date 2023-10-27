@@ -2,3 +2,4 @@ plug-config/
 plugin/
 session
 lazy-lock.json
+node_modules/

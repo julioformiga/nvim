@@ -54,7 +54,8 @@ local cmp = require("cmp")
 local lspkind = require("lspkind")
 local luasnip = require("luasnip")
 
-require("luasnip.loaders.from_vscode").lazy_load()
+-- require("luasnip.loaders.from_vscode").lazy_load()
+require("luasnip.loaders.from_snipmate").lazy_load()
 
 cmp.setup({
     snippet = {
@@ -96,8 +97,8 @@ cmp.setup({
         ["<Tab>"] = function(fallback)
             if cmp.visible() then
                 cmp.select_next_item()
-                -- elseif luasnip.expand_or_jumpable() then
-                --     luasnip.expand_or_jump()
+            elseif luasnip.expand_or_jumpable() then
+                luasnip.expand_or_jump()
             elseif has_words_before() then
                 cmp.complete()
             else
@@ -107,8 +108,8 @@ cmp.setup({
         ["<S-Tab>"] = function(fallback)
             if cmp.visible() then
                 cmp.select_prev_item()
-                -- elseif luasnip.jumpable(-1) then
-                --     luasnip.jump(-1)
+            elseif luasnip.jumpable(-1) then
+                luasnip.jump(-1)
             else
                 fallback()
             end
@@ -158,18 +159,17 @@ null_ls.setup({
         -- null_ls.builtins.formatting.yq,
         null_ls.builtins.formatting.beautysh,
         -- null_ls.builtins.formatting.black,
-        null_ls.builtins.formatting.blue,
+        -- null_ls.builtins.formatting.blue,
         null_ls.builtins.formatting.ruff.with({
             extra_args = { "--ignore-unused" },
         }),
         null_ls.builtins.formatting.rustfmt,
-        null_ls.builtins.formatting.stylua,
-        -- null_ls.builtins.formatting.lua_format,
+        -- null_ls.builtins.formatting.stylua,
         -- null_ls.builtins.diagnostics.cpplint,
         -- null_ls.builtins.formatting.clang_format,
         -- null_ls.builtins.formatting.astyle,
-        -- null_ls.builtins.formatting.prettierd,
-        -- null_ls.builtins.formatting.prettier,
+        null_ls.builtins.formatting.prettierd,
+        null_ls.builtins.formatting.prettier,
         -- null_ls.builtins.formatting.mdformat,
         -- null_ls.builtins.formatting.eslint_d,
         -- null_ls.builtins.formatting.jq,
@@ -269,6 +269,7 @@ local lspservers = {
     "clangd",
     "rust_analyzer",
     "marksman",
+    "cssls",
     "cssmodules_ls",
     "biome",
     "eslint",
