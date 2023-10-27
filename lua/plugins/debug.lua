@@ -63,7 +63,7 @@ return {
                 host = "127.0.0.1",
                 port = 13000,
                 executable = {
-                    command = "/home/julio/.local/share/nvim/mason/bin/codelldb",
+                    command = HOMEDIR .. "/.local/share/nvim/mason/bin/codelldb",
                     args = { "--port", "13000" },
                 },
             }
