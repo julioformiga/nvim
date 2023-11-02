@@ -31,7 +31,13 @@ return {
                     types = { "italic,bold" },
                     operators = {},
                 },
-                color_overrides = {},
+                color_overrides = {
+                    mocha = {
+                        base = "#161621",
+                        mantle = "#161621",
+                        crust = "#161621",
+                    },
+                },
                 custom_highlights = {},
                 integrations = {
                     cmp = true,
