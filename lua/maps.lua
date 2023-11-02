@@ -30,7 +30,7 @@ local aucmd_dict = {
                 map(
                     "n",
                     "<leader><cr>",
-                    '<cmd>2TermExec cmd="cc % -Wall -Wextra -Werror -g -o main && ./main" direction=vertical<cr>'
+                    '<cmd>2TermExec cmd="cc % -Wall -Wextra -Werror -g -o main && ./main" direction=horizontal<cr>'
                 )
                 -- map(
                 --     "n",
