@@ -32,11 +32,11 @@ return {
                     operators = {},
                 },
                 color_overrides = {
-                    mocha = {
-                        base = "#161621",
-                        mantle = "#161621",
-                        crust = "#161621",
-                    },
+                    -- mocha = {
+                    --     base = "#161621",
+                    --     mantle = "#161621",
+                    --     crust = "#161621",
+                    -- },
                 },
                 custom_highlights = {},
                 integrations = {
@@ -127,8 +127,7 @@ return {
                     "toggleterm",
                     "telescope",
                     "which-key",
-                    "renamer",
-                }, -- "float_win", "toggleterm", "telescope", "which-key", "renamer", "neo-tree"
+                }, -- "float_win", "toggleterm", "telescope", "which-key", "neo-tree"
                 plugins = {
                     bufferline = {
                         underline_selected = false,

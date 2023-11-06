@@ -160,26 +160,27 @@ null_ls.setup({
         null_ls.builtins.formatting.beautysh,
         -- null_ls.builtins.formatting.black,
         -- null_ls.builtins.formatting.blue,
+        -- null_ls.builtins.formatting.ruff,
         null_ls.builtins.formatting.ruff.with({
             extra_args = { "--ignore-unused" },
         }),
         null_ls.builtins.formatting.rustfmt,
-        -- null_ls.builtins.formatting.stylua,
+        null_ls.builtins.formatting.stylua,
         -- null_ls.builtins.diagnostics.cpplint,
         -- null_ls.builtins.formatting.clang_format,
         -- null_ls.builtins.formatting.astyle,
         null_ls.builtins.formatting.prettierd,
-        null_ls.builtins.formatting.prettier,
+        -- null_ls.builtins.formatting.prettier,
         -- null_ls.builtins.formatting.mdformat,
         -- null_ls.builtins.formatting.eslint_d,
-        -- null_ls.builtins.formatting.jq,
+        null_ls.builtins.formatting.jq,
         -- null_ls.builtins.diagnostics.vulture,
         null_ls.builtins.hover.dictionary,
         -- null_ls.builtins.diagnostics.mypy.with({
         --     extra_args = { "--ignore-missing-imports" },
         -- }),
         -- null_ls.builtins.diagnostics.pycodestyle,
-        -- null_ls.builtins.diagnostics.write_good,
+        null_ls.builtins.diagnostics.write_good,
         null_ls.builtins.code_actions.refactoring, -- go, javascript, lua, python, typescript
         -- null_ls.builtins.diagnostics.luacheck,
         -- {
@@ -218,12 +219,12 @@ capabilities.textDocument.foldingRange = {
 local lsp_on_attach = function(client, bufnr)
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
 
-    if client.server_capabilities.documentSymbolProvider then
-        -- Use only Pyright
-        if client.config.name ~= "jedi_language_server" then
-            navic.attach(client, bufnr)
-        end
-    end
+    -- if client.server_capabilities.documentSymbolProvider then
+    --     -- Use only Pyright
+    --     if client.config.name ~= "jedi_language_server" then
+    --         navic.attach(client, bufnr)
+    --     end
+    -- end
 
     vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
     vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts)
@@ -237,7 +238,9 @@ local lsp_on_attach = function(client, bufnr)
         print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
     end, bufopts)
     vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, bufopts)
-    vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, bufopts)
+    vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, bufopts)
+    vim.keymap.set("v", "<F2>", vim.lsp.buf.rename, bufopts)
+    vim.keymap.set("i", "<F2>", vim.lsp.buf.rename, bufopts)
     vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, bufopts)
     vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
     vim.keymap.set("n", "<leader>f", function()
@@ -261,7 +264,8 @@ local lspservers = {
     "awk_ls",
     "lua_ls",
     "pyright",
-    "jedi_language_server",
+    -- "jedi_language_server",
+    "ruff",
     "ruff_lsp",
     "graphql",
     "yamlls",
