@@ -138,10 +138,6 @@ map("s", "<C-s>", "<esc><cmd>w<cr>")
 map("n", "<C-z>", "<cmd>undo<cr>")
 map("n", "<S-u>", "<cmd>redo<cr>")
 
-map("n", "<F2>", '<cmd>lua require("renamer").rename()<cr>')
-map("i", "<F2>", '<cmd>lua require("renamer").rename()<cr>')
-map("v", "<F2>", '<cmd>lua require("renamer").rename()<cr>')
-
 -- Windows
 map("", "<leader><Tab>", "<C-w>w", { desc = "Next window" })
 map("n", "<A-q>", '<cmd>lua require("dapui").close()<cr><cmd>SClose<cr>')
