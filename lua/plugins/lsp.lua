@@ -28,22 +28,81 @@ return {
     },
     {
         "https://github.com/linux-cultist/venv-selector.nvim",
-        dependencies = {
-            "neovim/nvim-lspconfig",
-            "nvim-telescope/telescope.nvim",
-            "mfussenegger/nvim-dap-python"
-        },
         config = function()
             require("venv-selector").setup({
-                pdm_path = "."
+                pdm_path = ".",
             })
         end,
         event = "VeryLazy",
         keys = {
-            {
-                "<leader>vs", "<cmd>:VenvSelect<cr>",
-                "<leader>vc", "<cmd>:VenvSelectCached<cr>"
-            }
-        }
-    }
+            { "<leader>vs", "<CMD>:VenvSelect<CR>",       "Select Venv" },
+            { "<leader>vc", "<CMD>:VenvSelectCached<CR>", "Select Venv Cached" },
+        },
+    },
+    -- "https://github.com/github/copilot.vim",
+    {
+        "zbirenbaum/copilot.lua",
+        cmd = "Copilot",
+        event = "InsertEnter",
+        config = function()
+            require("copilot").setup({
+                panel = {
+                    enabled = false,
+                    auto_refresh = true,
+                    keymap = {
+                        jump_prev = "[[",
+                        jump_next = "]]",
+                        accept = "<CR>",
+                        refresh = "gr",
+                        open = "<M-CR>",
+                    },
+                    layout = {
+                        position = "bottom", -- | top | left | right
+                        ratio = 0.4,
+                    },
+                },
+                suggestion = {
+                    enabled = false,
+                    auto_trigger = true,
+                    debounce = 75,
+                    keymap = {
+                        accept = "<M-l>",
+                        accept_word = false,
+                        accept_line = false,
+                        next = "<M-]>",
+                        prev = "<M-[>",
+                        dismiss = "<C-]>",
+                    },
+                },
+                filetypes = {
+                    yaml = false,
+                    markdown = false,
+                    help = false,
+                    c = true,
+                    gitcommit = false,
+                    gitrebase = false,
+                    hgcommit = false,
+                    svn = false,
+                    cvs = false,
+                    ["."] = false,
+                },
+                copilot_node_command = "node", -- Node.js version must be > 18.x
+                server_opts_overrides = {
+                    trace = "verbose",
+                    settings = {
+                        advanced = {
+                            listCount = 10, -- #completions for panel
+                            inlineSuggestCount = 3, -- #completions for getCompletions
+                        },
+                    },
+                },
+            })
+        end,
+    },
+    {
+        "https://github.com/zbirenbaum/copilot-cmp",
+        config = function()
+            require("copilot_cmp").setup()
+        end,
+    },
 }

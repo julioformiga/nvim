@@ -50,9 +50,47 @@ local has_words_before = function()
     return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
+local has_words_before_copilot = function()
+    if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
+        return false
+    end
+    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+    return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
+end
+
 local cmp = require("cmp")
 local lspkind = require("lspkind")
 local luasnip = require("luasnip")
+
+lspkind.init({
+    symbol_map = {
+        Text = "",
+        Method = "",
+        Function = "",
+        Constructor = "",
+        Variable = "",
+        Class = "ﴯ",
+        Interface = "",
+        Module = "",
+        Property = "ﰠ",
+        Unit = "塞",
+        Value = "",
+        Enum = "",
+        Keyword = "",
+        Snippet = "",
+        Color = "",
+        File = "",
+        Folder = "",
+        EnumMember = "",
+        Constant = "",
+        Struct = "פּ",
+        Event = "",
+        Operator = "",
+        TypeParameter = "",
+    },
+})
+
+vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
 
 -- require("luasnip.loaders.from_vscode").lazy_load()
 require("luasnip.loaders.from_snipmate").lazy_load()
@@ -71,6 +109,7 @@ cmp.setup({
             mode = "symbol_text", -- show only symbol annotations
             maxwidth = 50, -- prevent the popup from showing more than provided characters
             ellipsis_char = "...", -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead
+            symbol_map = { Copilot = "" },
             menu = {
                 path = "[Path]",
                 nvim_lua = "[Lua]",
@@ -95,7 +134,9 @@ cmp.setup({
     },
     mapping = cmp.mapping.preset.insert({
         ["<Tab>"] = function(fallback)
-            if cmp.visible() then
+            if cmp.visible() and has_words_before_copilot() then
+                cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+            elseif cmp.visible() then
                 cmp.select_next_item()
             elseif luasnip.expand_or_jumpable() then
                 luasnip.expand_or_jump()
@@ -123,6 +164,7 @@ cmp.setup({
     }),
     sources = cmp.config.sources({
         { name = "path" },
+        { name = "copilot" },
         { name = "nvim_lsp" },
         -- { name = 'vsnip' }, -- For vsnip users.
         { name = "luasnip" }, -- For luasnip users.
@@ -270,7 +312,6 @@ local lspservers = {
     "graphql",
     "yamlls",
     "cmake",
-    "clangd",
     "rust_analyzer",
     "marksman",
     "cssls",
@@ -292,6 +333,16 @@ for _, lsp in pairs(lspservers) do
         flags = lsp_flags,
     })
 end
+
+require("lspconfig")["clangd"].setup({
+    on_attach = lsp_on_attach,
+    capabilities = capabilities,
+    flags = lsp_flags,
+    cmd = {
+        "clangd",
+        "--offset-encoding=utf-16",
+    },
+})
 
 require("lspconfig")["arduino_language_server"].setup({
     on_attach = lsp_on_attach,
