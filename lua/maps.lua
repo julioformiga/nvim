@@ -30,7 +30,8 @@ local aucmd_dict = {
                 map(
                     "n",
                     "<leader><cr>",
-                    '<cmd>2TermExec cmd="cc % -Wall -Wextra -Werror -g -o main && ./main" direction=horizontal<cr>'
+                    -- '<cmd>2TermExec cmd="cc % -Wall -Wextra -Werror -g -o main && ./main" direction=horizontal<cr>'
+                    '<cmd>2TermExec cmd="make run" direction=horizontal<cr>'
                 )
                 -- map(
                 --     "n",
@@ -119,7 +120,7 @@ map("n", "<leader>c", '<cmd>nohl<cr><cmd>echo "Search Cleared"<cr>')
 map("", "<leader>s", "<cmd>set spell!<cr>", { desc = "Spell Toggle" })
 
 -- Not rewrite clipboard
-map("n", "d", '"_d')
+-- map("n", "d", '"_d')
 map("", "s", '"_s')
 -- map("", "x", '"_x')
 -- map("", "X", '"_X')
@@ -164,8 +165,8 @@ map("n", "<A-l>", "<C-w><Right>")
 -- Tabs
 map("n", "<C-S-PageUp>", "<cmd>BufferLineMovePrev<cr>")
 map("n", "<C-S-PageDown>", "<cmd>BufferLineMoveNext<cr>")
-map("n", "<C-j>", "<cmd>bprevious<cr>")
-map("n", "<C-k>", "<cmd>bnext<cr>")
+map("n", "<A-j>", "<cmd>bprevious<cr>")
+map("n", "<A-k>", "<cmd>bnext<cr>")
 map("i", "<C-PageDown>", "<esc><cmd>bnext<cr>")
 map("i", "<C-PageUp>", "<esc><cmd>bprevious<cr>")
 map("n", "<C-PageDown>", "<cmd>bnext<cr>")
@@ -198,21 +199,23 @@ map("v", "<A-/>", "<esc><cmd>'<,'>CommentToggle<cr>gv<esc>")
 map("i", "<A-u>", "<esc><cmd>CommentToggle<cr>i<Right>")
 map("n", "<A-u>", "<S-V><esc><cmd>'<,'>CommentToggle<cr>gv<esc>")
 map("v", "<A-u>", "<esc><cmd>'<,'>CommentToggle<cr>gv<esc>")
-
 map("n", "<A-a>", "ggVGo")
 
 -- Move lines up and down
-map("i", "<A-Up>", "<esc><cmd>m .-2<cr>==gi")
-map("n", "<A-Up>", "<cmd>m .-2<cr>==")
-map("v", "<A-Up>", "<esc><cmd>'<,'>m '<-2<cr>gv")
-map("i", "<A-Down>", "<esc><cmd>m .+1<cr>==gi")
-map("n", "<A-Down>", "<cmd>m .+1<cr>==")
-map("v", "<A-Down>", "<esc><cmd>'<,'>m '>+1<cr>gv=gv")
+map("n", "<C-j>", "<cmd>m .+1<cr>==")
+map("v", "<C-j>", "<esc><cmd>'<,'>m '>+1<cr>gv=gv")
+map("n", "<C-k>", "<cmd>m .-2<cr>==")
+map("v", "<C-k>", "<esc><cmd>'<,'>m '<-2<cr>gv=gv")
+map("i", "<C-Up>", "<esc><cmd>m .-2<cr>==gi")
+map("n", "<C-Up>", "<cmd>m .-2<cr>==")
+map("v", "<C-Up>", "<esc><cmd>'<,'>m '<-2<cr>gv")
+map("i", "<C-Down>", "<esc><cmd>m .+1<cr>==gi")
+map("n", "<C-Down>", "<cmd>m .+1<cr>==")
+map("v", "<C-Down>", "<esc><cmd>'<,'>m '>+1<cr>gv=gv")
 
 -- Normal and Visual mode
 map("n", "<cr>", "i")
 map("n", "<C-i>", "<C-I>")
--- map("n", "<A-l>", "w")
 map("n", "<A-[>", "ysiw", { noremap = false, silent = true })
 map("n", "<A-]>", "ds", { noremap = false, silent = true })
 map("n", "<A-9>", "ysiwb", { noremap = false, silent = false })
@@ -225,14 +228,6 @@ map("n", "<A-Backspace>", "cb")
 map("n", "<A-x>", '"_dd')
 map("i", "<A-x>", '<esc>"_dd')
 map("n", "<A-o>", "o<esc>")
--- map('n', '<A-x>', '"_dw')
-
--- Move lines
-map("n", "<A-j>", "<cmd>m .+1<cr>==")
-map("v", "<A-j>", "<esc><cmd>'<,'>m '>+1<cr>gv=gv")
-map("n", "<A-k>", "<cmd>m .-2<cr>==")
-map("v", "<A-k>", "<esc><cmd>'<,'>m '<-2<cr>gv=gv")
--- map("n", "<A-h>", "b")
 
 -- Movements insert mode
 map("i", "<A-j>", "<Down>")
