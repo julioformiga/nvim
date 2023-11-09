@@ -41,7 +41,7 @@ return {
     },
     -- "https://github.com/github/copilot.vim",
     {
-        "zbirenbaum/copilot.lua",
+        "https://github.com/zbirenbaum/copilot.lua",
         cmd = "Copilot",
         event = "InsertEnter",
         config = function()

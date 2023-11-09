@@ -7,14 +7,14 @@ local opt = vim.opt
 wo.number = true
 wo.relativenumber = false
 wo.wrap = true
-o.noswapfile = true                        -- disable use of swap files
-o.wildmenu = true                          -- completion menu
-o.backspace = "indent,eol,start"           -- ensure proper backspace functionality
+o.noswapfile = true -- disable use of swap files
+o.wildmenu = true -- completion menu
+o.backspace = "indent,eol,start" -- ensure proper backspace functionality
 o.undodir = HOMEDIR .. "/.cache/nvim/undo" -- undo ability will persist after exiting file
-o.undofile = true                          -- see :help undodir and :help undofile
-o.ignorecase = true                        -- ignore case when searching
-o.incsearch = true                         -- see results while search is being typed, see :help incsearch
-o.showmatch = true                         -- display matching bracket or parenthesis
+o.undofile = true -- see :help undodir and :help undofile
+o.ignorecase = true -- ignore case when searching
+o.incsearch = true -- see results while search is being typed, see :help incsearch
+o.showmatch = true -- display matching bracket or parenthesis
 o.hlsearch = true
 o.nrformats = "bin,hex,alpha"
 o.autoread = true
@@ -44,8 +44,8 @@ g.neovide_remember_window_size = true
 g.neovide_cursor_antialiasing = true
 g.neovide_cursor_unfocused_outline_width = 0.125
 g.neovide_scroll_animation_length = 0.3
-g.neovide_refresh_rate = 144
-g.neovide_refresh_rate_idle = 5
+-- g.neovide_refresh_rate = 60
+-- g.neovide_refresh_rate_idle = 5
 -- g.neovide_transparency = 0.95
 -- g.transparency = 1
 -- Helper function for transparency formatting
@@ -66,7 +66,7 @@ o.list = true
 o.shell = "/usr/bin/zsh"
 o.fillchars = [[eob: ,fold: ,foldopen:,foldsep:│,foldclose:]]
 o.foldcolumn = "6" -- '0' is not bad
-o.foldlevel = 99   -- Using ufo provider need a large value, feel free to decrease the value
+o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
 o.foldlevelstart = 99
 o.foldenable = true
 -- opt.foldmethod = "expr"
@@ -90,33 +90,33 @@ o.completeopt = [[menuone,noinsert,noselect]]
 
 -- Disable builtin plugins
 local disabled_built_ins = {
-    "2html_plugin",
-    "getscript",
-    "getscriptPlugin",
-    "gzip",
-    "logipat",
-    "netrw",
-    "netrwPlugin",
-    "netrwSettings",
-    "netrwFileHandlers",
-    "matchit",
-    "tar",
-    "tarPlugin",
-    "rrhelper",
-    -- "spellfile_plugin",
-    "vimball",
-    "vimballPlugin",
-    "zip",
-    "zipPlugin",
-    "tutor",
-    "rplugin",
-    -- "synmenu",
-    -- "optwin",
-    -- "compiler",
-    -- "bugreport",
-    "ftplugin",
+	"2html_plugin",
+	"getscript",
+	"getscriptPlugin",
+	"gzip",
+	"logipat",
+	"netrw",
+	"netrwPlugin",
+	"netrwSettings",
+	"netrwFileHandlers",
+	"matchit",
+	"tar",
+	"tarPlugin",
+	"rrhelper",
+	-- "spellfile_plugin",
+	"vimball",
+	"vimballPlugin",
+	"zip",
+	"zipPlugin",
+	"tutor",
+	"rplugin",
+	-- "synmenu",
+	-- "optwin",
+	-- "compiler",
+	-- "bugreport",
+	"ftplugin",
 }
 
 for _, plugin in pairs(disabled_built_ins) do
-    g["loaded_" .. plugin] = 1
+	g["loaded_" .. plugin] = 1
 end

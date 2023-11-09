@@ -77,7 +77,7 @@ return {
                     --     return vim.fn.input('Path to executable: ', vim.fn.getcwd()..'/', 'file')
                     -- end,
                     -- program = "${fileDirname}/${fileBasenameNoExtension}",
-                    program = "main",
+                    program = "a.out",
                     -- program = "/home/julio/.local/share/nvim/mason/bin/codelldb",
                     terminal = "integrated",
                 },
