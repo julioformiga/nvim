@@ -180,8 +180,6 @@ map("n", "<A-PageDown>", "<cmd>bnext<cr>")
 map("i", "<A-PageDown>", "<esc><cmd>bnext<cr>")
 map("n", "<A-PageUp>", "<cmd>bprevious<cr>")
 map("i", "<A-PageUp>", "<esc><cmd>bprevious<cr>")
-map("n", "<C-w>", "<cmd>Bdelete<cr>")
-map("i", "<C-w>", "<esc><cmd>Bdelete<cr>")
 map("n", "<A-w>", "<cmd>Bdelete<cr>")
 map("i", "<A-w>", "<esc><cmd>Bdelete<cr>")
 
