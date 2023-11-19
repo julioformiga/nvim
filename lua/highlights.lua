@@ -53,7 +53,7 @@ require("lualine").setup({
     sections = {
         lualine_a = { "mode" },
         lualine_b = { "branch", "diff", "diagnostics" },
-        lualine_c = { { "filename", path = 4 } },
+        lualine_c = { { require("NeoComposer.ui").status_recording }, { "filename", path = 4 } },
         lualine_x = { { "filetype", icon_only = true }, "encoding" },
         lualine_y = { "progress" },
         lualine_z = { "location" },

@@ -267,4 +267,9 @@ return {
             })
         end,
     },
+    {
+        "https://github.com/ecthelionvi/NeoComposer.nvim",
+        dependencies = { "https://github.com/kkharji/sqlite.lua" },
+        opts = { keymaps = { toggle_macro_menu = "<leader>q" } },
+    },
 }
