@@ -15,10 +15,6 @@ return {
         "https://github.com/nvim-treesitter/nvim-treesitter",
         config = function()
             require("nvim-treesitter.configs").setup({
-                context_commentstring = {
-                    enable = true,
-                    enable_autocmd = false,
-                },
                 highlight = {
                     enable = true,
                     disable = { "" },
