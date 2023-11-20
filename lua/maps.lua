@@ -116,7 +116,7 @@ map("n", "gf", "<Cmd>lua M.HandleURL()<cr>")
 
 map("n", "<leader>r", ':so %<cr><cmd>echo "Settings reload!"<cr>', { desc = "Reload settings" })
 map("n", "<A-cr>", ":", { noremap = true, silent = false })
-map("n", "<leader>c", '<cmd>nohl<cr><cmd>echo "Search Cleared"<cr>')
+map("n", "<leader>cc", '<cmd>nohl<cr><cmd>echo "Search Cleared"<cr>', { desc = "Clear search" })
 map("", "<leader>s", "<cmd>set spell!<cr>", { desc = "Spell Toggle" })
 
 -- Not rewrite clipboard
