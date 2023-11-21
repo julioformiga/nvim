@@ -1,16 +1,5 @@
 return {
 	"https://github.com/nvim-pack/nvim-spectre",
-	{
-		"https://github.com/VonHeikemen/searchbox.nvim",
-		-- keys = {
-		--     { "/", "<cmd>SearchBoxMatchAll<cr>", desc = "Search All" },
-		-- },
-		opts = {
-			visual_mode = true,
-			show_matches = true,
-		},
-		dependencies = "https://github.com/MunifTanjim/nui.nvim",
-	},
 	"https://github.com/wellle/targets.vim",
 	"https://github.com/mg979/vim-visual-multi",
 	"https://github.com/farmergreg/vim-lastplace",
