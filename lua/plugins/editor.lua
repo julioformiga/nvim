@@ -230,6 +230,7 @@ return {
 			require("nvim-surround").setup()
 		end,
 	},
+	"https://github.com/JoosepAlviste/nvim-ts-context-commentstring",
 	{
 		"https://github.com/terrortylor/nvim-comment",
 		config = function()

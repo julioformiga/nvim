@@ -2,7 +2,6 @@ return {
 	"https://github.com/themaxmarchuk/tailwindcss-colors.nvim",
 	"https://github.com/ap/vim-css-color",
 	"https://github.com/turbio/bracey.vim",
-	"https://github.com/JoosepAlviste/nvim-ts-context-commentstring",
 	{
 		"https://github.com/ziontee113/color-picker.nvim",
 		keys = {

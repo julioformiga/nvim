@@ -215,16 +215,15 @@ local lsp_on_attach = function(client, bufnr)
 		print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 	end, bufopts)
 	vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, bufopts)
-	vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, bufopts)
-	vim.keymap.set("v", "<F2>", vim.lsp.buf.rename, bufopts)
-	vim.keymap.set("i", "<F2>", vim.lsp.buf.rename, bufopts)
+	vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, bufopts)
+	vim.keymap.set("v", "<leader>r", vim.lsp.buf.rename, bufopts)
 	vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, bufopts)
 	vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
 	vim.keymap.set("n", "<leader>f", function()
 		vim.lsp.buf.format({ async = true })
 	end, bufopts)
 
-	-- client.server_capabilities.documentFormattingProvider = false
+	client.server_capabilities.documentFormattingProvider = false
 end
 
 local lsp_flags = {
