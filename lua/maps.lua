@@ -1,94 +1,94 @@
 local function map(mode, lhs, rhs, options)
-    options = options or { noremap = true, silent = true }
-    vim.api.nvim_set_keymap(mode, lhs, rhs, options)
+	options = options or { noremap = true, silent = true }
+	vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
 local aucmd_dict = {
-    FileType = {
-        {
-            pattern = { "arduino" },
-            callback = function()
-                map("n", "<leader>vf", "va{V")
-                map(
-                    "n",
-                    "<leader><cr>",
-                    '<esc><cmd>2TermExec cmd="arduino-cli compile --fqbn esp8266:esp8266:nodemcuv2 && arduino-cli upload -v -p /dev/ttyACM0 --fqbn esp8266:esp8266:nodemcuv2:baud=3000000 && arduino-cli monitor -p /dev/ttyACM0 -c baudrate=115200" direction=float<cr>'
-                )
-            end,
-        },
-        {
-            pattern = { "sh" },
-            callback = function()
-                map("n", "<leader><cr>", '<esc><cmd>2TermExec cmd="bash %" direction=horizontal<cr>')
-                map("n", "<leader><cr><cr>", '<esc><cmd>2TermExec cmd="bash %" direction=horizontal<cr><C-w>j')
-            end,
-        },
-        {
-            pattern = { "c", "cpp" },
-            callback = function()
-                map("n", "<leader>vf", "va{V")
-                map(
-                    "n",
-                    "<leader><cr>",
-                    -- '<cmd>2TermExec cmd="cc % -Wall -Wextra -Werror -g -o main && ./main" direction=horizontal<cr>'
-                    '<cmd>2TermExec cmd="make run" direction=horizontal<cr>'
-                )
-                -- map(
-                --     "n",
-                --     "<leader><cr><cr>",
-                --     '<esc><cmd>2TermExec cmd="cc % -Wall -Wextra -Werror -g -o main && ./main" direction=horizontal<cr><C-w><C-w>'
-                -- )
-            end,
-        },
-        {
-            pattern = { "rs", "rust" },
-            callback = function()
-                map("n", "<leader>vf", "va{V")
-                map("n", "<leader><cr>", '<esc><cmd>2TermExec cmd="cargo run" direction=horizontal<cr>')
-                -- map('n', '<leader><cr>', '<esc><cmd>3TermExec cmd="cargo run" direction=horizontal<cr><C-w>j')
-            end,
-        },
-        {
-            pattern = { "markdown" },
-            callback = function()
-                map("n", "<leader><cr>", "<esc><cmd>Glow %<cr>")
-            end,
-        },
-        {
-            pattern = { "python" },
-            callback = function()
-                map("n", "<leader>vf", "[[V]M")
-                map("n", "<leader><cr>", '<esc><cmd>2TermExec cmd="python %" direction=horizontal<cr>')
-                -- map("n", "<leader><cr>", '<esc><cmd>2TermExec cmd="python %" direction=horizontal<cr><C-w>j')
-            end,
-        },
-    },
+	FileType = {
+		{
+			pattern = { "arduino" },
+			callback = function()
+				map("n", "<leader>vf", "va{V")
+				map(
+					"n",
+					"<leader><cr>",
+					'<esc><cmd>2TermExec cmd="arduino-cli compile --fqbn esp8266:esp8266:nodemcuv2 && arduino-cli upload -v -p /dev/ttyACM0 --fqbn esp8266:esp8266:nodemcuv2:baud=3000000 && arduino-cli monitor -p /dev/ttyACM0 -c baudrate=115200" direction=float<cr>'
+				)
+			end,
+		},
+		{
+			pattern = { "sh" },
+			callback = function()
+				map("n", "<leader><cr>", '<esc><cmd>2TermExec cmd="bash %" direction=horizontal<cr>')
+				map("n", "<leader><cr><cr>", '<esc><cmd>2TermExec cmd="bash %" direction=horizontal<cr><C-w>j')
+			end,
+		},
+		{
+			pattern = { "c", "cpp" },
+			callback = function()
+				map("n", "<leader>vf", "va{V")
+				map(
+					"n",
+					"<leader><cr>",
+					-- '<cmd>2TermExec cmd="cc % -Wall -Wextra -Werror -g -o main && ./main" direction=horizontal<cr>'
+					'<cmd>2TermExec cmd="make run" direction=horizontal<cr>'
+				)
+				-- map(
+				--     "n",
+				--     "<leader><cr><cr>",
+				--     '<esc><cmd>2TermExec cmd="cc % -Wall -Wextra -Werror -g -o main && ./main" direction=horizontal<cr><C-w><C-w>'
+				-- )
+			end,
+		},
+		{
+			pattern = { "rs", "rust" },
+			callback = function()
+				map("n", "<leader>vf", "va{V")
+				map("n", "<leader><cr>", '<esc><cmd>2TermExec cmd="cargo run" direction=horizontal<cr>')
+				-- map('n', '<leader><cr>', '<esc><cmd>3TermExec cmd="cargo run" direction=horizontal<cr><C-w>j')
+			end,
+		},
+		{
+			pattern = { "markdown" },
+			callback = function()
+				map("n", "<leader><cr>", "<esc><cmd>Glow %<cr>")
+			end,
+		},
+		{
+			pattern = { "python" },
+			callback = function()
+				map("n", "<leader>vf", "[[V]M")
+				map("n", "<leader><cr>", '<esc><cmd>2TermExec cmd="python %" direction=horizontal<cr>')
+				-- map("n", "<leader><cr>", '<esc><cmd>2TermExec cmd="python %" direction=horizontal<cr><C-w>j')
+			end,
+		},
+	},
 }
 map("n", "<leader>S", '<cmd>lua require("spectre").open()<cr>', {
-    desc = "Open Spectre",
+	desc = "Open Spectre",
 })
 map("n", "<leader>Sw", '<cmd>lua require("spectre").open_visual({select_word=true})<cr>', {
-    desc = "Search current word",
+	desc = "Search current word",
 })
 map("v", "<leader>Sw", '<esc><cmd>lua require("spectre").open_visual()<cr>', {
-    desc = "Search current word",
+	desc = "Search current word",
 })
 map("n", "<leader>Sp", '<cmd>lua require("spectre").open_file_search({select_word=true})<cr>', {
-    desc = "Search on current file",
+	desc = "Search on current file",
 })
 for event, opt_tbls in pairs(aucmd_dict) do
-    for _, opt_tbl in pairs(opt_tbls) do
-        vim.api.nvim_create_autocmd(event, opt_tbl)
-    end
+	for _, opt_tbl in pairs(opt_tbls) do
+		vim.api.nvim_create_autocmd(event, opt_tbl)
+	end
 end
 
 function _G.set_terminal_keymaps()
-    local opts = { buffer = 0 }
-    vim.keymap.set("t", "<esc>", [[<C-\><C-n><cmd>wincmd k<cr>]], opts)
-    vim.keymap.set("t", "<C-q>", [[<C-\><C-n>]], opts)
-    vim.keymap.set("t", "<A-q>", [[<C-\><C-n>]], opts)
-    vim.keymap.set("t", "<A-1>", [[<C-\><C-n><cmd>ToggleTerm<cr>]], opts)
-    vim.keymap.set("t", "<A-2>", [[<C-\><C-n><cmd>ToggleTerm<cr>]], opts)
+	local opts = { buffer = 0 }
+	vim.keymap.set("t", "<esc>", [[<C-\><C-n><cmd>wincmd k<cr>]], opts)
+	vim.keymap.set("t", "<C-q>", [[<C-\><C-n>]], opts)
+	vim.keymap.set("t", "<A-q>", [[<C-\><C-n>]], opts)
+	vim.keymap.set("t", "<A-1>", [[<C-\><C-n><cmd>ToggleTerm<cr>]], opts)
+	vim.keymap.set("t", "<A-2>", [[<C-\><C-n><cmd>ToggleTerm<cr>]], opts)
 end
 
 -- if you only want these mappings for toggle term use term://*toggleterm#* instead
@@ -96,7 +96,7 @@ vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
 vim.cmd("autocmd! TermEnter term://* set nospell")
 
 function ChangeScaleFactor(delta)
-    vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * delta
+	vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * delta
 end
 
 map("n", "<C-=>", ":lua ChangeScaleFactor(1.15)<cr>")
@@ -105,12 +105,12 @@ map("n", "<C-->", ":lua ChangeScaleFactor(0.85)<cr>")
 -- Go to URL in current line
 M = {}
 M.HandleURL = function()
-    local url = string.match(vim.fn.getline("."), "%f[%a]([a-zA-Z]+://[^%s,;\"'<>%(%)]*)")
-    if url ~= "" then
-        vim.cmd("exec '!xdg-open " .. url .. "'")
-    else
-        vim.cmd('echo "No URI found in line."')
-    end
+	local url = string.match(vim.fn.getline("."), "%f[%a]([a-zA-Z]+://[^%s,;\"'<>%(%)]*)")
+	if url ~= "" then
+		vim.cmd("exec '!xdg-open " .. url .. "'")
+	else
+		vim.cmd('echo "No URI found in line."')
+	end
 end
 map("n", "gf", "<Cmd>lua M.HandleURL()<cr>")
 
