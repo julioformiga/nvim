@@ -2,8 +2,6 @@ return {
 	"https://github.com/themaxmarchuk/tailwindcss-colors.nvim",
 	"https://github.com/ap/vim-css-color",
 	"https://github.com/turbio/bracey.vim",
-	"https://github.com/pangloss/vim-javascript",
-	"https://github.com/MaxMEllon/vim-jsx-pretty",
 	{
 		"https://github.com/ziontee113/color-picker.nvim",
 		keys = {
