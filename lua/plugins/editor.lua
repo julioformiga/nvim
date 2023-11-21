@@ -1,7 +1,5 @@
 return {
 	"https://github.com/nvim-pack/nvim-spectre",
-	"https://github.com/wellle/targets.vim",
-	"https://github.com/mg979/vim-visual-multi",
 	"https://github.com/farmergreg/vim-lastplace",
 	"https://github.com/tpope/vim-repeat",
 	{
@@ -23,6 +21,7 @@ return {
 			})
 		end,
 	},
+	"https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
 	{
 		"https://github.com/lukas-reineke/indent-blankline.nvim",
 		main = "ibl",
@@ -64,8 +63,6 @@ return {
 			require("nvim-autopairs").setup()
 		end,
 	},
-	"https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
-	"https://github.com/JoosepAlviste/nvim-ts-context-commentstring",
 	"https://github.com/danymat/neogen",
 	{
 		"https://github.com/akinsho/bufferline.nvim",
@@ -264,5 +261,11 @@ return {
 		"https://github.com/ecthelionvi/NeoComposer.nvim",
 		dependencies = { "https://github.com/kkharji/sqlite.lua" },
 		opts = { keymaps = { toggle_macro_menu = "<leader>q" } },
+	},
+	{
+		"https://github.com/mg979/vim-visual-multi",
+		name = "Visual MultiCursor",
+		event = "BufEnter",
+		branch = "master",
 	},
 }
