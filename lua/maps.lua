@@ -12,7 +12,8 @@ local aucmd_dict = {
 				map(
 					"n",
 					"<leader><cr>",
-					'<esc><cmd>2TermExec cmd="arduino-cli compile --fqbn esp8266:esp8266:nodemcuv2 && arduino-cli upload -v -p /dev/ttyACM0 --fqbn esp8266:esp8266:nodemcuv2:baud=3000000 && arduino-cli monitor -p /dev/ttyACM0 -c baudrate=115200" direction=float<cr>'
+					-- '<esc><cmd>2TermExec cmd="arduino-cli compile --fqbn esp8266:esp8266:nodemcuv2 && arduino-cli upload -v -p /dev/ttyACM0 --fqbn esp8266:esp8266:nodemcuv2:baud=3000000 && arduino-cli monitor -p /dev/ttyACM0 -c baudrate=115200" direction=float<cr>'
+					'<esc><cmd>2TermExec cmd="arduino-cli compile --fqbn arduino:avr:uno && arduino-cli upload -v -p /dev/ttyACM0 --fqbn arduino:avr:uno && arduino-cli monitor -p /dev/ttyACM0 -c baudrate=115200" direction=horizontal<cr>'
 				)
 			end,
 		},

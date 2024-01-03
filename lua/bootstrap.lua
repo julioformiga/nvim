@@ -273,18 +273,18 @@ require("lspconfig")["arduino_language_server"].setup({
 	capabilities = capabilities,
 	flags = lsp_flags,
 	cmd = {
-		HOMEDIR .. "/go/bin/arduino-language-server",
+		HOMEDIR .. "/.local/share/nvim/mason/bin/arduino-language-server",
 		"-clangd",
 		HOMEDIR .. "/.local/share/nvim/mason/bin/clangd",
 		"-cli",
-		HOMEDIR .. "/bin/arduino-cli",
+		"/usr/bin/arduino-cli",
 		"-cli-config",
 		HOMEDIR .. "/.arduino15/arduino-cli.yaml",
 		-- "-fqbn", "Seeeduino:samd:seeed_XIAO_m0",
-		-- "-fqbn", "arduino:avr:uno",
-		-- "-fqbn", "rp2040:rp2040:rpipicow",
 		"-fqbn",
-		"esp8266:esp8266:nodemcuv2",
+		"arduino:avr:uno",
+		-- "-fqbn", "rp2040:rp2040:rpipicow",
+		-- "-fqbn", "esp8266:esp8266:nodemcuv2",
 	},
 })
 
