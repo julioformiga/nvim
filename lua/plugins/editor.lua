@@ -230,19 +230,24 @@ return {
 			require("nvim-surround").setup()
 		end,
 	},
-	"https://github.com/JoosepAlviste/nvim-ts-context-commentstring",
 	{
-		"https://github.com/terrortylor/nvim-comment",
-		config = function()
-			require("nvim_comment").setup({
-				hook = function()
-					if vim.api.nvim_buf_get_option(0, "filetype") == "vue" then
-						require("ts_context_commentstring.internal").update_commentstring()
-					end
-				end,
-			})
-		end,
+		"https://github.com/numToStr/Comment.nvim",
+		opts = {},
+		lazy = false,
 	},
+	-- "https://github.com/JoosepAlviste/nvim-ts-context-commentstring",
+	-- {
+	-- 	"https://github.com/terrortylor/nvim-comment",
+	-- 	config = function()
+	-- 		require("nvim_comment").setup({
+	-- 			hook = function()
+	-- 				if vim.api.nvim_buf_get_option(0, "filetype") == "vue" then
+	-- 					require("ts_context_commentstring.internal").update_commentstring()
+	-- 				end
+	-- 			end,
+	-- 		})
+	-- 	end,
+	-- },
 	"https://github.com/famiu/bufdelete.nvim",
 	{
 		"https://github.com/folke/zen-mode.nvim",

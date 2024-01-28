@@ -13,7 +13,8 @@ local aucmd_dict = {
 					"n",
 					"<leader><cr>",
 					-- '<esc><cmd>2TermExec cmd="arduino-cli compile --fqbn esp8266:esp8266:nodemcuv2 && arduino-cli upload -v -p /dev/ttyACM0 --fqbn esp8266:esp8266:nodemcuv2:baud=3000000 && arduino-cli monitor -p /dev/ttyACM0 -c baudrate=115200" direction=float<cr>'
-					'<esc><cmd>2TermExec cmd="arduino-cli compile --fqbn arduino:avr:uno && arduino-cli upload -v -p /dev/ttyACM0 --fqbn arduino:avr:uno && arduino-cli monitor -p /dev/ttyACM0 -c baudrate=115200" direction=horizontal<cr>'
+					-- '<esc><cmd>2TermExec cmd="arduino-cli compile --fqbn arduino:avr:uno && arduino-cli upload -v -p /dev/ttyACM0 --fqbn arduino:avr:uno && arduino-cli monitor -p /dev/ttyACM0 -c baudrate=115200" direction=horizontal<cr>'
+					'<esc><cmd>2TermExec cmd="arduino-cli compile --fqbn arduino:avr:mega && arduino-cli upload -v -p /dev/ttyACM0 --fqbn arduino:avr:mega && arduino-cli monitor -p /dev/ttyACM0 -c baudrate=115200" direction=horizontal<cr>'
 				)
 			end,
 		},
@@ -185,12 +186,20 @@ map("n", "<A-w>", "<cmd>Bdelete<cr>")
 map("i", "<A-w>", "<esc><cmd>Bdelete<cr>")
 
 -- Code comment
-map("i", "<A-/>", "<esc><cmd>CommentToggle<cr>i<Right>")
-map("n", "<A-/>", "<S-V><esc><cmd>'<,'>CommentToggle<cr>gv<esc>")
-map("v", "<A-/>", "<esc><cmd>'<,'>CommentToggle<cr>gv<esc>")
-map("i", "<A-u>", "<esc><cmd>CommentToggle<cr>i<Right>")
-map("n", "<A-u>", "<S-V><esc><cmd>'<,'>CommentToggle<cr>gv<esc>")
-map("v", "<A-u>", "<esc><cmd>'<,'>CommentToggle<cr>gv<esc>")
+map("n", "<A-/>", "<Plug>(comment_toggle_linewise_current)")
+map("v", "<A-/>", "<Plug>(comment_toggle_linewise_visual)gv")
+map("n", "<C-A-/>", "<Plug>(comment_toggle_blockwise_current)")
+map("v", "<C-A-/>", "<Plug>(comment_toggle_blockwise_visual)gv")
+map("n", "<A-u>", "<Plug>(comment_toggle_linewise_current)")
+map("v", "<A-u>", "<Plug>(comment_toggle_linewise_visual)gv")
+map("n", "<C-A-u>", "<Plug>(comment_toggle_blockwise_current)")
+map("v", "<C-A-u>", "<Plug>(comment_toggle_blockwise_visual)gv")
+-- map("i", "<A-/>", "<esc><cmd>CommentToggle<cr>i<Right>")
+-- map("n", "<A-/>", "<S-V><esc><cmd>'<,'>CommentToggle<cr>gv<esc>")
+-- map("v", "<A-/>", "<esc><cmd>'<,'>CommentToggle<cr>gv<esc>")
+-- map("i", "<A-u>", "<esc><cmd>CommentToggle<cr>i<Right>")
+-- map("n", "<A-u>", "<S-V><esc><cmd>'<,'>CommentToggle<cr>gv<esc>")
+-- map("v", "<A-u>", "<esc><cmd>'<,'>CommentToggle<cr>gv<esc>")
 map("n", "<A-a>", "ggVGo")
 
 -- Move lines up and down
