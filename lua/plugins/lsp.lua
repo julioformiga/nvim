@@ -16,6 +16,7 @@ return {
 		cmd = { "ConformInfo" },
 		opts = {
 			formatters_by_ft = {
+				arduino = { "clang_format" },
 				sh = { "beautysh" },
 				lua = { "stylua" },
 				toml = { "taplo" },
