@@ -138,11 +138,52 @@ return {
 	},
 	{
 		"https://github.com/kevinhwang91/nvim-ufo",
-		dependencies = "https://github.com/kevinhwang91/promise-async",
-		config = function()
+		dependencies = {
+			"https://github.com/kevinhwang91/promise-async",
+			{
+				"luukvbaal/statuscol.nvim",
+				config = function()
+					local builtin = require("statuscol.builtin")
+					require("statuscol").setup({
+						relculright = true,
+						segments = {
+							{ text = { builtin.foldfunc }, click = "v:lua.ScFa" },
+							{ text = { "%s" }, click = "v:lua.ScSa" },
+							{ text = { builtin.lnumfunc, " " }, click = "v:lua.ScLa" },
+						},
+					})
+				end,
+			},
+		},
+		event = "VeryLazy",
+		-- event = "BufReadPost",
+		opts = {
+			-- INFO: Uncomment to use treeitter as fold provider, otherwise nvim lsp is used
+			provider_selector = function(bufnr, filetype, buftype)
+				return { "treesitter", "indent" }
+			end,
+			open_fold_hl_timeout = 400,
+			close_fold_kinds = { "imports", "comment" },
+			preview = {
+				win_config = {
+					border = { "", "─", "", "", "", "─", "", "" },
+					winhighlight = "Normal:Folded",
+					winblend = 0,
+				},
+				mappings = {
+					scrollU = "<C-u>",
+					scrollD = "<C-d>",
+					jumpTop = "[",
+					jumpBot = "]",
+				},
+			},
+		},
+		config = function(_, opts)
 			local handler = function(virtText, lnum, endLnum, width, truncate)
 				local newVirtText = {}
-				local suffix = ("  %d "):format(endLnum - lnum)
+				local totalLines = vim.api.nvim_buf_line_count(0)
+				local foldedLines = endLnum - lnum
+				local suffix = ("  %d %d%%"):format(foldedLines, foldedLines / totalLines * 100)
 				local sufWidth = vim.fn.strdisplaywidth(suffix)
 				local targetWidth = width - sufWidth
 				local curWidth = 0
@@ -164,36 +205,31 @@ return {
 					end
 					curWidth = curWidth + chunkWidth
 				end
+				local rAlignAppndx = math.max(math.min(vim.opt.textwidth["_value"], width - 1) - curWidth - sufWidth, 0)
+				suffix = (" "):rep(rAlignAppndx) .. suffix
 				table.insert(newVirtText, { suffix, "MoreMsg" })
 				return newVirtText
 			end
-			require("ufo").setup({
-				open_fold_hl_timeout = 250,
-				enable_get_fold_virt_text = true,
-				close_fold_kinds = { "imports", "comment" },
-				preview = {
-					win_config = {
-						-- border = {'', '─', '', '', '', '─', '', ''},
-						border = "rounded",
-						winhighlight = "Normal:Folded",
-						-- winhighlight = 'Normal:Normal',
-						winblend = 12,
-						maxheight = 20,
-					},
-					-- mappings = {
-					--     scrollU = "<C-u>",
-					--     scrollD = "<C-d>",
-					--     jumpTop = "[",
-					--     jumpBot = "]",
-					-- },
-				},
-				fold_virt_text_handler = handler,
-				provider_selector = function(bufnr, filetype, buftype)
-					-- if you prefer treesitter provider rather than lsp,
-					-- return ftMap[filetype] or {'treesitter', 'indent'}
-					return { "treesitter", "indent" }
-					-- return ftMap[filetype]
-				end,
+			opts["fold_virt_text_handler"] = handler
+			require("ufo").setup(opts)
+			vim.keymap.set("n", "zR", require("ufo").openAllFolds)
+			vim.keymap.set("n", "zM", require("ufo").closeAllFolds)
+			vim.keymap.set("n", "zr", require("ufo").openFoldsExceptKinds)
+			vim.keymap.set("n", "K", function()
+				local winid = require("ufo").peekFoldedLinesUnderCursor()
+				if not winid then
+					-- vim.lsp.buf.hover()
+					vim.cmd([[ Lspsaga hover_doc ]])
+				end
+			end)
+		end,
+	},
+	{
+		"https://github.com/anuvyklack/fold-preview.nvim",
+		dependencies = "https://github.com/anuvyklack/keymap-amend.nvim",
+		config = function()
+			require("fold-preview").setup({
+				auto = 800,
 			})
 		end,
 	},

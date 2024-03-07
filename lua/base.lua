@@ -5,7 +5,7 @@ local opt = vim.opt
 
 -- syntax on                     -- syntax highlighting, see :help syntax
 wo.number = true
-wo.relativenumber = false
+wo.relativenumber = true
 wo.wrap = true
 o.noswapfile = true -- disable use of swap files
 o.wildmenu = true -- completion menu
@@ -65,7 +65,8 @@ o.list = true
 -- o.shell = "/usr/bin/bash"
 o.shell = "/usr/bin/zsh"
 o.fillchars = [[eob: ,fold: ,foldopen:,foldsep:│,foldclose:]]
-o.foldcolumn = "6" -- '0' is not bad
+-- o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
+o.foldcolumn = "1" -- '0' is not bad
 o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
 o.foldlevelstart = 99
 o.foldenable = true
@@ -73,7 +74,7 @@ o.foldenable = true
 -- opt.foldexpr = "nvim_treesitter#foldexpr()"
 opt.termguicolors = true
 opt.iskeyword:append("-") -- Add '-' in command 'w' to select word
-opt.guifont = "JetBrains Mono NL Thin:h13"
+opt.guifont = "JetBrains Mono NL Thin:h11"
 -- opt.guifont = "JetBrainsMono Nerd Font Mono:h15"
 -- opt.guifont = { "MesloLGS NF", ":h11" }
 -- opt.guifont = { "Hack Nerd Font Mono", ":h13" }
