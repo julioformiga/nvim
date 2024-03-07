@@ -49,8 +49,42 @@ return {
 					-- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
 				},
 			})
-			require("catppuccin").load()
-			vim.cmd.colorscheme("catppuccin-mocha")
+			-- require("catppuccin").load()
+			-- vim.cmd.colorscheme("catppuccin-mocha")
+		end,
+	},
+	{
+		"https://github.com/rebelot/kanagawa.nvim",
+		config = function()
+			require("kanagawa").setup({
+				compile = false, -- enable compiling the colorscheme
+				undercurl = true, -- enable undercurls
+				commentStyle = { italic = true },
+				functionStyle = {},
+				keywordStyle = { italic = true },
+				statementStyle = { bold = true },
+				typeStyle = {},
+				transparent = false, -- do not set background color
+				dimInactive = false, -- dim inactive window `:h hl-NormalNC`
+				terminalColors = true, -- define vim.g.terminal_color_{0,17}
+				colors = { -- add/modify theme and palette colors
+					palette = {},
+					theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
+				},
+				overrides = function(colors) -- add/modify highlights
+					return {}
+				end,
+				theme = "wave", -- Load "wave" theme when 'background' option is not set
+				background = { -- map the value of 'background' option to a theme
+					dark = "wave", -- try "dragon" !
+					light = "lotus",
+				},
+			})
+
+			-- setup must be called before loading
+			require("kanagawa").load()
+			-- vim.cmd("colorscheme kanagawa-dragon")
+			vim.cmd("colorscheme kanagawa-wave")
 		end,
 	},
 	{
@@ -95,6 +129,7 @@ return {
 			-- require("nightfox").load()
 			-- vim.cmd.colorscheme("nightfox")
 			-- vim.cmd.colorscheme("carbonfox")
+			-- vim.cmd.colorscheme("duskfox")
 		end,
 	},
 	{
