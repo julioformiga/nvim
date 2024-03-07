@@ -67,24 +67,51 @@ return {
 				transparent = false, -- do not set background color
 				dimInactive = false, -- dim inactive window `:h hl-NormalNC`
 				terminalColors = true, -- define vim.g.terminal_color_{0,17}
-				colors = { -- add/modify theme and palette colors
-					palette = {},
-					theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
-				},
-				overrides = function(colors) -- add/modify highlights
-					return {}
-				end,
+				-- colors = { -- add/modify theme and palette colors
+				-- 	palette = {},
+				-- 	theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
+				-- },
 				theme = "wave", -- Load "wave" theme when 'background' option is not set
 				background = { -- map the value of 'background' option to a theme
 					dark = "wave", -- try "dragon" !
 					light = "lotus",
 				},
+				colors = {
+					palette = {
+						-- change all usages of these colors
+						-- sumiInk0 = "#000000",
+						fujiWhite = "#FFFFFF",
+					},
+					theme = {
+						-- change specific usages for a certain theme, or for all of them
+						wave = {
+							ui = {
+								float = {
+									bg = "none",
+								},
+							},
+						},
+						dragon = {
+							syn = {
+								parameter = "yellow",
+							},
+						},
+						all = {
+							ui = {
+								bg_gutter = "none",
+							},
+						},
+					},
+				},
+				overrides = function(colors) -- add/modify highlights
+					return {}
+				end,
 			})
 
 			-- setup must be called before loading
 			require("kanagawa").load()
-			-- vim.cmd("colorscheme kanagawa-dragon")
 			vim.cmd("colorscheme kanagawa-wave")
+			-- vim.cmd("colorscheme kanagawa-dragon")
 		end,
 	},
 	{
