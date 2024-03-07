@@ -26,7 +26,7 @@ local aucmd_dict = {
 			end,
 		},
 		{
-			pattern = { "c", "cpp" },
+			pattern = { "c", "cpp", "make" },
 			callback = function()
 				map("n", "<leader>vf", "va{V")
 				map(
@@ -34,6 +34,8 @@ local aucmd_dict = {
 					"<leader><cr>",
 					-- '<cmd>2TermExec cmd="cc % -Wall -Wextra -Werror -g -o main && ./main" direction=horizontal<cr>'
 					'<cmd>2TermExec cmd="make run" direction=horizontal<cr>'
+					-- '<cmd>2TermExec cmd="make run" direction=vertical<cr>'
+					-- '<cmd>1TermExec cmd="make run" direction=float<cr>'
 				)
 				-- map(
 				--     "n",
