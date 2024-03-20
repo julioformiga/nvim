@@ -150,7 +150,8 @@ map("n", "<S-u>", "<cmd>redo<cr>")
 
 -- Windows
 map("", "<leader><Tab>", "<C-w>w", { desc = "Next window" })
-map("n", "<A-q>", '<cmd>lua require("dapui").close()<cr><cmd>SClose<cr>')
+-- map("n", "<A-q>", '<cmd>lua require("dapui").close()<cr><cmd>SClose<cr>')
+map("n", "<A-q>", "<cmd>SClose<cr>")
 map("n", "<C-q>", "<C-w>q")
 map("n", "<leader>k", "<C-w><Up>")
 map("n", "<leader>j", "<C-w><Down>")
