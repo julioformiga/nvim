@@ -66,7 +66,7 @@ o.list = true
 o.shell = "/usr/bin/zsh"
 o.fillchars = [[eob: ,fold: ,foldopen:,foldsep:│,foldclose:]]
 -- o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
-o.foldcolumn = "1" -- '0' is not bad
+o.foldcolumn = "2" -- '0' is not bad
 o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
 o.foldlevelstart = 99
 o.foldenable = true
@@ -74,7 +74,7 @@ o.foldenable = true
 -- opt.foldexpr = "nvim_treesitter#foldexpr()"
 opt.termguicolors = true
 opt.iskeyword:append("-") -- Add '-' in command 'w' to select word
-opt.guifont = "JetBrains Mono NL Thin:h11"
+opt.guifont = "JetBrains Mono NL Thin:h10"
 -- opt.guifont = "JetBrainsMono Nerd Font Mono:h15"
 -- opt.guifont = { "MesloLGS NF", ":h11" }
 -- opt.guifont = { "Hack Nerd Font Mono", ":h13" }

@@ -34,7 +34,7 @@ return {
 			"https://github.com/MunifTanjim/nui.nvim",
 		},
 		keys = {
-			{ "<C-Space>", "<cmd>Neotree toggle<cr>", desc = "Filesystem Lateral" },
+			{ "<C-Space>", "<cmd>Neotree left toggle<cr>", desc = "Filesystem Lateral" },
 			{ "<A-e>", "<cmd>Neotree float toggle<cr>", desc = "Filesystem Float" },
 		},
 		config = function()
@@ -148,12 +148,12 @@ return {
 				},
 				highlights = {
 					Normal = {
-						guibg = "#0D121A",
+						guibg = "#0d0d0d",
 						guifg = "#4CB013",
 						-- guifg = "#A4FF4F",
 					},
 					NormalFloat = {
-						guibg = "#0D121A",
+						guibg = "#0d0d0d",
 						guifg = "#4CB013",
 						-- guifg = "#A4FF4F",
 					},

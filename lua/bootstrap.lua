@@ -158,7 +158,6 @@ cmp.setup({
 		["<C-b>"] = cmp.mapping.scroll_docs(-4),
 		["<C-f>"] = cmp.mapping.scroll_docs(4),
 		["<C-Space>"] = cmp.mapping.complete(),
-		["<C-e>"] = cmp.mapping.abort(),
 		-- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
 		["<CR>"] = cmp.mapping.confirm({ select = false }),
 	}),
@@ -246,8 +245,15 @@ local lspservers = {
 	"marksman",
 	"biome",
 	"emmet_language_server",
+	"tsserver",
+	"eslint",
 	"volar",
 	"dockerls",
+	"html",
+	"graphql",
+	"jsonls",
+	"yamlls",
+	"jqls",
 }
 
 for _, lsp in pairs(lspservers) do
@@ -282,7 +288,8 @@ require("lspconfig")["arduino_language_server"].setup({
 		HOMEDIR .. "/.arduino15/arduino-cli.yaml",
 		-- "-fqbn", "Seeeduino:samd:seeed_XIAO_m0",
 		"-fqbn",
-		"arduino:avr:uno",
+		-- "arduino:avr:uno",
+		"arduino:avr:mega",
 		-- "-fqbn", "rp2040:rp2040:rpipicow",
 		-- "-fqbn", "esp8266:esp8266:nodemcuv2",
 	},
