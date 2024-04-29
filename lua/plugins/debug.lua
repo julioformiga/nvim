@@ -108,6 +108,7 @@ return {
 		end,
 		dependencies = {
 			"https://github.com/mfussenegger/nvim-dap",
+			"https://github.com/nvim-neotest/nvim-nio",
 		},
 	},
 	{
