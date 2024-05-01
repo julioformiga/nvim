@@ -118,6 +118,7 @@ cmp.setup({
 				luasnip = "[LuaSnip]",
 				latex_symbols = "[Latex]",
 			},
+			before = require("tailwind-tools.cmp").lspkind_format,
 			-- fields = { "kind", "abbr", "menu" },
 			-- The function below will be called before any actual modifications from lspkind
 			-- so that you can provide more controls on popup customization.

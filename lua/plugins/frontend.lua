@@ -1,4 +1,5 @@
 return {
+	"https://github.com/luckasRanarison/tailwind-tools.nvim",
 	"https://github.com/themaxmarchuk/tailwindcss-colors.nvim",
 	"https://github.com/ap/vim-css-color",
 	"https://github.com/turbio/bracey.vim",
