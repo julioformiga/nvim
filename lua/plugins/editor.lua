@@ -17,6 +17,9 @@ return {
 				},
 				autotag = {
 					enable = true,
+					enable_rename = true,
+					enable_close = true,
+					filetypes = { "html", "xml", "javascript", "typescript", "svelte", "vue" },
 				},
 			})
 		end,
