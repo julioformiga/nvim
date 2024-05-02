@@ -19,7 +19,8 @@ return {
 					enable = true,
 					enable_rename = true,
 					enable_close = true,
-					filetypes = { "html", "xml", "javascript", "typescript", "svelte", "vue" },
+					enable_close_on_slash = true,
+					filetypes = { "html", "xml", "javascript", "typescript", "typescriptreact", "svelte", "vue" },
 				},
 			})
 		end,
