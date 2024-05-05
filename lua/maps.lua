@@ -103,6 +103,15 @@ function ChangeScaleFactor(delta)
 	vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * delta
 end
 
+local Terminal = require("toggleterm.terminal").Terminal
+local lazygit = Terminal:new({ cmd = "lazygit", hidden = true, direction = "float" })
+
+function _lazygit_toggle()
+	lazygit:toggle()
+end
+
+vim.api.nvim_set_keymap("n", "<leader>lg", "<cmd>lua _lazygit_toggle()<CR>", { noremap = true, silent = true })
+
 map("n", "<C-=>", ":lua ChangeScaleFactor(1.15)<cr>")
 map("n", "<C-->", ":lua ChangeScaleFactor(0.85)<cr>")
 
