@@ -29,6 +29,7 @@ local aucmd_dict = {
 			pattern = { "c", "cpp", "make" },
 			callback = function()
 				map("n", "<leader>vf", "va{V")
+				map("n", "<leader><leader>", '<cmd>2TermExec cmd="make run" direction=horizontal<cr>')
 				map(
 					"n",
 					"<leader><cr>",
