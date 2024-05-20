@@ -70,7 +70,7 @@ return {
 			{ "<leader>fh", "<CMD>Telescope help_tags<CR>", desc = "Help tags" },
 			{ "<leader>tr", "<cmd>Telescope registers<cr>", desc = "Registers" },
 			{ "<leader>tc", "<cmd>Telescope colorscheme<cr>", desc = "Color Schemes" },
-			{ "<A-b>", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
+			{ "<leader>b", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
 		},
 		config = function()
 			require("telescope").setup({

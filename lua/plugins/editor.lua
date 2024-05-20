@@ -27,39 +27,43 @@ return {
 	},
 	"https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
 	{
-		"https://github.com/lukas-reineke/indent-blankline.nvim",
-		main = "ibl",
-		opts = {
-			scope = {
-				show_start = true,
-				show_end = true,
-				highlight = { "Function", "Label" },
-			},
-			indent = {
-				-- char = { "." },
-				tab_char = { "▎" },
-				smart_indent_cap = true,
-				-- highlight = { "Function", "Label" },
-				priority = 2,
-			},
-			-- whitespace = {
-			--     highlight = { "Function", "Label" },
-			--     remove_blankline_trail = true,
-			-- },
-			exclude = { filetypes = { "startify" } },
-		},
-		-- config = function()
-		--     local hooks = require("ibl.hooks")
-		--     hooks.register(hooks.type.SKIP_LINE, hooks.builtin.skip_preproc_lines, { bufnr = 0 })
-		--     require("ibl").setup({
-		--         space_char_blankline = " ",
-		--         show_start = true,
-		--         show_end = true,
-		--         show_current_context = true,
-		--         exclude = { filetypes = { "startify" } },
-		--     })
-		-- end,
+		"https://github.com/shellRaining/hlchunk.nvim",
+		event = { "UIEnter" },
+		config = function()
+			require("hlchunk").setup({
+				line_num = {
+					enable = false,
+					exclude_filetype = { startify = false },
+				},
+				chunk = { exclude_filetype = { startify = false } },
+				blank = { exclude_filetype = { startify = false } },
+			})
+		end,
 	},
+	-- {
+	-- 	"https://github.com/lukas-reineke/indent-blankline.nvim",
+	-- 	main = "ibl",
+	-- 	opts = {
+	-- 		scope = {
+	-- 			enabled = true,
+	-- 			show_start = true,
+	-- 			show_end = true,
+	-- 			highlight = { "Function", "Label" },
+	-- 		},
+	-- 		indent = {
+	-- 			-- char = { "." },
+	-- 			tab_char = { "▎" },
+	-- 			smart_indent_cap = true,
+	-- 			-- highlight = { "Function", "Label" },
+	-- 			priority = 2,
+	-- 		},
+	-- 		-- whitespace = {
+	-- 		--     highlight = { "Function", "Label" },
+	-- 		--     remove_blankline_trail = true,
+	-- 		-- },
+	-- 		exclude = { filetypes = { "startify" } },
+	-- 	},
+	-- },
 	{
 		"https://github.com/windwp/nvim-autopairs",
 		event = "InsertEnter",

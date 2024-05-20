@@ -12,7 +12,6 @@ if not vim.loop.fs_stat(lazypath) then
 	})
 end
 vim.opt.rtp:prepend(lazypath)
-require("lazy").setup("plugins")
 vim.cmd([[ let g:boot_ascii = [
 \ '',
 \ '',
@@ -36,6 +35,7 @@ vim.cmd([[ let g:startify_lists = [
     \ { 'type': 'commands',  'header': ['   Commands']       },
 \ ]
 ]])
+require("lazy").setup("plugins")
 require("base")
 require("highlights")
 require("maps")

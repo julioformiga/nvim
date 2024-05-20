@@ -108,7 +108,6 @@ return {
 				end,
 			})
 
-			-- setup must be called before loading
 			-- require("kanagawa").load()
 			-- vim.cmd("colorscheme kanagawa-dragon")
 			-- vim.cmd("colorscheme kanagawa-wave")
@@ -154,9 +153,9 @@ return {
 				groups = {},
 			})
 			require("nightfox").load()
-			vim.cmd.colorscheme("nightfox")
+			-- vim.cmd.colorscheme("nightfox")
 			-- vim.cmd.colorscheme("carbonfox")
-			-- vim.cmd.colorscheme("duskfox")
+			vim.cmd.colorscheme("duskfox")
 		end,
 	},
 	{
