@@ -54,6 +54,8 @@ return {
 		lazy = false,
 		keys = {
 			{ "<F1>", "<CMD>Header42<CR>", desc = "Add 42 header" },
+			{ "<leader>ne", "<CMD>NorminetteEnable<CR>", desc = "Norminette Enable" },
+			{ "<leader>nd", "<CMD>NorminetteDisable<CR>", desc = "Norminette Disable" },
 		},
 		config = function()
 			require("norminette").setup()
