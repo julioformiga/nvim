@@ -1,10 +1,12 @@
 return {
 	{
 		"https://github.com/folke/trouble.nvim",
+		lazy = false,
 		keys = {
-			{ "<leader>e", "<CMD>TroubleToggle document_diagnostics<CR>", desc = "Errors in file" },
-			{ "<leader>E", "<CMD>TroubleToggle workspace_diagnostics<CR>", desc = "Errors in workspace" },
+			{ "<leader>e", "<CMD>Trouble diagnostics toggle<CR>", desc = "Errors in file" },
+			{ "<leader>E", "<CMD>Trouble symbols toggle<CR>", desc = "Errors in workspace" },
 		},
+		opts = {},
 	},
 	{
 		"https://github.com/rcarriga/nvim-dap-ui",
