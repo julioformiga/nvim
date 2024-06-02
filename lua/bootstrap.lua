@@ -230,10 +230,6 @@ local lsp_flags = {
 	debounce_text_changes = 500,
 }
 
--- require("neodev").setup({
---     library = { plugins = { "nvim-dap-ui", "neotest" }, types = true },
--- })
-
 -- For C++ in Ubuntu: sudo apt install g++-12
 local lspservers = {
 	"bashls",
@@ -242,6 +238,7 @@ local lspservers = {
 	"pyright",
 	"ruff_lsp",
 	"cmake",
+	"cpptools",
 	"rust_analyzer",
 	"marksman",
 	"biome",
