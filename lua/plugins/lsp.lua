@@ -52,23 +52,32 @@ return {
 		"https://github.com/julioformiga/norminette42.nvim",
 		-- "https://github.com/hardyrafael17/norminette42.nvim",
 		lazy = false,
+		-- event = "BufRead",
 		keys = {
 			{ "<F1>", "<CMD>Header42<CR>", desc = "Add 42 header" },
 			{ "<leader>ne", "<CMD>NorminetteEnable<CR>", desc = "Norminette Enable" },
 			{ "<leader>nd", "<CMD>NorminetteDisable<CR>", desc = "Norminette Disable" },
 		},
 		config = function()
-			require("norminette").setup()
+			require("norminette").setup({
+				runOnSave = true,
+				maxErrorsToShow = 10,
+				active = true,
+			})
 		end,
 	},
 	{
 		"https://github.com/linux-cultist/venv-selector.nvim",
-		config = function()
-			require("venv-selector").setup({
-				pdm_path = ".",
-			})
-		end,
-		event = "VeryLazy",
+		dependencies = {
+			"http://github.com/neovim/nvim-lspconfig",
+			"http://github.com/nvim-telescope/telescope.nvim",
+			"http://github.com/mfussenegger/nvim-dap-python",
+		},
+		-- event = "VeryLazy",
+		opts = {
+			pdm_path = ".",
+			stay_on_this_version = true,
+		},
 		keys = {
 			{ "<leader>vs", "<CMD>:VenvSelect<CR>", "Select Venv" },
 			{ "<leader>vc", "<CMD>:VenvSelectCached<CR>", "Select Venv Cached" },
@@ -127,7 +136,7 @@ return {
 					settings = {
 						advanced = {
 							listCount = 10, -- #completions for panel
-							inlineSuggestCount = 3, -- #completions for getCompletions
+							inlineSuggestCount = 5, -- #completions for getCompletions
 						},
 					},
 				},
