@@ -29,13 +29,12 @@ local aucmd_dict = {
 			pattern = { "c", "cpp", "make" },
 			callback = function()
 				map("n", "<leader>vf", "va{V")
-				map("n", "<leader><leader>", '<cmd>2TermExec cmd="make run" direction=horizontal<cr>')
 				map(
 					"n",
 					"<leader><cr>",
 					-- '<cmd>2TermExec cmd="cc % -Wall -Wextra -Werror -g -o main && ./main" direction=horizontal<cr>'
-					'<cmd>2TermExec cmd="make run" direction=horizontal<cr>'
-					-- '<cmd>2TermExec cmd="make run" direction=vertical<cr>'
+					-- '<cmd>2TermExec cmd="make run" direction=horizontal<cr>'
+					'<cmd>2TermExec cmd="make run" direction=vertical size=84<cr>'
 					-- '<cmd>1TermExec cmd="make run" direction=float<cr>'
 				)
 				-- map(
@@ -80,6 +79,9 @@ map("v", "<leader>Sw", '<esc><cmd>lua require("spectre").open_visual()<cr>', {
 })
 map("n", "<leader>Sp", '<cmd>lua require("spectre").open_file_search({select_word=true})<cr>', {
 	desc = "Search on current file",
+})
+map("n", "<C-f>", "<cmd>Telescope grep_string<cr>", {
+	desc = "Search string under cursor",
 })
 for event, opt_tbls in pairs(aucmd_dict) do
 	for _, opt_tbl in pairs(opt_tbls) do
