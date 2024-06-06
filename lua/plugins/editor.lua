@@ -31,11 +31,12 @@ return {
 		event = { "UIEnter" },
 		config = function()
 			require("hlchunk").setup({
-				line_num = {
-					enable = false,
-					exclude_filetype = { startify = false },
-				},
-				chunk = { exclude_filetype = { startify = false } },
+				-- line_num = {
+				-- 	enable = false,
+				-- 	exclude_filetype = { startify = false },
+				-- },
+				chunk = { enable = true, exclude_filetype = { startify = false } },
+				indent = { enable = true, exclude_filetype = { startify = false } },
 				blank = { exclude_filetype = { startify = false } },
 			})
 		end,
