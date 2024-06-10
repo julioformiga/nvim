@@ -133,7 +133,9 @@ cmp.setup({
 		completion = cmp.config.window.bordered(),
 		documentation = cmp.config.window.bordered(),
 	},
-	mapping = cmp.mapping.preset.insert({
+	-- mapping = cmp.mapping.preset.insert({
+	-- remove default mappings (like arrows)
+	mapping = cmp.mapping({
 		["<Tab>"] = function(fallback)
 			if cmp.visible() and has_words_before_copilot() then
 				cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
