@@ -28,16 +28,16 @@ return {
 	"https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
 	{
 		"https://github.com/shellRaining/hlchunk.nvim",
-		event = { "UIEnter" },
+		event = { "BufReadPre", "BufNewFile" },
 		config = function()
 			require("hlchunk").setup({
 				-- line_num = {
-				-- 	enable = false,
+				-- 	enable = true,
 				-- 	exclude_filetype = { startify = false },
 				-- },
 				chunk = { enable = true, exclude_filetype = { startify = false } },
 				indent = { enable = true, exclude_filetype = { startify = false } },
-				blank = { exclude_filetype = { startify = false } },
+				-- blank = { exclude_filetype = { startify = false } },
 			})
 		end,
 	},
