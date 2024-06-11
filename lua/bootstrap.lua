@@ -413,5 +413,4 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
 	},
 	update_in_insert = true,
 })
-require("NeoComposer").setup()
 require("telescope").load_extension("macros")
