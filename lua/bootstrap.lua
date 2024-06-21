@@ -406,10 +406,12 @@ require("gitsigns").setup({
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
 	underline = true,
+	-- virtual_text = false,
 	virtual_text = {
 		spacing = 5,
-		min_severity = "Warning",
-		-- severity_limit = "Warning",
+		prefix = "",
+		severity = "Error",
+		-- min_severity = "Error"
 	},
 	update_in_insert = true,
 })
