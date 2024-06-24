@@ -240,7 +240,7 @@ local lspservers = {
 	"pyright",
 	"ruff_lsp",
 	"cmake",
-	"cpptools",
+	-- "cpptools",
 	"rust_analyzer",
 	"marksman",
 	"biome",
@@ -269,7 +269,8 @@ require("lspconfig")["clangd"].setup({
 	capabilities = capabilities,
 	flags = lsp_flags,
 	cmd = {
-		"clangd",
+		-- "clangd",
+		"/usr/bin/clangd",
 		"--offset-encoding=utf-16",
 	},
 })
@@ -359,14 +360,14 @@ vim.api.nvim_create_autocmd({ "CursorHold" }, {
 -- require('lspconfig.ui.windows').default_options.border = 'rounded'
 
 require("gitsigns").setup({
-	signs = {
-		add = { hl = "GitSignsAdd", text = "│", numhl = "GitSignsAddNr", linehl = "GitSignsAddLn" },
-		change = { hl = "GitSignsChange", text = "│", numhl = "GitSignsChangeNr", linehl = "GitSignsChangeLn" },
-		delete = { hl = "GitSignsDelete", text = "_", numhl = "GitSignsDeleteNr", linehl = "GitSignsDeleteLn" },
-		topdelete = { hl = "GitSignsDelete", text = "‾", numhl = "GitSignsDeleteNr", linehl = "GitSignsDeleteLn" },
-		changedelete = { hl = "GitSignsChange", text = "~", numhl = "GitSignsChangeNr", linehl = "GitSignsChangeLn" },
-		untracked = { hl = "GitSignsAdd", text = "┆", numhl = "GitSignsAddNr", linehl = "GitSignsAddLn" },
-	},
+	-- signs = {
+	-- 	add = { hl = "GitSignsAdd", text = "│", numhl = "GitSignsAddNr", linehl = "GitSignsAddLn" },
+	-- 	change = { hl = "GitSignsChange", text = "│", numhl = "GitSignsChangeNr", linehl = "GitSignsChangeLn" },
+	-- 	delete = { hl = "GitSignsDelete", text = "_", numhl = "GitSignsDeleteNr", linehl = "GitSignsDeleteLn" },
+	-- 	topdelete = { hl = "GitSignsDelete", text = "‾", numhl = "GitSignsDeleteNr", linehl = "GitSignsDeleteLn" },
+	-- 	changedelete = { hl = "GitSignsChange", text = "~", numhl = "GitSignsChangeNr", linehl = "GitSignsChangeLn" },
+	-- 	untracked = { hl = "GitSignsAdd", text = "┆", numhl = "GitSignsAddNr", linehl = "GitSignsAddLn" },
+	-- },
 	signcolumn = true, -- Toggle with `:Gitsigns toggle_signs`
 	numhl = true, -- Toggle with `:Gitsigns toggle_numhl`
 	linehl = false, -- Toggle with `:Gitsigns toggle_linehl`
@@ -396,9 +397,9 @@ require("gitsigns").setup({
 		row = 0,
 		col = 1,
 	},
-	yadm = {
-		enable = false,
-	},
+	-- yadm = {
+	-- 	enable = false,
+	-- },
 })
 
 -- local helpers = require("null-ls.helpers")
