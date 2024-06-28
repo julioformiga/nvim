@@ -15,13 +15,13 @@ return {
 					enable = true,
 					disable = { "yaml" },
 				},
-				autotag = {
-					enable = true,
-					enable_rename = true,
-					enable_close = true,
-					enable_close_on_slash = true,
-					filetypes = { "html", "xml", "javascript", "typescript", "typescriptreact", "svelte", "vue" },
-				},
+				-- autotag = {
+				-- 	enable = true,
+				-- 	enable_rename = true,
+				-- 	enable_close = true,
+				-- 	enable_close_on_slash = true,
+				-- 	filetypes = { "html", "xml", "javascript", "typescript", "typescriptreact", "svelte", "vue" },
+				-- },
 			})
 		end,
 	},
