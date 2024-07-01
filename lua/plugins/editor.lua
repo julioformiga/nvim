@@ -26,6 +26,7 @@ return {
 		end,
 	},
 	"https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
+	{ "https://github.com/lewis6991/satellite.nvim", opts = {} },
 	{
 		"https://github.com/shellRaining/hlchunk.nvim",
 		event = { "BufReadPre", "BufNewFile" },
