@@ -20,7 +20,9 @@ end
 local boot_ascii = {
 	"╭─────────────────────────────────────────────────────────────────────────────────---- -- -",
 }
-
+local function escape_double_quotes(str)
+	return str:gsub("'", '"')
+end
 if command_exists("neofetch") then
 	local function remove_ansi_codes(str)
 		str = str:gsub("\27%[[%d;]*m", "")
@@ -43,8 +45,8 @@ if command_exists("neofetch") then
 	local output2 = vim.fn.system("neofetch --stdout")
 
 	output1 = remove_ansi_codes(output1)
-	local lines1 = vim.split(output1, "\n", true)
-	local lines2 = vim.split(output2, "\n", true)
+	local lines1 = vim.split(output1, "\n")
+	local lines2 = vim.split(output2, "\n")
 
 	local longest_line_length = 0
 	for _, line in ipairs(lines1) do
@@ -62,13 +64,14 @@ if command_exists("neofetch") then
 		end
 		if #line2 > 0 then
 			local combined_line = line1 .. "      " .. line2
+			combined_line = escape_double_quotes(combined_line)
 			table.insert(boot_ascii, "│   " .. combined_line)
 		end
 	end
 else
 	table.insert(boot_ascii, "│")
 	local output1 = vim.fn.system("cat " .. HOMEDIR .. "/.config/nvim/assets/boot_ascii.txt")
-	local lines1 = vim.split(output1, "\n", true)
+	local lines1 = vim.split(output1, "\n")
 	for i = 1, #lines1 do
 		table.insert(boot_ascii, "│   " .. lines1[i])
 	end
