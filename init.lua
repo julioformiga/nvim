@@ -40,11 +40,13 @@ if command_exists("neofetch") then
 	end
 
 	local output1 = vim.fn.system("neofetch -L --color_blocks off")
-	local output2 = vim.fn.system("neofetch --stdout")
+	local output2 = vim.fn.system("neofetch --stdout --disable gpu --disable memory")
 
 	output1 = remove_ansi_codes(output1)
 	local lines1 = vim.split(output1, "\n")
 	local lines2 = vim.split(output2, "\n")
+	table.insert(lines2, "Neovim: " .. vim.fn.execute("version"):match("NVIM v(%d+.%d+.%d+)"))
+	table.insert(lines2, "Lua: " .. _VERSION)
 
 	local longest_line_length = 0
 	for _, line in ipairs(lines1) do
