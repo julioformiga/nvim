@@ -20,13 +20,10 @@ end
 local boot_ascii = {
 	"╭─────────────────────────────────────────────────────────────────────────────────---- -- -",
 }
-local function escape_double_quotes(str)
-	return str:gsub("'", '"')
-end
 if command_exists("neofetch") then
 	local function remove_ansi_codes(str)
-		str = str:gsub("\27%[[%d;]*m", "")
 		local patterns = {
+			"\27%[[%d;]*m",
 			"\27%[%?25l",
 			"\27%[%?7l",
 			"\27%[%?25h",
@@ -34,6 +31,7 @@ if command_exists("neofetch") then
 			"\27%[19A",
 			"\27%[9999999D",
 			"\27%[41C",
+			"\27%[17A",
 		}
 		for _, pattern in ipairs(patterns) do
 			str = str:gsub(pattern, "")
@@ -64,8 +62,7 @@ if command_exists("neofetch") then
 		end
 		if #line2 > 0 then
 			local combined_line = line1 .. "      " .. line2
-			combined_line = escape_double_quotes(combined_line)
-			table.insert(boot_ascii, "│   " .. combined_line)
+			table.insert(boot_ascii, "│   " .. combined_line:gsub("'", "`"))
 		end
 	end
 else
