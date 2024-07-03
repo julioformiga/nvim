@@ -40,13 +40,20 @@ if command_exists("neofetch") then
 	end
 
 	local output1 = vim.fn.system("neofetch -L --color_blocks off")
-	local output2 = vim.fn.system("neofetch --stdout --disable gpu --disable memory")
+	local output2 = vim.fn.system("neofetch --stdout --disable gpu --disable memory --gtk2 off --gtk3 off")
 
 	output1 = remove_ansi_codes(output1)
 	local lines1 = vim.split(output1, "\n")
 	local lines2 = vim.split(output2, "\n")
-	table.insert(lines2, "Neovim: " .. vim.fn.execute("version"):match("NVIM v(%d+.%d+.%d+)"))
-	table.insert(lines2, "Lua: " .. _VERSION)
+	local handle = io.popen("ifconfig | grep 'inet ' | grep -v '127.0.0.1' | awk '{print $2}'")
+	local result = handle:read("*a")
+	handle:close()
+	local ip = result:match("%S+")
+	table.insert(lines2, "IP internal: " .. ip)
+	table.insert(lines2, "IP external: " .. vim.fn.system("curl -s ifconfig.me"))
+	nvim_lua_version = vim.fn.execute("version"):match("NVIM v(%d+.%d+.%d+)")
+	nvim_lua_version = nvim_lua_version .. " - Lua: " .. _VERSION
+	table.insert(lines2, "Neovim: " .. nvim_lua_version)
 
 	local longest_line_length = 0
 	for _, line in ipairs(lines1) do
