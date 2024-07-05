@@ -25,6 +25,17 @@ return {
 			})
 		end,
 	},
+	{
+		"https://github.com/DreamMaoMao/yazi.nvim",
+		dependencies = {
+			"nvim-telescope/telescope.nvim",
+			"nvim-lua/plenary.nvim",
+		},
+
+		keys = {
+			{ "<leader>yy", "<cmd>Yazi<CR>", desc = "Toggle Yazi" },
+		},
+	},
 	"https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
 	{ "https://github.com/lewis6991/satellite.nvim", opts = {} },
 	{
