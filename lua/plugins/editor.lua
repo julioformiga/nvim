@@ -162,7 +162,7 @@ return {
 		dependencies = {
 			"https://github.com/kevinhwang91/promise-async",
 			{
-				"luukvbaal/statuscol.nvim",
+				"https://github.com/luukvbaal/statuscol.nvim",
 				config = function()
 					local builtin = require("statuscol.builtin")
 					require("statuscol").setup({
@@ -183,13 +183,15 @@ return {
 			provider_selector = function(bufnr, filetype, buftype)
 				return { "treesitter", "indent" }
 			end,
-			open_fold_hl_timeout = 400,
+			open_fold_hl_timeout = 150,
 			close_fold_kinds_of_ft = { "imports", "comment" },
+			enable_get_fold_virt_text = true,
 			preview = {
 				win_config = {
-					border = { "", "─", "", "", "", "─", "", "" },
+					-- border = { "", "─", "", "", "", "─", "", "" },
+					border = "rounded",
 					winhighlight = "Normal:Folded",
-					winblend = 0,
+					winblend = 12,
 				},
 				mappings = {
 					scrollU = "<C-u>",
@@ -197,6 +199,7 @@ return {
 					jumpTop = "[",
 					jumpBot = "]",
 				},
+				maxheight = 10,
 			},
 		},
 		config = function(_, opts)
@@ -239,21 +242,21 @@ return {
 			vim.keymap.set("n", "K", function()
 				local winid = require("ufo").peekFoldedLinesUnderCursor()
 				if not winid then
-					-- vim.lsp.buf.hover()
+					vim.lsp.buf.hover()
 					vim.cmd([[ Lspsaga hover_doc ]])
 				end
 			end)
 		end,
 	},
-	{
-		"https://github.com/anuvyklack/fold-preview.nvim",
-		dependencies = "https://github.com/anuvyklack/keymap-amend.nvim",
-		config = function()
-			require("fold-preview").setup({
-				auto = 800,
-			})
-		end,
-	},
+	-- {
+	-- 	"https://github.com/anuvyklack/fold-preview.nvim",
+	-- 	dependencies = "https://github.com/anuvyklack/keymap-amend.nvim",
+	-- 	config = function()
+	-- 		require("fold-preview").setup({
+	-- 			auto = 800,
+	-- 		})
+	-- 	end,
+	-- },
 	{
 		"https://github.com/lewis6991/hover.nvim",
 		keys = {
