@@ -291,8 +291,8 @@ map("v", "<S-Left>", "<Left>")
 map("v", "<S-Right>", "<Right>")
 map("v", "<S-Up>", "<Up>")
 map("v", "<S-Down>", "<Down>")
-map("n", "<S-Down>", "V<Down>")
-map("n", "<S-Up>", "V<Up>")
+map("n", "<S-Down>", "Vj")
+map("n", "<S-Up>", "Vk")
 
 -- Auto unselect when not holding shift
 map("v", "<Left>", "<Esc>")
