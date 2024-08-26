@@ -22,6 +22,18 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.api.nvim_create_autocmd("FileType", {
+	desc = "Auto select virtualenv Nvim open",
+	pattern = { "python", "toml" },
+	callback = function()
+		local venv = vim.fn.findfile("pyproject.toml", vim.fn.getcwd() .. ";")
+		if venv ~= "" then
+			require("venv-selector").retrieve_from_cache()
+		end
+	end,
+	once = true,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
 	pattern = {
 		"c",
 		"cpp",
