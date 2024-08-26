@@ -20,7 +20,8 @@ return {
 				sh = { "beautysh" },
 				lua = { "stylua" },
 				toml = { "taplo" },
-				python = { "ruff_fix", "ruff_format" },
+				-- python = { "ruff_fix", "ruff_format" },
+				python = { "ruff_format" },
 				html = { "prettierd", "biome" },
 				vue = { "prettierd" },
 				css = { "prettierd", "biome" },
@@ -30,9 +31,9 @@ return {
 				typescript = { "prettierd", "biome" },
 				typescriptreact = { "prettierd", "biome" },
 			},
-			formatters = {
-				ruff_fix = { args = { "--ignore-unused" } },
-			},
+			-- formatters = {
+			-- 	ruff_fix = { args = { "--ignore-unused" } },
+			-- },
 			format_on_save = function(bufnr)
 				-- Disable autoformat on certain filetypes
 				local ignore_filetypes = { "c", "cpp" }
