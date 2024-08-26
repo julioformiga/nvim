@@ -55,7 +55,7 @@ local aucmd_dict = {
 		{
 			pattern = { "markdown" },
 			callback = function()
-				map("n", "<leader><cr>", "<esc><cmd>Glow %<cr>")
+				map("n", "<leader><cr>", "<esc><cmd>PeekOpen<cr>")
 			end,
 		},
 		{
