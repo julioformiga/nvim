@@ -33,8 +33,8 @@ local aucmd_dict = {
 					"n",
 					"<leader><cr>",
 					-- '<cmd>2TermExec cmd="cc % -Wall -Wextra -Werror -g -o main && ./main" direction=horizontal<cr>'
-					-- '<cmd>2TermExec cmd="make run" direction=horizontal<cr>'
-					'<cmd>2TermExec cmd="make run" direction=vertical size=84<cr>'
+					'<cmd>2TermExec cmd="make run" direction=horizontal<cr>'
+					-- '<cmd>2TermExec cmd="make run" direction=vertical size=84<cr>'
 					-- '<cmd>1TermExec cmd="make run" direction=float<cr>'
 				)
 				-- map(
@@ -99,8 +99,8 @@ function _G.set_terminal_keymaps()
 end
 
 -- if you only want these mappings for toggle term use term://*toggleterm#* instead
-vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
-vim.cmd("autocmd! TermEnter term://* set nospell")
+vim.cmd("autocmd! TermOpen term://*toggleterm#* lua set_terminal_keymaps()")
+vim.cmd("autocmd! TermEnter term://*toggleterm#* set nospell")
 
 function ChangeScaleFactor(delta)
 	vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * delta
