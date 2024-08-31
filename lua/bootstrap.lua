@@ -212,6 +212,11 @@ capabilities.textDocument.foldingRange = {
 	dynamicRegistration = true,
 	lineFoldingOnly = false,
 }
+capabilities.workspace = {
+	didChangeWorkspaceFolders = {
+		dynamicRegistration = true,
+	},
+}
 
 local navic = require("nvim-navic")
 local lsp_on_attach = function(client, bufnr)
@@ -252,7 +257,7 @@ local lspservers = {
 	"pyright",
 	"ruff_lsp",
 	"cmake",
-	-- "cpptools",
+	"cpptools",
 	"rust_analyzer",
 	"marksman",
 	"biome",
