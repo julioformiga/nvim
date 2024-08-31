@@ -32,7 +32,7 @@ return {
 					operators = {},
 				},
 				color_overrides = {
-					mocha = {
+					latte = {
 						rosewater = "#ea6962",
 						flamingo = "#ea6962",
 						red = "#ea6962",
@@ -340,7 +340,8 @@ return {
 				},
 			})
 			require("catppuccin").load()
-			vim.cmd.colorscheme("catppuccin-mocha")
+			-- vim.cmd.colorscheme("catppuccin-mocha")
+			vim.cmd.colorscheme("catppuccin-latte")
 		end,
 	},
 	{
