@@ -6,13 +6,27 @@ return {
 		opts = {
 			-- add any opts here
 			---@alias Provider "claude" | "openai" | "azure" | "gemini" | "cohere" | "copilot" | string
+			-- provider = "gemini",
+			-- provider = "openai",
 			provider = "copilot",
-			-- claude = {
-			-- 	endpoint = "https://api.anthropic.com",
-			-- 	model = "claude-3-5-sonnet-20240620",
-			-- 	temperature = 0,
-			-- 	max_tokens = 4096,
+			-- provider = "claude",
+			claude = {
+				endpoint = "https://api.anthropic.com",
+				model = "claude-3-5-sonnet-20240620",
+				temperature = 0,
+				max_tokens = 4096,
+			},
+			-- openai = {
+			-- 	endpoint = "https://api.openai.com/v1",
+			-- 	model = "gpt-4o-mini",
 			-- },
+			behaviour = {
+				auto_suggestions = false, -- Experimental stage
+				auto_set_highlight_group = true,
+				auto_set_keymaps = true,
+				auto_apply_diff_after_generation = false,
+				support_paste_from_clipboard = false,
+			},
 			mappings = {
 				--- @class AvanteConflictMappings
 				diff = {
@@ -23,6 +37,12 @@ return {
 					cursor = "cc",
 					next = "]x",
 					prev = "[x",
+				},
+				suggestion = {
+					accept = "<M-l>",
+					next = "<M-]>",
+					prev = "<M-[>",
+					dismiss = "<C-]>",
 				},
 				jump = {
 					next = "]]",
@@ -35,6 +55,7 @@ return {
 			},
 			hints = { enabled = true },
 			windows = {
+				position = "right",
 				wrap = true, -- similar to vim.o.wrap
 				width = 30, -- default % based on available width
 				sidebar_header = {
