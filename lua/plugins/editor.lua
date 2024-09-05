@@ -37,7 +37,18 @@ return {
 		},
 	},
 	"https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
-	{ "https://github.com/lewis6991/satellite.nvim", opts = {} },
+	-- {
+	-- 	"https://github.com/lewis6991/satellite.nvim",
+	-- 	opts = { current_only = true },
+	-- },
+	{
+		"https://github.com/gorbit99/codewindow.nvim",
+		config = function()
+			local codewindow = require("codewindow")
+			codewindow.setup()
+			codewindow.apply_default_keybinds()
+		end,
+	},
 	{
 		"https://github.com/shellRaining/hlchunk.nvim",
 		event = { "BufReadPre", "BufNewFile" },
