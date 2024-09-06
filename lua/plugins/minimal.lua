@@ -69,7 +69,7 @@ return {
 			{ "<leader>fb", "<CMD>Telescope buffers<CR>", desc = "Buffers" },
 			{ "<leader>fh", "<CMD>Telescope help_tags<CR>", desc = "Help tags" },
 			{ "<leader>tr", "<cmd>Telescope registers<cr>", desc = "Registers" },
-			{ "<leader>tc", "<cmd>Telescope colorscheme<cr>", desc = "Color Schemes" },
+			-- { "<leader>tc", "<cmd>Telescope colorscheme<cr>", desc = "Color Schemes" },
 			{ "<leader><leader>", "<cmd>Telescope buffers<cr>", desc = "Buffers" },
 		},
 		config = function()

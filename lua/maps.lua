@@ -238,8 +238,11 @@ map("n", "<A-o>", "o<esc>")
 map("n", "<A-o>", "o<esc>")
 map("n", "<A-h>", "b")
 map("n", "<A-l>", "e")
-map("n", "<A-Left>", "b")
-map("n", "<A-Right>", "e")
+-- map("n", "<A-Left>", "b")
+-- map("n", "<A-Right>", "e")
+map("n", "<A-Left>", "<cmd>tabprevious<cr>")
+map("n", "<A-Right>", "<cmd>tabnext<cr>")
+map("n", "<leader>tc", "<cmd>tabclose<cr>")
 
 -- Movements insert mode
 map("i", "<A-j>", "<Down>")
