@@ -111,9 +111,9 @@ return {
 					middle_mouse_command = nil, -- can be a string | function, see "Mouse actions"
 					indicator = {
 						icon = "▎", -- this should be omitted if indicator style is not 'icon'
-						style = "icon",
+						style = "underline",
 					},
-					buffer_close_icon = "✖️",
+					buffer_close_icon = "",
 					modified_icon = "●",
 					close_icon = "",
 					left_trunc_marker = "",
@@ -122,8 +122,16 @@ return {
 					max_prefix_length = 15, -- prefix used when a buffer is de-duplicated
 					truncate_names = true, -- whether or not tab names should be truncated
 					tab_size = 18,
-					diagnostics = "false",
+					diagnostics = "nvim_lsp",
 					diagnostics_update_in_insert = false,
+					diagnostics_indicator = function(count, level, diagnostics_dict, context)
+						local s = " "
+						for e, n in pairs(diagnostics_dict) do
+							local sym = e == "error" and " " or (e == "warning" and " " or " ")
+							s = s .. sym .. n .. " "
+						end
+						return s
+					end,
 					offsets = {
 						{
 							filetype = "neo-tree",
