@@ -1,3 +1,4 @@
+---@diagnostic disable: missing-fields
 return {
 	{
 		"https://github.com/folke/trouble.nvim",
@@ -116,9 +117,9 @@ return {
 	{ "https://github.com/nvim-neotest/nvim-nio" },
 	{
 		"https://github.com/mfussenegger/nvim-dap-python",
-		-- lazy = false,
+		lazy = false,
 		config = function()
-			-- require("dap-python").setup()
+			-- require("dap-python").setup({})
 			require("dap-python").setup("~/.local/share/nvim/mason/packages/debugpy/venv/bin/python")
 		end,
 	},
@@ -164,7 +165,7 @@ return {
 					require("neotest-gtest").setup({}),
 				},
 				discovery = {
-					filter_dir = function(name, rel_path, root)
+					filter_dir = function(name)
 						if name == "build" or name:sub(1, 1) == "." then
 							return false
 						end
