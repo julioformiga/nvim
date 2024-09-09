@@ -21,6 +21,26 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
+local file_was_modified = false
+vim.api.nvim_create_autocmd("BufWritePre", {
+	pattern = { "*.c", "*.cpp" },
+	callback = function()
+		file_was_modified = vim.bo.modified
+	end,
+	desc = "Verifica se o arquivo foi modificado antes de salvar",
+})
+vim.api.nvim_create_autocmd("BufWritePost", {
+	pattern = { "*.c", "*.cpp" },
+	callback = function()
+		if string.match(vim.fn.getcwd(), "/cursus/") and file_was_modified then
+			require("neotest").summary.open()
+			os.execute("make all tests > /dev/null 2>&1")
+			vim.notify("☑️ Successful compilation!", vim.log.levels.INFO)
+			require("neotest").run.run(vim.fn.getcwd() .. "/test")
+		end
+	end,
+})
+
 vim.api.nvim_create_autocmd("FileType", {
 	desc = "Auto select virtualenv Nvim open",
 	pattern = { "python", "toml" },
