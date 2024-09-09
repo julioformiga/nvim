@@ -51,7 +51,7 @@ if command_exists("neofetch") then
 	local ip = result:match("%S+")
 	table.insert(lines2, "IP internal: " .. ip)
 	table.insert(lines2, "IP external: " .. vim.fn.system("curl -s ifconfig.me"))
-	nvim_lua_version = vim.fn.execute("version"):match("NVIM v(%d+.%d+.%d+)")
+	local nvim_lua_version = vim.fn.execute("version"):match("NVIM v(%d+.%d+.%d+)")
 	nvim_lua_version = nvim_lua_version .. " - Lua: " .. _VERSION
 	table.insert(lines2, "Neovim: " .. nvim_lua_version)
 
