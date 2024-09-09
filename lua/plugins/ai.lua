@@ -8,8 +8,8 @@ return {
 			---@alias Provider "claude" | "openai" | "azure" | "gemini" | "cohere" | "copilot" | string
 			-- provider = "gemini",
 			-- provider = "openai",
-			provider = "copilot",
-			-- provider = "claude",
+			-- provider = "copilot",
+			provider = "claude",
 			claude = {
 				endpoint = "https://api.anthropic.com",
 				model = "claude-3-5-sonnet-20240620",
@@ -53,7 +53,7 @@ return {
 					insert = "<C-s>",
 				},
 			},
-			hints = { enabled = true },
+			hints = { enabled = false },
 			windows = {
 				position = "right",
 				wrap = true, -- similar to vim.o.wrap

@@ -67,6 +67,28 @@ return {
 			})
 		end,
 	},
+	-- {
+	-- 	"https://github.com/MoulatiMehdi/nvim-norminette",
+	-- 	config = function()
+	-- 		local norminette = require("norminette")
+	--
+	-- 		-- Shortcut for running Norminette linter
+	-- 		vim.api.nvim_set_keymap(
+	-- 			"n",
+	-- 			"<leader>nl",
+	-- 			":lua norminette.norminette()<CR>",
+	-- 			{ noremap = true, silent = true }
+	-- 		)
+	--
+	-- 		-- Shortcut for running C Formatter 42
+	-- 		vim.api.nvim_set_keymap(
+	-- 			"n",
+	-- 			"<leader>nf",
+	-- 			":lua norminette.formatter()<CR>",
+	-- 			{ noremap = true, silent = true }
+	-- 		)
+	-- 	end,
+	-- },
 	{
 		"https://github.com/linux-cultist/venv-selector.nvim",
 		dependencies = {
@@ -93,7 +115,7 @@ return {
 			require("copilot").setup({
 				panel = {
 					enabled = false,
-					auto_refresh = true,
+					auto_refresh = false,
 					keymap = {
 						jump_prev = "[[",
 						jump_next = "]]",
@@ -107,8 +129,8 @@ return {
 					},
 				},
 				suggestion = {
-					enabled = false,
-					auto_trigger = true,
+					enabled = true,
+					auto_trigger = false,
 					debounce = 75,
 					keymap = {
 						accept = "<M-l>",
@@ -120,8 +142,8 @@ return {
 					},
 				},
 				filetypes = {
-					yaml = false,
-					markdown = false,
+					yaml = true,
+					markdown = true,
 					help = false,
 					c = true,
 					gitcommit = false,
