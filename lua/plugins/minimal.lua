@@ -101,7 +101,7 @@ return {
 			-- OPTIONAL:
 			--   `nvim-notify` is only needed, if you want to use the notification view.
 			--   If not available, we use `mini` as the fallback
-			-- "https://github.com/rcarriga/nvim-notify",
+			"https://github.com/rcarriga/nvim-notify",
 		},
 		config = function()
 			-- if not vim.g.neovide then
@@ -124,6 +124,14 @@ return {
 			})
 			-- end
 		end,
+	},
+	{
+		"https://github.com/rcarriga/nvim-notify",
+		opts = {
+			render = "compact",
+			top_down = false,
+			timeout = 2000,
+		},
 	},
 	{
 		"https://github.com/kdheepak/lazygit.nvim",
