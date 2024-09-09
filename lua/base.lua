@@ -31,6 +31,13 @@ o.mouse = "a"
 o.clipboard = [[unnamed,unnamedplus]]
 o.encoding = "UTF-8"
 o.cursorline = true
+-- vim.opt.guicursor = {
+-- 	"n-v-c-sm:block-blinkwait700-blinkoff400-blinkon250-Cursor/lCursor",
+-- 	"ci-ve:ver25",
+-- 	"r-cr-o:hor20",
+-- 	"i:ver25-blinkwait700-blinkoff400-blinkon250-Cursor/lCursor",
+-- }
+-- g.neovide_cursor_smooth_blink = true
 
 opt.linespace = 0
 g.neovide_padding_top = 0
@@ -38,6 +45,11 @@ g.neovide_padding_bottom = 0
 g.neovide_padding_right = 0
 g.neovide_padding_left = 0
 g.neovide_cursor_vfx_mode = "railgun"
+-- g.neovide_cursor_vfx_mode = "torpedo"
+-- g.neovide_cursor_vfx_mode = "pixiedust"
+-- g.neovide_cursor_vfx_mode = "sonicboom"
+-- g.neovide_cursor_vfx_mode = "ripple"
+-- g.neovide_cursor_vfx_mode = "wireframe"
 g.neovide_scale_factor = 1
 g.neovide_cursor_animate_in_insert_mode = false
 g.neovide_remember_window_size = true
@@ -74,8 +86,10 @@ o.foldenable = true
 -- opt.foldexpr = "nvim_treesitter#foldexpr()"
 opt.termguicolors = true
 opt.iskeyword:append("-") -- Add '-' in command 'w' to select word
-opt.guifont = "JetBrains Mono NL Thin:h10"
--- opt.guifont = "JetBrainsMono Nerd Font Mono:h15"
+opt.guifont = "JetBrainsMonoNL Nerd Font Mono:h10.2"
+-- opt.guifont = "JetBrains Mono NL:h10"
+-- opt.guifont = "JetBrains Mono NL Thin:h10"
+-- opt.guifont = "JetBrainsMono Nerd Font Mono:h10"
 -- opt.guifont = { "MesloLGS NF", ":h11" }
 -- opt.guifont = { "Hack Nerd Font Mono", ":h13" }
 -- opt.guifont = { "SauceCodePro Nerd Font", ":h11" }
@@ -94,23 +108,23 @@ local disabled_built_ins = {
 	"2html_plugin",
 	"getscript",
 	"getscriptPlugin",
-	"gzip",
+	-- "gzip",
 	"logipat",
-	"netrw",
-	"netrwPlugin",
-	"netrwSettings",
-	"netrwFileHandlers",
+	-- "netrw",
+	-- "netrwPlugin",
+	-- "netrwSettings",
+	-- "netrwFileHandlers",
 	"matchit",
-	"tar",
+	-- "tar",
 	"tarPlugin",
 	"rrhelper",
 	-- "spellfile_plugin",
 	"vimball",
 	"vimballPlugin",
-	"zip",
+	-- "zip",
 	"zipPlugin",
 	"tutor",
-	"rplugin",
+	-- "rplugin",
 	-- "synmenu",
 	-- "optwin",
 	-- "compiler",
