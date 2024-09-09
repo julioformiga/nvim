@@ -33,7 +33,8 @@ local aucmd_dict = {
 					"n",
 					"<leader><cr>",
 					-- '<cmd>2TermExec cmd="cc % -Wall -Wextra -Werror -g -o main && ./main" direction=horizontal<cr>'
-					'<cmd>2TermExec cmd="make run" direction=horizontal<cr>'
+					-- '<cmd>2TermExec cmd="make run" direction=horizontal<cr>'
+					'<cmd>2TermExec cmd="make run" direction=horizontal<cr><C-w>j'
 					-- '<cmd>2TermExec cmd="make run" direction=vertical size=84<cr>'
 					-- '<cmd>1TermExec cmd="make run" direction=float<cr>'
 				)
@@ -106,8 +107,8 @@ function ChangeScaleFactor(delta)
 	vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * delta
 end
 
-map("n", "<C-=>", ":lua ChangeScaleFactor(1.15)<cr>")
-map("n", "<C-->", ":lua ChangeScaleFactor(0.85)<cr>")
+map("n", "<C-=>", ":lua ChangeScaleFactor(1.02)<cr>")
+map("n", "<C-->", ":lua ChangeScaleFactor(0.98)<cr>")
 
 -- Go to URL in current line
 M = {}
