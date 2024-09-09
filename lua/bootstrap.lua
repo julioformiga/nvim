@@ -242,7 +242,7 @@ local lsp_on_attach = function(client, bufnr)
 		vim.lsp.buf.format({ async = true })
 	end, bufopts)
 
-	client.server_capabilities.documentFormattingProvider = false
+	client.server_capabilities.documentFormattingProvider = true
 end
 
 local lsp_flags = {
@@ -256,13 +256,11 @@ local lspservers = {
 	"lua_ls",
 	"pyright",
 	"ruff_lsp",
-	"cmake",
-	"cpptools",
 	"rust_analyzer",
 	"marksman",
 	"biome",
 	"emmet_language_server",
-	"tsserver",
+	"ts_ls",
 	"eslint",
 	"volar",
 	"dockerls",
@@ -286,8 +284,8 @@ require("lspconfig")["clangd"].setup({
 	capabilities = capabilities,
 	flags = lsp_flags,
 	cmd = {
-		-- "clangd",
-		"/usr/bin/clangd",
+		"clangd",
+		-- "/usr/bin/clangd",
 		"--offset-encoding=utf-16",
 	},
 })
