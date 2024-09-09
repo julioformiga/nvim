@@ -113,6 +113,7 @@ return {
 			"https://github.com/nvim-neotest/nvim-nio",
 		},
 	},
+	{ "https://github.com/nvim-neotest/nvim-nio" },
 	{
 		"https://github.com/mfussenegger/nvim-dap-python",
 		-- lazy = false,
@@ -155,9 +156,20 @@ return {
 				adapters = {
 					require("neotest-python")({
 						dap = { justMyCode = false },
+						runner = "pytest",
+						python = "./.venv/bin/python",
 					}),
 					require("neotest-vitest"),
-					-- require("neotest-plenary"),
+					require("neotest-plenary"),
+					require("neotest-gtest").setup({}),
+				},
+				discovery = {
+					filter_dir = function(name, rel_path, root)
+						if name == "build" or name:sub(1, 1) == "." then
+							return false
+						end
+						return true
+					end,
 				},
 			})
 		end,
@@ -168,6 +180,7 @@ return {
 			"https://github.com/nvim-neotest/neotest-python",
 			"https://github.com/nvim-neotest/neotest-plenary",
 			"https://github.com/marilari88/neotest-vitest",
+			"https://github.com/alfaix/neotest-gtest",
 		},
 	},
 }
