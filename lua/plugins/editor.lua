@@ -15,13 +15,6 @@ return {
 					enable = true,
 					disable = { "yaml" },
 				},
-				-- autotag = {
-				-- 	enable = true,
-				-- 	enable_rename = true,
-				-- 	enable_close = true,
-				-- 	enable_close_on_slash = true,
-				-- 	filetypes = { "html", "xml", "javascript", "typescript", "typescriptreact", "svelte", "vue" },
-				-- },
 			})
 		end,
 	},
@@ -54,10 +47,10 @@ return {
 		event = { "BufReadPre", "BufNewFile" },
 		config = function()
 			require("hlchunk").setup({
-				-- line_num = {
-				-- 	enable = true,
-				-- 	exclude_filetype = { startify = false },
-				-- },
+				line_num = {
+					enable = true,
+					exclude_filetype = { startify = false },
+				},
 				chunk = { enable = true, exclude_filetype = { startify = false } },
 				indent = { enable = true, exclude_filetype = { startify = false } },
 				-- blank = { exclude_filetype = { startify = false } },
@@ -288,7 +281,7 @@ return {
 					-- Require providers
 					require("hover.providers.lsp")
 					require("hover.providers.gh")
-					-- require('hover.providers.gh_user')
+					require("hover.providers.gh_user")
 					-- require('hover.providers.jira')
 					require("hover.providers.man")
 					require("hover.providers.dictionary")
@@ -311,8 +304,8 @@ return {
 	},
 	{
 		"https://github.com/numToStr/Comment.nvim",
-		opts = {},
 		lazy = false,
+		opts = {},
 	},
 	-- "https://github.com/JoosepAlviste/nvim-ts-context-commentstring",
 	-- {
