@@ -76,7 +76,12 @@ if command_exists("neofetch") then
 	end
 else
 	table.insert(boot_ascii, "│")
-	local output1 = vim.fn.system("cat " .. HOMEDIR .. "/.config/nvim/assets/boot_ascii.txt")
+	local output1
+	if vim.fn.system("hostname"):match("c[0-9]*r[0-9]*p[0-9]*") then
+		output1 = vim.fn.system("cat " .. HOMEDIR .. "/.config/nvim/assets/boot_ascii_42.txt")
+	else
+		output1 = vim.fn.system("cat " .. HOMEDIR .. "/.config/nvim/assets/boot_ascii_nvim_logo.txt")
+	end
 	local lines1 = vim.split(output1, "\n")
 	for i = 1, #lines1 do
 		table.insert(boot_ascii, "│   " .. lines1[i])
