@@ -126,6 +126,7 @@ map("n", "gf", "<Cmd>lua M.HandleURL()<cr>")
 map("n", "<A-cr>", ":", { noremap = true, silent = false })
 map("n", "<leader>cc", '<cmd>nohl<cr><cmd>echo "Search Cleared"<cr>', { desc = "Clear search" })
 map("", "<leader>s", "<cmd>set spell!<cr>", { desc = "Spell Toggle" })
+map("n", "<leader>ac", "<cmd>ToggleAutoCompile<cr>", { desc = "Toggle Auto compile" })
 
 -- Not rewrite clipboard
 map("", "s", '"_s')

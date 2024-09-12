@@ -22,24 +22,43 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 local file_was_modified = false
-vim.api.nvim_create_autocmd("BufWritePre", {
-	pattern = { "*.c", "*.cpp" },
-	callback = function()
-		file_was_modified = vim.bo.modified
-	end,
-	desc = "Verifica se o arquivo foi modificado antes de salvar",
-})
-vim.api.nvim_create_autocmd("BufWritePost", {
-	pattern = { "*.c", "*.cpp" },
-	callback = function()
-		if string.match(vim.fn.getcwd(), "/cursus/") and file_was_modified then
-			require("neotest").summary.open()
-			os.execute("make all tests > /dev/null 2>&1")
-			vim.notify("☑️ Successful compilation!", vim.log.levels.INFO)
-			require("neotest").run.run(vim.fn.getcwd() .. "/test")
-		end
-	end,
-})
+local auto_compile_enabled = false
+
+function Setup_auto_compile()
+	vim.api.nvim_create_autocmd("BufWritePre", {
+		pattern = { "*.c", "*.cpp" },
+		callback = function()
+			file_was_modified = vim.bo.modified
+		end,
+		desc = "Verifica se o arquivo foi modificado antes de salvar",
+	})
+	vim.api.nvim_create_autocmd("BufWritePost", {
+		pattern = { "*.c", "*.cpp" },
+		callback = function()
+			if auto_compile_enabled and string.match(vim.fn.getcwd(), "ursus") and file_was_modified then
+				require("neotest").summary.open()
+				os.execute("make all tests > /dev/null 2>&1")
+				vim.notify("☑️ Successful compilation!", vim.log.levels.INFO)
+				require("neotest").run.run(vim.fn.getcwd() .. "/test")
+			end
+		end,
+	})
+end
+
+Setup_auto_compile()
+
+vim.api.nvim_create_user_command("ToggleAutoCompile", function()
+	auto_compile_enabled = not auto_compile_enabled
+	if auto_compile_enabled then
+		vim.notify("🟢 Auto compile enabled", vim.log.levels.INFO)
+	else
+		vim.notify("🔴 Auto compile disabled", vim.log.levels.INFO)
+	end
+end, {})
+
+function Auto_compile_status()
+	return auto_compile_enabled and "🟢" or "🔴"
+end
 
 vim.api.nvim_create_autocmd("FileType", {
 	desc = "Auto select virtualenv Nvim open",
@@ -261,7 +280,9 @@ local lsp_on_attach = function(client, bufnr)
 	vim.keymap.set("n", "<leader>f", function()
 		vim.lsp.buf.format({ async = true })
 	end, bufopts)
-
+	if client.server_capabilities.documentSymbolProvider then
+		navic.attach(client, bufnr)
+	end
 	client.server_capabilities.documentFormattingProvider = true
 end
 
