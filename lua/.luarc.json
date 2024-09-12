@@ -1,7 +1,16 @@
 {
     "diagnostics.globals": [
         "vim", "HOMEDIR",
-        "packer_bootstrap"
+        "packer_bootstrap",
+        "_lazygit_toggle"
     ],
-    "workspace.checkThirdParty": false
+    "workspace.checkThirdParty": false,
+    "workspace.library": [
+        "/home/julio/.local/share/nvim/lazy/neodev.nvim/types/stable",
+        "/usr/share/nvim/runtime/lua",
+        "/home/julio/.local/share/nvim/lazy/nvim-dap-ui/lua",
+        "/home/julio/.local/share/nvim/lazy/neotest/lua",
+        "/home/julio/.config/nvim/lua",
+        "${3rd}/luv/library"
+    ]
 }

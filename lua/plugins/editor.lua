@@ -132,6 +132,18 @@ return {
 							text_align = "center",
 							separator = true,
 						},
+						{
+							filetype = "Avante",
+							text = "Avante",
+							text_align = "center",
+							separator = true,
+						},
+						{
+							filetype = "AvanteInput",
+							text = "AvanteInput",
+							text_align = "center",
+							separator = true,
+						},
 					},
 					color_icons = true, -- whether or not to add the filetype icon highlights
 					show_buffer_icons = true, -- disable filetype icons for buffers
@@ -260,15 +272,6 @@ return {
 			end)
 		end,
 	},
-	-- {
-	-- 	"https://github.com/anuvyklack/fold-preview.nvim",
-	-- 	dependencies = "https://github.com/anuvyklack/keymap-amend.nvim",
-	-- 	config = function()
-	-- 		require("fold-preview").setup({
-	-- 			auto = 800,
-	-- 		})
-	-- 	end,
-	-- },
 	{
 		"https://github.com/lewis6991/hover.nvim",
 		keys = {
@@ -307,19 +310,6 @@ return {
 		lazy = false,
 		opts = {},
 	},
-	-- "https://github.com/JoosepAlviste/nvim-ts-context-commentstring",
-	-- {
-	-- 	"https://github.com/terrortylor/nvim-comment",
-	-- 	config = function()
-	-- 		require("nvim_comment").setup({
-	-- 			hook = function()
-	-- 				if vim.api.nvim_buf_get_option(0, "filetype") == "vue" then
-	-- 					require("ts_context_commentstring.internal").update_commentstring()
-	-- 				end
-	-- 			end,
-	-- 		})
-	-- 	end,
-	-- },
 	"https://github.com/famiu/bufdelete.nvim",
 	{
 		"https://github.com/folke/zen-mode.nvim",
