@@ -54,7 +54,22 @@ require("lualine").setup({
 		lualine_a = { "mode" },
 		lualine_b = { "branch", "diff", "diagnostics" },
 		lualine_c = { { require("NeoComposer.ui").status_recording }, { "filename", path = 4 } },
-		lualine_x = { "venv-selector", "Auto_compile_status()", { "filetype", icon_only = false }, "encoding" },
+		lualine_x = {
+			{
+				"venv-selector",
+				cond = function()
+					return vim.tbl_contains({ "python", "toml" }, vim.bo.filetype)
+				end,
+			},
+			{
+				"Auto_compile_status()",
+				cond = function()
+					return vim.tbl_contains({ "c", "cpp", "make" }, vim.bo.filetype)
+				end,
+			},
+			{ "filetype", icon_only = false },
+			"encoding",
+		},
 		lualine_y = { "progress" },
 		lualine_z = { "location" },
 	},
