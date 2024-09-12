@@ -186,12 +186,6 @@ return {
 		end,
 	},
 	{
-		"https://github.com/ellisonleao/glow.nvim",
-		config = function()
-			require("glow").setup()
-		end,
-	},
-	{
 		"https://github.com/ziontee113/icon-picker.nvim",
 		keys = {
 			{ "<leader>i", "<cmd>IconPickerInsert emoji<cr>", desc = "Select icon" },
