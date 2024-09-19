@@ -397,7 +397,7 @@ end
 local signs = {
 	Error = " ",
 	Warn = " ",
-	Hint = " ",
+	Hint = "󰛨",
 	Info = " ",
 }
 
