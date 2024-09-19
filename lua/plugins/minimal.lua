@@ -187,13 +187,22 @@ return {
 	},
 	{
 		"https://github.com/ziontee113/icon-picker.nvim",
-		keys = {
-			{ "<leader>i", "<cmd>IconPickerInsert emoji<cr>", desc = "Select icon" },
-		},
+		-- keys = {
+		-- 	{ "<leader>i", "<cmd>IconPickerInsert emoji<cr>", desc = "Select icon" },
+		-- },
+		-- config = function()
+		-- 	require("icon-picker").setup({
+		-- 		disable_legacy_commands = true,
+		-- 	})
+		-- end,
 		config = function()
-			require("icon-picker").setup({
-				disable_legacy_commands = true,
-			})
+			require("icon-picker").setup({ disable_legacy_commands = true })
+
+			local opts = { noremap = true, silent = true }
+
+			-- vim.keymap.set("n", "<Leader><Leader>i", "<cmd>IconPickerNormal<cr>", opts)
+			-- vim.keymap.set("n", "<Leader><Leader>y", "<cmd>IconPickerYank<cr>", opts) --> Yank the selected icon into register
+			vim.keymap.set("n", "<leader>i", "<cmd>IconPickerInsert<cr>", opts)
 		end,
 	},
 }
