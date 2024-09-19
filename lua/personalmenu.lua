@@ -1,64 +1,16 @@
 local Menu = require("nui.menu")
 
 local norminette_enabled = true
-
-local function create_user_menu()
-	local menu = Menu({
-		position = "50%",
-		size = {
-			width = 25,
-			height = 5,
-		},
-		border = {
-			style = "single",
-			text = {
-				top = "[Choose an option]",
-				top_align = "center",
-			},
-		},
-		win_options = {
-			winhighlight = "Normal:Normal,FloatBorder:Normal",
-		},
-	}, {
-		lines = {
-			Menu.item("󱂈󱎦󰫵 - C/C++ inlay hints", { shortcut = "i" }),
-			Menu.item("󰫮󰫰 - Auto Compile", { shortcut = "a" }),
-			Menu.item("󰫻 - Norminette", { shortcut = "n" }),
-		},
-		max_width = 20,
-		keymap = {
-			focus_next = { "j", "<Down>", "<Tab>" },
-			focus_prev = { "k", "<Up>", "<S-Tab>" },
-			close = { "<Esc>", "q" },
-			submit = { "<CR>", "<Space>" },
-		},
-		on_submit = function(item)
-			if item.text == "Exit" then
-				return
-			elseif item.text == "󱂈󱎦󰫵 - C/C++ inlay hints" then
-				require("clangd_extensions.inlay_hints").toggle_inlay_hints()
-			elseif item.text == "󰫮󰫰 - Auto compile" then
-				vim.api.nvim_command("AutoCompile")
-			elseif item.text == "󰫻 - Norminette" then
-				norminette_enabled = not norminette_enabled
-				if norminette_enabled then
-					vim.api.nvim_command("NorminetteEnable")
-					print("Norminette enabled")
-				else
-					vim.api.nvim_command("NorminetteDisable")
-					print("Norminette disabled")
-				end
-			end
-		end,
-	})
-
-	menu:mount()
-end
-
-vim.api.nvim_create_user_command("UserMenu", create_user_menu, {})
-
-local file_was_modified = false
 local auto_compile_enabled = false
+local file_was_modified = false
+
+vim.api.nvim_create_user_command("AutoCompile", function()
+	auto_compile_enabled = not auto_compile_enabled
+end, {})
+
+function Auto_compile_status()
+	return auto_compile_enabled and "󰫮󰫰" or ""
+end
 
 function Setup_auto_compile()
 	vim.api.nvim_create_autocmd("BufWritePre", {
@@ -83,10 +35,62 @@ end
 
 Setup_auto_compile()
 
-vim.api.nvim_create_user_command("AutoCompile", function()
-	auto_compile_enabled = not auto_compile_enabled
-end, {})
+local function create_user_menu()
+	local itens = {
+		"󰫻 - Norminette",
+		"󰫮󰫰 - Auto compile",
+		"󱂈󱎦󰫵 - C/C++ inlay hints",
+	}
+	local menu = Menu({
+		position = "50%",
+		size = {
+			width = 25,
+			height = 5,
+		},
+		border = {
+			style = "single",
+			text = {
+				top = "[Choose an option]",
+				top_align = "center",
+			},
+		},
+		win_options = {
+			winhighlight = "Normal:Normal,FloatBorder:Normal",
+		},
+	}, {
+		lines = {
+			Menu.item(itens[1], { shortcut = "n" }),
+			Menu.item(itens[2], { shortcut = "a" }),
+			Menu.item(itens[3], { shortcut = "i" }),
+		},
+		max_width = 20,
+		keymap = {
+			focus_next = { "j", "<Down>", "<Tab>" },
+			focus_prev = { "k", "<Up>", "<S-Tab>" },
+			close = { "<Esc>", "q" },
+			submit = { "<CR>", "<Space>" },
+		},
+		on_submit = function(item)
+			if item.text == "Exit" then
+				return
+			elseif item.text == itens[3] then
+				require("clangd_extensions.inlay_hints").toggle_inlay_hints()
+			elseif item.text == itens[2] then
+				vim.api.nvim_command("AutoCompile")
+			elseif item.text == itens[1] then
+				norminette_enabled = not norminette_enabled
+				if norminette_enabled then
+					vim.api.nvim_command("NorminetteEnable")
+					print("Norminette enabled")
+				else
+					vim.api.nvim_command("NorminetteDisable")
+					print("Norminette disabled")
+				end
+			end
+		end,
+	})
 
-function Auto_compile_status()
-	return auto_compile_enabled and "󰫮󰫰" or ""
+	menu:mount()
 end
+
+vim.api.nvim_create_user_command("PersonalMenu", create_user_menu, {})
