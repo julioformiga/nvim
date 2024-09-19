@@ -49,15 +49,10 @@ Setup_auto_compile()
 
 vim.api.nvim_create_user_command("ToggleAutoCompile", function()
 	auto_compile_enabled = not auto_compile_enabled
-	if auto_compile_enabled then
-		vim.notify("🟢 Auto compile enabled", vim.log.levels.INFO)
-	else
-		vim.notify("🔴 Auto compile disabled", vim.log.levels.INFO)
-	end
 end, {})
 
 function Auto_compile_status()
-	return auto_compile_enabled and "🟢" or "🔴"
+	return auto_compile_enabled and "󰫮󰫰" or ""
 end
 
 vim.api.nvim_create_autocmd("FileType", {
@@ -472,4 +467,66 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
 	},
 	update_in_insert = true,
 })
+
 require("telescope").load_extension("macros")
+
+local Menu = require("nui.menu")
+local event = require("nui.utils.autocmd").event
+
+local norminette_enabled = true
+
+function create_user_menu()
+	local menu = Menu({
+		position = "50%",
+		size = {
+			width = 25,
+			height = 5,
+		},
+		border = {
+			style = "single",
+			text = {
+				top = "[Choose an option]",
+				top_align = "center",
+			},
+		},
+		win_options = {
+			winhighlight = "Normal:Normal,FloatBorder:Normal",
+		},
+	}, {
+		lines = {
+			Menu.item("Option 1"),
+			Menu.item("Aption 2"),
+			Menu.item("Norminette toggle", { shortcut = "n" }),
+			Menu.separator(),
+			Menu.item("Exit", { shortcut = "q" }),
+		},
+		max_width = 20,
+		keymap = {
+			focus_next = { "j", "<Down>", "<Tab>" },
+			focus_prev = { "k", "<Up>", "<S-Tab>" },
+			close = { "<Esc>", "q" },
+			submit = { "<CR>", "<Space>" },
+			n = function()
+				print("Norminette enabled")
+			end,
+		},
+		on_submit = function(item)
+			if item.text == "Exit" then
+				return
+			elseif item.text == "Norminette toggle" then
+				norminette_enabled = not norminette_enabled
+				if norminette_enabled then
+					vim.api.nvim_command("NorminetteEnable")
+					print("Norminette enabled")
+				else
+					vim.api.nvim_command("NorminetteDisable")
+					print("Norminette disabled")
+				end
+			end
+		end,
+	})
+
+	menu:mount()
+end
+
+vim.api.nvim_create_user_command("UserMenu", create_user_menu, {})
