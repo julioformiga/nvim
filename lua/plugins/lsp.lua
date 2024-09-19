@@ -49,6 +49,29 @@ return {
 		"https://github.com/L3MON4D3/LuaSnip",
 		build = "make install_jsregexp",
 	},
+	-- {
+	-- 	"https://github.com/MoulatiMehdi/nvim-norminette",
+	-- 	config = function()
+	-- 		local norm = require("norminette")
+	--
+	-- 		norm.setup({
+	-- 			header_on_save = true,
+	-- 			format_on_save = true,
+	-- 		})
+	--
+	-- 		vim.keymap.set("n", "<leader>nd", function()
+	-- 			norm.check_norms()
+	-- 		end, { desc = "Update 42norms diagnostics", noremap = true, silent = true })
+	--
+	-- 		vim.keymap.set("n", "<leader>nf", function()
+	-- 			norm.format()
+	-- 		end, { desc = "Format buffer on 42norms", noremap = true, silent = true })
+	--
+	-- 		vim.keymap.set("n", "<F1>", function()
+	-- 			norm.stdheader()
+	-- 		end, { desc = "Insert 42header", noremap = true, silent = true })
+	-- 	end,
+	-- },
 	{
 		"https://github.com/julioformiga/norminette42.nvim",
 		-- "https://github.com/hardyrafael17/norminette42.nvim",
@@ -67,28 +90,6 @@ return {
 			})
 		end,
 	},
-	-- {
-	-- 	"https://github.com/MoulatiMehdi/nvim-norminette",
-	-- 	config = function()
-	-- 		local norminette = require("norminette")
-	--
-	-- 		-- Shortcut for running Norminette linter
-	-- 		vim.api.nvim_set_keymap(
-	-- 			"n",
-	-- 			"<leader>nl",
-	-- 			":lua norminette.norminette()<CR>",
-	-- 			{ noremap = true, silent = true }
-	-- 		)
-	--
-	-- 		-- Shortcut for running C Formatter 42
-	-- 		vim.api.nvim_set_keymap(
-	-- 			"n",
-	-- 			"<leader>nf",
-	-- 			":lua norminette.formatter()<CR>",
-	-- 			{ noremap = true, silent = true }
-	-- 		)
-	-- 	end,
-	-- },
 	{
 		"https://github.com/linux-cultist/venv-selector.nvim",
 		dependencies = {

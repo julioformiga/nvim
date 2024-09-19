@@ -86,9 +86,9 @@ o.foldenable = true
 -- opt.foldexpr = "nvim_treesitter#foldexpr()"
 opt.termguicolors = true
 opt.iskeyword:append("-") -- Add '-' in command 'w' to select word
-opt.guifont = "JetBrainsMonoNL Nerd Font Mono:h10.2"
 -- opt.guifont = "JetBrains Mono NL:h10"
 -- opt.guifont = "JetBrains Mono NL Thin:h10"
+opt.guifont = "JetBrainsMonoNL Nerd Font Mono:h10.8"
 -- opt.guifont = "JetBrainsMono Nerd Font Mono:h10"
 -- opt.guifont = { "MesloLGS NF", ":h11" }
 -- opt.guifont = { "Hack Nerd Font Mono", ":h13" }

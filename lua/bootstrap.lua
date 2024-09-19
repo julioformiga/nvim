@@ -47,7 +47,7 @@ end
 
 Setup_auto_compile()
 
-vim.api.nvim_create_user_command("ToggleAutoCompile", function()
+vim.api.nvim_create_user_command("AutoCompile", function()
 	auto_compile_enabled = not auto_compile_enabled
 end, {})
 
@@ -494,11 +494,8 @@ function create_user_menu()
 		},
 	}, {
 		lines = {
-			Menu.item("Option 1"),
-			Menu.item("Aption 2"),
-			Menu.item("Norminette toggle", { shortcut = "n" }),
-			Menu.separator(),
-			Menu.item("Exit", { shortcut = "q" }),
+			Menu.item("󰫮󰫰 - Auto Compile", { shortcut = "a" }),
+			Menu.item("󰫻 - Norminette", { shortcut = "n" }),
 		},
 		max_width = 20,
 		keymap = {
@@ -506,14 +503,13 @@ function create_user_menu()
 			focus_prev = { "k", "<Up>", "<S-Tab>" },
 			close = { "<Esc>", "q" },
 			submit = { "<CR>", "<Space>" },
-			n = function()
-				print("Norminette enabled")
-			end,
 		},
 		on_submit = function(item)
 			if item.text == "Exit" then
 				return
-			elseif item.text == "Norminette toggle" then
+			elseif item.text == "󰫮󰫰 - Auto compile" then
+				vim.api.nvim_command("AutoCompile")
+			elseif item.text == "󰫻 - Norminette" then
 				norminette_enabled = not norminette_enabled
 				if norminette_enabled then
 					vim.api.nvim_command("NorminetteEnable")
