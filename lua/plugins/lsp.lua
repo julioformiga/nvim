@@ -11,6 +11,13 @@ return {
 	"https://github.com/onsails/lspkind.nvim",
 	"https://github.com/RRethy/vim-illuminate",
 	{
+		"https://github.com/p00f/clangd_extensions.nvim",
+		lazy = false,
+		config = function()
+			require("clangd_extensions").setup()
+		end,
+	},
+	{
 		"https://github.com/stevearc/conform.nvim",
 		event = { "BufWritePre" },
 		cmd = { "ConformInfo" },
