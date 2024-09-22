@@ -68,7 +68,7 @@ local function create_user_menu()
 			focus_next = { "j", "<Down>", "<Tab>" },
 			focus_prev = { "k", "<Up>", "<S-Tab>" },
 			close = { "<Esc>", "q" },
-			submit = { "<CR>", "<Space>" },
+			submit = { "<CR>", "<Space>", "l" },
 		},
 		on_submit = function(item)
 			if item.text == "Exit" then
