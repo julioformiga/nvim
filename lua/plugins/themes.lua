@@ -428,8 +428,8 @@ return {
 			})
 
 			-- require("kanagawa").load()
-			-- vim.cmd("colorscheme kanagawa-wave")
 			-- vim.cmd("colorscheme kanagawa-dragon")
+			-- vim.cmd("colorscheme kanagawa-wave")
 		end,
 	},
 	{
@@ -472,10 +472,10 @@ return {
 				groups = {},
 			})
 			-- require("nightfox").load()
+			-- vim.cmd.colorscheme("terafox")
 			-- vim.cmd.colorscheme("nightfox")
 			-- vim.cmd.colorscheme("carbonfox")
 			-- vim.cmd.colorscheme("duskfox")
-			-- vim.cmd.colorscheme("terafox")
 		end,
 	},
 	{
@@ -524,6 +524,14 @@ return {
 			})
 			-- require("monokai-pro").load()
 			-- vim.cmd.colorscheme("monokai-pro")
+		end,
+	},
+	{
+		"https://github.com/savq/melange-nvim",
+		config = function()
+			-- require("melange").setup()
+			vim.opt.termguicolors = true
+			-- vim.cmd.colorscheme("melange")
 		end,
 	},
 }
