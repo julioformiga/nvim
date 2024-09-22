@@ -26,18 +26,17 @@ o.softtabstop = 4
 o.shiftwidth = 4
 o.smartindent = false -- auto indent on new lines, see :help smartindent
 o.smarttab = true
-o.mouse = "a"
+-- o.mouse = "a"
 -- wo.colorcolumn = '80'
 o.clipboard = [[unnamed,unnamedplus]]
 o.encoding = "UTF-8"
 o.cursorline = true
--- vim.opt.guicursor = {
--- 	"n-v-c-sm:block-blinkwait700-blinkoff400-blinkon250-Cursor/lCursor",
--- 	"ci-ve:ver25",
--- 	"r-cr-o:hor20",
--- 	"i:ver25-blinkwait700-blinkoff400-blinkon250-Cursor/lCursor",
+-- opt.guicursor = {
+-- 	"n-v-c-sm:block-blinkwait700-blinkoff400-blinkon250",
+-- 	"i-ci-ve:ver25-blinkwait700-blinkoff400-blinkon250",
+-- 	"r-cr-o:hor20-blinkwait700-blinkoff400-blinkon250",
 -- }
--- g.neovide_cursor_smooth_blink = true
+-- g.neovide_cursor_smooth_blink = true -- High cpu usage
 
 opt.linespace = 0
 g.neovide_padding_top = 0
@@ -86,16 +85,10 @@ o.foldenable = true
 -- opt.foldexpr = "nvim_treesitter#foldexpr()"
 opt.termguicolors = true
 opt.iskeyword:append("-") -- Add '-' in command 'w' to select word
--- opt.guifont = "JetBrains Mono NL:h10"
 -- opt.guifont = "JetBrains Mono NL Thin:h10"
-opt.guifont = "JetBrainsMonoNL Nerd Font Mono:h10.8"
+opt.guifont = "MesloLGS Nerd Font Mono:h10"
+-- opt.guifont = "JetBrainsMonoNL Nerd Font Mono:h10.8"
 -- opt.guifont = "JetBrainsMono Nerd Font Mono:h10"
--- opt.guifont = { "MesloLGS NF", ":h11" }
--- opt.guifont = { "Hack Nerd Font Mono", ":h13" }
--- opt.guifont = { "SauceCodePro Nerd Font", ":h11" }
--- opt.guifont = { "RobotoMono Nerd Font Mono", ":h13" }
--- opt.guifont = { "UbuntuMono Nerd Font Mono", ":h13" }
--- opt.guifont = { "VictorMono Nerd Font Mono, Medium", ":h12" }
 opt.spell = false
 opt.spelllang = { "en", "pt" }
 -- opt.completeopt = {'menu', 'menuone'}
