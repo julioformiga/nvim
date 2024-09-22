@@ -30,6 +30,7 @@ return {
 			},
 			mappings = {
 				--- @class AvanteConflictMappings
+				ask = "<leader>/",
 				diff = {
 					ours = "co",
 					theirs = "ct",
