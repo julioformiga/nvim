@@ -156,12 +156,12 @@ return {
 				},
 				highlights = {
 					Normal = {
-						guibg = "#0d0d0d",
+						guibg = "#121614",
 						guifg = "#4CB013",
 						-- guifg = "#A4FF4F",
 					},
 					NormalFloat = {
-						guibg = "#0d0d0d",
+						guibg = "#121614",
 						guifg = "#4CB013",
 						-- guifg = "#A4FF4F",
 					},
