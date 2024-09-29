@@ -140,6 +140,21 @@ return {
 		},
 	},
 	{
+		"https://github.com/crnvl96/lazydocker.nvim",
+		event = "VeryLazy",
+		opts = {
+			popup_window = {
+				relative = "editor", -- window position: 'editor', 'cursor' or 'win'
+			},
+		},
+		dependencies = {
+			"https://github.com/MunifTanjim/nui.nvim",
+		},
+		keys = {
+			{ "<leader>dd", "<CMD>LazyDocker<CR>", desc = "Lazydocker" },
+		},
+	},
+	{
 		"https://github.com/akinsho/toggleterm.nvim",
 		event = "BufEnter",
 		keys = {
