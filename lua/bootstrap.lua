@@ -126,8 +126,8 @@ cmp.setup({
 				path = "[Path]",
 				nvim_lua = "[Lua]",
 				nvim_lsp = "[LSP]",
-				buffer = "[Buffer]",
 				luasnip = "[LuaSnip]",
+				buffer = "[Buffer]",
 				latex_symbols = "[Latex]",
 			},
 			before = require("tailwind-tools.cmp").lspkind_format,
@@ -136,9 +136,9 @@ cmp.setup({
 			-- so that you can provide more controls on popup customization.
 			-- (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
 
-			-- before = function (entry, vim_item)
-			--     return vim_item
-			-- end
+			-- before = function(entry, vim_item)
+			-- 	return vim_item
+			-- end,
 		}),
 	},
 	window = {
@@ -180,8 +180,8 @@ cmp.setup({
 		{ name = "path" },
 		{ name = "copilot" },
 		{ name = "nvim_lsp" },
-		-- { name = 'vsnip' }, -- For vsnip users.
 		{ name = "luasnip" }, -- For luasnip users.
+		-- { name = 'vsnip' }, -- For vsnip users.
 		-- { name = 'ultisnips' }, -- For ultisnips users.
 		-- { name = 'snippy' }, -- For snippy users.
 	}, {
@@ -262,9 +262,7 @@ local lspservers = {
 	"marksman",
 	"biome",
 	"emmet_language_server",
-	"ts_ls",
 	"eslint",
-	"volar",
 	"dockerls",
 	"html",
 	"graphql",
@@ -273,6 +271,7 @@ local lspservers = {
 	"jqls",
 }
 
+local lspconfig = require("lspconfig")
 for _, lsp in pairs(lspservers) do
 	require("lspconfig")[lsp].setup({
 		on_attach = lsp_on_attach,
@@ -281,7 +280,38 @@ for _, lsp in pairs(lspservers) do
 	})
 end
 
-require("lspconfig")["clangd"].setup({
+local mason_registry = require("mason-registry")
+local vue_language_server_path = mason_registry.get_package("vue-language-server"):get_install_path()
+	.. "/node_modules/@vue/language-server"
+
+lspconfig.tsserver.setup({
+	init_options = {
+		plugins = {
+			{
+				name = "@vue/typescript-plugin",
+				location = vue_language_server_path,
+				languages = { "vue" },
+			},
+		},
+	},
+	filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
+})
+
+-- No need to set `hybridMode` to `true` as it's the default value
+lspconfig.volar.setup({})
+
+-- No-Hybrid mode is for Vue 3 with <script setup>
+-- https://github.com/vuejs/language-tools
+-- require("lspconfig").volar.setup({
+-- 	filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
+-- 	init_options = {
+-- 		vue = {
+-- 			hybridMode = false,
+-- 		},
+-- 	},
+-- })
+
+lspconfig.clangd.setup({
 	on_attach = lsp_on_attach,
 	capabilities = capabilities,
 	flags = lsp_flags,
@@ -292,7 +322,7 @@ require("lspconfig")["clangd"].setup({
 	},
 })
 
-require("lspconfig")["arduino_language_server"].setup({
+lspconfig.arduino_language_server.setup({
 	on_attach = lsp_on_attach,
 	capabilities = capabilities,
 	flags = lsp_flags,
@@ -313,7 +343,7 @@ require("lspconfig")["arduino_language_server"].setup({
 	},
 })
 
-require("lspconfig")["cssls"].setup({
+lspconfig.cssls.setup({
 	on_attach = lsp_on_attach,
 	capabilities = capabilities,
 	settings = {
@@ -325,7 +355,7 @@ require("lspconfig")["cssls"].setup({
 	flags = lsp_flags,
 })
 
-require("lspconfig")["tailwindcss"].setup({
+lspconfig.tailwindcss.setup({
 	on_attach = function(client, bufnr)
 		require("tailwindcss-colors").buf_attach(bufnr)
 	end,
@@ -374,7 +404,7 @@ vim.api.nvim_create_autocmd({ "CursorHold" }, {
 	command = "lua OpenDiagnosticIfNoFloat()",
 	group = "lsp_diagnostics_hold",
 })
--- require('lspconfig.ui.windows').default_options.border = 'rounded'
+require("lspconfig.ui.windows").default_options.border = "rounded"
 
 require("gitsigns").setup({
 	-- signs = {
