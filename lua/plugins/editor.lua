@@ -30,10 +30,23 @@ return {
 		},
 	},
 	"https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
-	{
-		"https://github.com/lewis6991/satellite.nvim",
-		opts = { current_only = true },
-	},
+	-- {
+	-- 	"https://github.com/lewis6991/satellite.nvim",
+	-- 	opts = {
+	-- 		current_only = false,
+	-- 		winblend = 50,
+	-- 		zindex = 40,
+	-- 		excluded_filetypes = {},
+	-- 		width = 2,
+	-- 		handlers = {
+	-- 			search = { enable = false },
+	-- 			diagnostic = { enable = false },
+	-- 			gitsigns = { enable = false },
+	-- 			marks = { enable = false },
+	-- 		},
+	-- 	},
+	-- 	enabled = true, -- This line disables the plugin
+	-- },
 	{
 		"https://github.com/gorbit99/codewindow.nvim",
 		config = function()
@@ -129,18 +142,6 @@ return {
 						{
 							filetype = "neo-tree",
 							text = "File Explorer",
-							text_align = "center",
-							separator = true,
-						},
-						{
-							filetype = "Avante",
-							text = "Avante",
-							text_align = "center",
-							separator = true,
-						},
-						{
-							filetype = "AvanteInput",
-							text = "AvanteInput",
 							text_align = "center",
 							separator = true,
 						},

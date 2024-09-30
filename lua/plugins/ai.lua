@@ -55,8 +55,9 @@ return {
 					insert = "<C-s>",
 				},
 			},
-			hints = { enabled = false },
+			hints = { enabled = true },
 			windows = {
+				---@type "right" | "left" | "top" | "bottom"
 				position = "right",
 				wrap = true, -- similar to vim.o.wrap
 				width = 30, -- default % based on available width
@@ -79,7 +80,8 @@ return {
 				list_opener = "copen",
 			},
 		},
-		build = ":AvanteBuild", -- This is optional, recommended tho. Also note that this will block the startup for a bit since we are compiling bindings in Rust.
+		build = "make", -- This is optional, recommended tho. Also note that this will block the startup for a bit since we are compiling bindings in Rust.
+		-- build = ":AvanteBuild", -- This is optional, recommended tho. Also note that this will block the startup for a bit since we are compiling bindings in Rust.
 		dependencies = {
 			"https://github.com/stevearc/dressing.nvim",
 			"https://github.com/nvim-lua/plenary.nvim",

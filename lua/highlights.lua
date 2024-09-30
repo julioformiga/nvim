@@ -28,6 +28,8 @@ require("lualine").setup({
 				-- "dapui_stacks",
 				-- "dapui_breakpoints",
 				-- "dapui_scopes",
+				"Avante",
+				"AvanteInput",
 			},
 			statusline = {
 				"startify",
@@ -39,6 +41,8 @@ require("lualine").setup({
 				"dapui_stacks",
 				"dapui_breakpoints",
 				"dapui_scopes",
+				"Avante",
+				"AvanteInput",
 			},
 		},
 		ignore_focus = {},
