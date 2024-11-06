@@ -97,6 +97,17 @@ return {
 			})
 		end,
 	},
+	-- {
+	-- 	"https://github.com/MrSloth-dev/42-NorminetteNvim",
+	-- 	dependencies = { "nvim-lua/plenary.nvim", "echasnovski/mini.icons" },
+	-- 	-- dir = "~/Projects/42-NorminetteNvim/",
+	-- 	config = function()
+	-- 		require("norminette").setup({
+	-- 			keybind = "<leader>n",
+	-- 			diagnost_color = "#00ff00",
+	-- 		})
+	-- 	end,
+	-- },
 	{
 		"https://github.com/linux-cultist/venv-selector.nvim",
 		dependencies = {
