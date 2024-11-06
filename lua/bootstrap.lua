@@ -257,13 +257,14 @@ local lspservers = {
 	"awk_ls",
 	"lua_ls",
 	"pyright",
-	"ruff_lsp",
+	"ruff",
 	"rust_analyzer",
 	"marksman",
 	"biome",
 	"emmet_language_server",
 	"eslint",
 	"dockerls",
+	"docker_compose_language_service",
 	"html",
 	"graphql",
 	"jsonls",
@@ -284,7 +285,7 @@ local mason_registry = require("mason-registry")
 local vue_language_server_path = mason_registry.get_package("vue-language-server"):get_install_path()
 	.. "/node_modules/@vue/language-server"
 
-lspconfig.ts_ls.setup({
+lspconfig["ts_ls"].setup({
 	init_options = {
 		plugins = {
 			{
@@ -298,7 +299,7 @@ lspconfig.ts_ls.setup({
 })
 
 -- No need to set `hybridMode` to `true` as it's the default value
-lspconfig.volar.setup({})
+lspconfig["volar"].setup({})
 
 -- No-Hybrid mode is for Vue 3 with <script setup>
 -- https://github.com/vuejs/language-tools
@@ -311,7 +312,7 @@ lspconfig.volar.setup({})
 -- 	},
 -- })
 
-lspconfig.clangd.setup({
+lspconfig["clangd"].setup({
 	on_attach = lsp_on_attach,
 	capabilities = capabilities,
 	flags = lsp_flags,
@@ -322,7 +323,7 @@ lspconfig.clangd.setup({
 	},
 })
 
-lspconfig.arduino_language_server.setup({
+lspconfig["arduino_language_server"].setup({
 	on_attach = lsp_on_attach,
 	capabilities = capabilities,
 	flags = lsp_flags,
@@ -343,7 +344,7 @@ lspconfig.arduino_language_server.setup({
 	},
 })
 
-lspconfig.cssls.setup({
+lspconfig["cssls"].setup({
 	on_attach = lsp_on_attach,
 	capabilities = capabilities,
 	settings = {
@@ -355,7 +356,7 @@ lspconfig.cssls.setup({
 	flags = lsp_flags,
 })
 
-lspconfig.tailwindcss.setup({
+lspconfig["tailwindcss"].setup({
 	on_attach = function(client, bufnr)
 		require("tailwindcss-colors").buf_attach(bufnr)
 	end,
@@ -459,7 +460,6 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
 		spacing = 5,
 		prefix = "",
 		severity = "Error",
-		-- min_severity = "Error"
 	},
 	update_in_insert = true,
 })
