@@ -253,6 +253,7 @@ local lsp_flags = {
 
 -- For C++ in Ubuntu: sudo apt install g++-12
 local lspservers = {
+	"cmake",
 	"bashls",
 	"awk_ls",
 	"lua_ls",
