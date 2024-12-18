@@ -24,6 +24,7 @@ return {
 		opts = {
 			formatters_by_ft = {
 				arduino = { "clang_format" },
+				cpp = { "clang_format" },
 				sh = { "beautysh" },
 				lua = { "stylua" },
 				toml = { "taplo" },
@@ -95,6 +96,9 @@ return {
 				maxErrorsToShow = 10,
 				active = true,
 			})
+			vim.schedule(function()
+				vim.cmd("NorminetteDisable")
+			end)
 		end,
 	},
 	-- {
