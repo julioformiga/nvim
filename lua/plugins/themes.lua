@@ -340,8 +340,8 @@ return {
 				},
 			})
 			require("catppuccin").load()
-			vim.cmd.colorscheme("catppuccin-latte")
-			-- vim.cmd.colorscheme("catppuccin-mocha")
+			-- vim.cmd.colorscheme("catppuccin-latte")
+			vim.cmd.colorscheme("catppuccin-mocha")
 		end,
 	},
 	{
@@ -472,8 +472,8 @@ return {
 				groups = {},
 			})
 			-- require("nightfox").load()
-			-- vim.cmd.colorscheme("terafox")
 			-- vim.cmd.colorscheme("nightfox")
+			-- vim.cmd.colorscheme("terafox")
 			-- vim.cmd.colorscheme("carbonfox")
 			-- vim.cmd.colorscheme("duskfox")
 		end,
@@ -526,12 +526,12 @@ return {
 			-- vim.cmd.colorscheme("monokai-pro")
 		end,
 	},
-	{
-		"https://github.com/savq/melange-nvim",
-		config = function()
-			-- require("melange").setup()
-			vim.opt.termguicolors = true
-			-- vim.cmd.colorscheme("melange")
-		end,
-	},
+	-- {
+	-- 	"https://github.com/savq/melange-nvim",
+	-- 	config = function()
+	-- 		-- vim.opt.termguicolors = true
+	-- 		-- require("melange").setup()
+	-- 		-- vim.cmd.colorscheme("melange")
+	-- 	end,
+	-- },
 }
