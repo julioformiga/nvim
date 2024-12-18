@@ -13,7 +13,7 @@ return {
 			-- auto_suggestions_provider = "claude",
 			claude = {
 				endpoint = "https://api.anthropic.com",
-				model = "claude-3-5-sonnet-20240620",
+				model = "claude-3-5-sonnet-20241022",
 				temperature = 0,
 				max_tokens = 4096,
 			},
@@ -116,25 +116,25 @@ return {
 			},
 		},
 	},
-	{
-		"https://github.com/olimorris/codecompanion.nvim",
-		dependencies = {
-			"https://github.com/nvim-lua/plenary.nvim",
-			"https://github.com/nvim-treesitter/nvim-treesitter",
-			"https://github.com/hrsh7th/nvim-cmp", -- Optional: For using slash commands and variables in the chat buffer
-			"https://github.com/nvim-telescope/telescope.nvim", -- Optional: For using slash commands
-			{ "https://github.com/stevearc/dressing.nvim", opts = {} }, -- Optional: Improves `vim.ui.select`
-		},
-		opts = {
-			strategies = {
-				inline = {
-					adapter = "copilot",
-				},
-				agent = {
-					adapter = "anthropic",
-				},
-			},
-		},
-		config = true,
-	},
+	-- {
+	-- 	"https://github.com/olimorris/codecompanion.nvim",
+	-- 	dependencies = {
+	-- 		"https://github.com/nvim-lua/plenary.nvim",
+	-- 		"https://github.com/nvim-treesitter/nvim-treesitter",
+	-- 		"https://github.com/hrsh7th/nvim-cmp", -- Optional: For using slash commands and variables in the chat buffer
+	-- 		"https://github.com/nvim-telescope/telescope.nvim", -- Optional: For using slash commands
+	-- 		{ "https://github.com/stevearc/dressing.nvim", opts = {} }, -- Optional: Improves `vim.ui.select`
+	-- 	},
+	-- 	opts = {
+	-- 		strategies = {
+	-- 			inline = {
+	-- 				adapter = "copilot",
+	-- 			},
+	-- 			agent = {
+	-- 				adapter = "anthropic",
+	-- 			},
+	-- 		},
+	-- 	},
+	-- 	config = true,
+	-- },
 }
