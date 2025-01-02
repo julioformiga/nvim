@@ -11,7 +11,7 @@ return {
 	},
 	{
 		"https://github.com/rcarriga/nvim-dap-ui",
-		-- lazy = false,
+		lazy = false,
 		keys = {
 			{ "<F7>", "<cmd>DapToggleBreakpoint<cr>" },
 			{ "<F8>", "<cmd>DapContinue<cr>" },
@@ -23,42 +23,41 @@ return {
 			require("dapui").setup()
 			local dap, dapui = require("dap"), require("dapui")
 
-			-- dap.adapters.python = function(cb, config)
-			--     if config.request == "attach" then
-			--         local port = (config.connect or config).port
-			--         local host = (config.connect or config).host or "127.0.0.1"
-			--         cb({
-			--             type = "server",
-			--             port = assert(port, "`connect.port` is required for a python `attach` configuration"),
-			--             host = host,
-			--             options = {
-			--                 source_filetype = "python",
-			--             },
-			--         })
-			--     else
-			--         cb({
-			--             type = "executable",
-			--             command = os.getenv("VIRTUAL_ENV") .. "/bin/python",
-			--             -- command = "/home/julio/.cache/pypoetry/virtualenvs/fast-zero-Mp744fZZ-py3.11/bin/python",
-			--             args = { "-m", "debugpy.adapter" },
-			--             options = {
-			--                 source_filetype = "python",
-			--             },
-			--         })
-			--     end
-			-- end
+			dap.adapters.python = function(cb, config)
+				if config.request == "attach" then
+					local port = (config.connect or config).port
+					local host = (config.connect or config).host or "127.0.0.1"
+					cb({
+						type = "server",
+						port = assert(port, "`connect.port` is required for a python `attach` configuration"),
+						host = host,
+						options = {
+							source_filetype = "python",
+						},
+					})
+				else
+					cb({
+						type = "executable",
+						command = os.getenv("VIRTUAL_ENV") .. "/bin/python",
+						args = { "-m", "debugpy.adapter" },
+						options = {
+							source_filetype = "python",
+						},
+					})
+				end
+			end
 			--
 			-- dap.configurations.python = {
-			--     {
-			--         type = "python",
-			--         request = "launch",
-			--         name = "Launch file",
-			--         program = "${file}",
-			--         -- pythonPath = function()
-			--         --     -- return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
-			--         --     return "/home/julio/.cache/pypoetry/virtualenvs/fast-zero-Mp744fZZ-py3.11/bin/python"
-			--         -- end,
-			--     },
+			-- 	{
+			-- 		type = "python",
+			-- 		request = "launch",
+			-- 		name = "Launch file",
+			-- 		program = "${file}",
+			-- 		pythonPath = function()
+			-- 			-- return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+			-- 			return vim.fn.getcwd() .. "/.venv/bin/python"
+			-- 		end,
+			-- 	},
 			-- }
 
 			dap.adapters.codelldb = {
@@ -98,7 +97,7 @@ return {
 					terminal = "integrated",
 				},
 			}
-			-- dap.configurations.cpp = dap.configurations.c
+			dap.configurations.cpp = dap.configurations.c
 			dap.listeners.after.event_initialized["dapui_config"] = function()
 				dapui.open()
 			end
