@@ -3,13 +3,23 @@ return {
 	"https://github.com/themaxmarchuk/tailwindcss-colors.nvim",
 	"https://github.com/ap/vim-css-color",
 	"https://github.com/turbio/bracey.vim",
+	-- {
+	-- 	"https://github.com/ziontee113/color-picker.nvim",
+	-- 	keys = {
+	-- 		{ "<A-c>", "<cmd>PickColor<cr>", desc = "Color picker" },
+	-- 	},
+	-- 	config = function()
+	-- 		require("color-picker").setup()
+	-- 	end,
+	-- },
 	{
-		"https://github.com/ziontee113/color-picker.nvim",
+		"https://github.com/max397574/colortils.nvim",
+		cmd = "Colortils",
 		keys = {
-			{ "<A-c>", "<cmd>PickColor<cr>", desc = "Color picker" },
+			{ "<A-c>", "<cmd>Colortils<cr>", desc = "Color picker" },
 		},
 		config = function()
-			require("color-picker").setup()
+			require("colortils").setup()
 		end,
 	},
 	{
