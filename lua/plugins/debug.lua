@@ -36,9 +36,16 @@ return {
 						},
 					})
 				else
+					local python_exec = os.getenv("VIRTUAL_ENV")
+					if python_exec then
+						python_exec = python_exec .. "/bin/python"
+					else
+						python_exec = "/usr/bin/python"
+					end
 					cb({
 						type = "executable",
-						command = os.getenv("VIRTUAL_ENV") .. "/bin/python",
+						-- command = os.getenv("VIRTUAL_ENV") .. "/bin/python",
+						command = python_exec,
 						args = { "-m", "debugpy.adapter" },
 						options = {
 							source_filetype = "python",
@@ -46,7 +53,7 @@ return {
 					})
 				end
 			end
-			--
+
 			-- dap.configurations.python = {
 			-- 	{
 			-- 		type = "python",
