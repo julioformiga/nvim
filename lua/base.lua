@@ -38,11 +38,12 @@ o.cursorline = true
 -- 	"r-cr-o:hor20-blinkwait700-blinkoff400-blinkon250",
 -- }
 -- g.neovide_cursor_smooth_blink = true -- High CPU usage
+o.diffopt = "vertical,internal,filler,algorithm:patience"
 
-g.neovide_padding_top = 0
-g.neovide_padding_bottom = 0
-g.neovide_padding_right = 0
-g.neovide_padding_left = 0
+g.neovide_padding_top = 3
+g.neovide_padding_bottom = 3
+g.neovide_padding_right = 3
+g.neovide_padding_left = 3
 -- g.neovide_cursor_vfx_mode = "railgun"
 -- g.neovide_cursor_vfx_mode = "torpedo"
 -- g.neovide_cursor_vfx_mode = "pixiedust"
@@ -64,10 +65,10 @@ g.neovide_refresh_rate = 60
 -- local alpha = function()
 --     return string.format("%x", math.floor((255 * g.transparency) or 0.8))
 -- end
--- g.neovide_transparency = 0.8
--- g.transparency = 0.8
+g.neovide_transparency = 0.94
+-- g.transparency = 0.9
 -- g.neovide_background_color = "#0f1117" .. alpha()
--- g.neovide_window_floating_blur = 0.8
+-- g.neovide_window_floating_blur = 0.3
 -- g.neovide_floating_blur_amount_x = 2.0
 -- g.neovide_floating_blur_amount_y = 2.0
 
@@ -89,7 +90,7 @@ opt.iskeyword:append("-") -- Add '-' in command 'w' to select word
 -- opt.guifont = "JetBrains Mono NL Thin:h10.8"
 -- opt.guifont = "MesloLGS Nerd Font Mono:h10"
 -- opt.guifont = "Hack Nerd Font Mono:h10"
-opt.guifont = "JetBrainsMonoNL Nerd Font Mono:h12"
+opt.guifont = "JetBrainsMonoNL Nerd Font Mono:h11"
 -- opt.guifont = "JetBrainsMonoNL Nerd Font Mono:h10.8"
 -- opt.guifont = "JetBrainsMono Nerd Font Mono:h10.8"
 opt.spell = false
