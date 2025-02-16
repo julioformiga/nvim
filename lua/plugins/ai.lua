@@ -8,19 +8,43 @@ return {
 			---@alias Provider "claude" | "openai" | "azure" | "gemini" | "cohere" | "copilot" | string
 			-- provider = "gemini",
 			-- provider = "openai",
-			-- provider = "copilot",
-			provider = "claude",
-			-- auto_suggestions_provider = "claude",
-			claude = {
-				endpoint = "https://api.anthropic.com",
-				model = "claude-3-5-sonnet-20241022",
+			provider = "copilot",
+			-- provider = "claude",
+			-- provider = "deepseek",
+			auto_suggestions_provider = "copilot",
+			copilot = {
+				endpoint = "https://api.githubcopilot.com",
+				model = "claude-3.5-sonnet",
+				-- model = "gpt-4o-2024-08-06",
 				temperature = 0,
-				max_tokens = 4096,
+				max_tokens = 8000,
 			},
-			-- openai = {
-			-- 	endpoint = "https://api.openai.com/v1",
-			-- 	model = "gpt-4o-mini",
-			-- },
+			gemini = {
+				api_key_name = "cmd:pass GEMINI_API_KEY",
+				model = "gpt-4o-2024-08-06",
+			},
+			claude = {
+				-- endpoint = "https://api.anthropic.com",
+				endpoint = "https://api.githubcopilot.com",
+				-- model = "claude-3-5-sonnet-20241022",
+				model = "claude-3.5-sonnet",
+				temperature = 0,
+				max_tokens = 8000,
+				-- api_key_name = "cmd:pass ANTHROPIC_API_KEY",
+			},
+			openai = {
+				endpoint = "https://api.openai.com/v1",
+				model = "gpt-4o-mini",
+				api_key_name = "cmd:pass OPENAI_API_KEY",
+			},
+			vendors = {
+				deepseek = {
+					__inherited_from = "openai",
+					endpoint = "https://api.deepseek.com",
+					model = "deepseek-coder",
+					api_key_name = "cmd:pass DEEPSEEK_API_KEY",
+				},
+			},
 			behaviour = {
 				auto_suggestions = false, -- Experimental stage
 				auto_set_highlight_group = true,
