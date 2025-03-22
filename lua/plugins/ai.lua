@@ -14,7 +14,7 @@ return {
 			auto_suggestions_provider = "copilot",
 			copilot = {
 				endpoint = "https://api.githubcopilot.com",
-				model = "claude-3.5-sonnet",
+				model = "claude-3.7-sonnet",
 				-- model = "gpt-4o-2024-08-06",
 				temperature = 0,
 				max_tokens = 8000,
