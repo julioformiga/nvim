@@ -24,6 +24,8 @@ return {
 		opts = {
 			formatters_by_ft = {
 				arduino = { "clang_format" },
+				make = { "checkmake" },
+				cmake = { "cmake-lint", "cmake-format", "cmakelint" },
 				cpp = { "clang_format" },
 				sh = { "beautysh" },
 				lua = { "stylua" },
