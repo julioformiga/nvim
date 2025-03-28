@@ -39,7 +39,7 @@ local function create_user_menu()
 	local itens = {
 		"󰫻 - Norminette",
 		"󰫮󰫰 - Auto compile",
-		"󱂈󱎦󰫵 - C/C++ inlay hints",
+		"󱂈󱎦󰫵 - LSP inlay hints",
 	}
 	local menu = Menu({
 		position = "50%",
@@ -74,7 +74,7 @@ local function create_user_menu()
 			if item.text == "Exit" then
 				return
 			elseif item.text == itens[3] then
-				require("clangd_extensions.inlay_hints").toggle_inlay_hints()
+				vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 			elseif item.text == itens[2] then
 				vim.api.nvim_command("AutoCompile")
 			elseif item.text == itens[1] then
