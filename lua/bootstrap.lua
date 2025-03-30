@@ -263,7 +263,8 @@ local lspservers = {
 	"marksman",
 	"biome",
 	"emmet_language_server",
-	"eslint",
+	-- "eslint_d",
+	-- "eslint",
 	"dockerls",
 	"docker_compose_language_service",
 	"html",
@@ -271,6 +272,7 @@ local lspservers = {
 	"jsonls",
 	"yamlls",
 	"jqls",
+	-- "hyprls",
 }
 
 local lspconfig = require("lspconfig")
@@ -282,36 +284,49 @@ for _, lsp in pairs(lspservers) do
 	})
 end
 
-local mason_registry = require("mason-registry")
-local vue_language_server_path = mason_registry.get_package("vue-language-server"):get_install_path()
-	.. "/node_modules/@vue/language-server"
+-- Hyprlang LSP
+-- vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
+-- 	pattern = { "*.hl", "hypr*.conf" },
+-- 	callback = function(event)
+-- 		print(string.format("starting hyprls for %s", vim.inspect(event)))
+-- 		vim.lsp.start({
+-- 			name = "hyprlang",
+-- 			cmd = { "hyprls" },
+-- 			root_dir = vim.fn.getcwd(),
+-- 		})
+-- 	end,
+-- })
 
-lspconfig["ts_ls"].setup({
-	init_options = {
-		plugins = {
-			{
-				name = "@vue/typescript-plugin",
-				location = vue_language_server_path,
-				languages = { "vue" },
-			},
-		},
-	},
-	filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
-})
+-- local mason_registry = require("mason-registry")
+-- local vue_language_server_path = mason_registry.get_package("vue-language-server"):get_install_path()
+-- .. "/node_modules/@vue/language-server"
+
+-- lspconfig["ts_ls"].setup({
+-- 	init_options = {
+-- 		plugins = {
+-- 			{
+-- 				name = "@vue/typescript-plugin",
+-- 				location = vue_language_server_path,
+-- 				languages = { "vue" },
+-- 			},
+-- 		},
+-- 	},
+-- 	filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
+-- })
 
 -- No need to set `hybridMode` to `true` as it's the default value
-lspconfig["volar"].setup({})
+-- lspconfig["volar"].setup({})
 
 -- No-Hybrid mode is for Vue 3 with <script setup>
 -- https://github.com/vuejs/language-tools
--- require("lspconfig").volar.setup({
--- 	filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
--- 	init_options = {
--- 		vue = {
--- 			hybridMode = false,
--- 		},
--- 	},
--- })
+require("lspconfig").volar.setup({
+	filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
+	init_options = {
+		vue = {
+			hybridMode = false,
+		},
+	},
+})
 
 lspconfig["clangd"].setup({
 	on_attach = lsp_on_attach,
@@ -374,17 +389,18 @@ function OpenDiagnosticIfNoFloat()
 		end
 	end
 	-- THIS IS FOR BUILTIN LSP
-	vim.diagnostic.open_float(table, {
-		scope = "cursor",
-		focusable = false,
-		close_events = {
-			"CursorMoved",
-			"CursorMovedI",
-			"BufHidden",
-			"InsertCharPre",
-			"WinLeave",
-		},
-	})
+	-- vim.diagnostic.open_float(table, {
+	-- 	scope = "cursor",
+	-- 	focusable = false,
+	-- 	close_events = {
+	-- 		"CursorMoved",
+	-- 		"CursorMovedI",
+	-- 		"BufHidden",
+	-- 		"InsertCharPre",
+	-- 		"WinLeave",
+	-- 	},
+	-- })
+	vim.diagnostic.config({ virtual_lines = { current_line = true } })
 end
 
 local signs = {
@@ -454,15 +470,16 @@ require("gitsigns").setup({
 -- local helpers = require("null-ls.helpers")
 -- helpers.generator_factory()
 
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-	underline = true,
-	-- virtual_text = false,
-	virtual_text = {
-		spacing = 5,
-		prefix = "",
-		severity = "Error",
-	},
-	update_in_insert = true,
-})
+-- vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+-- 	underline = true,
+-- 	-- virtual_text = false,
+-- 	-- virtual_text = {
+-- 	-- 	spacing = 5,
+-- 	-- 	prefix = "",
+-- 	-- 	severity = "Error",
+-- 	-- },
+-- 	virtual_lines = true,
+-- 	update_in_insert = true,
+-- })
 
 require("telescope").load_extension("macros")
