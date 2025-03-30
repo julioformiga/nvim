@@ -13,8 +13,8 @@ local aucmd_dict = {
 					"n",
 					"<leader><cr>",
 					-- '<esc><cmd>2TermExec cmd="arduino-cli compile --fqbn esp8266:esp8266:nodemcuv2 && arduino-cli upload -v -p /dev/ttyACM0 --fqbn esp8266:esp8266:nodemcuv2:baud=3000000 && arduino-cli monitor -p /dev/ttyACM0 -c baudrate=115200" direction=float<cr>'
-					'<esc><cmd>2TermExec cmd="arduino-cli compile --fqbn arduino:avr:uno && arduino-cli upload -v -p /dev/ttyACM0 --fqbn arduino:avr:uno && arduino-cli monitor -p /dev/ttyACM0 -c baudrate=115200" direction=horizontal<cr>'
-					-- '<esc><cmd>2TermExec cmd="arduino-cli compile --fqbn arduino:avr:mega && arduino-cli upload -v -p /dev/ttyACM0 --fqbn arduino:avr:mega && arduino-cli monitor -p /dev/ttyACM0 -c baudrate=115200" direction=horizontal<cr>'
+					-- '<esc><cmd>2TermExec cmd="arduino-cli compile --fqbn arduino:avr:uno && arduino-cli upload -v -p /dev/ttyACM0 --fqbn arduino:avr:uno && arduino-cli monitor -p /dev/ttyACM0 -c baudrate=115200" direction=horizontal<cr>'
+					'<esc><cmd>2TermExec cmd="arduino-cli compile --fqbn arduino:avr:mega && arduino-cli upload -v -p /dev/ttyACM0 --fqbn arduino:avr:mega && arduino-cli monitor -p /dev/ttyACM0 -c baudrate=115200" direction=horizontal<cr>'
 				)
 			end,
 		},
@@ -33,9 +33,9 @@ local aucmd_dict = {
 					"n",
 					"<leader><cr>",
 					-- '<cmd>2TermExec cmd="cc % -Wall -Wextra -Werror -g -o main && ./main" direction=horizontal<cr>'
-					-- '<cmd>2TermExec cmd="make run" direction=horizontal<cr>'
-					'<cmd>2TermExec cmd="make run" direction=horizontal<cr><C-w>j'
-					-- '<cmd>2TermExec cmd="make run" direction=vertical size=84<cr>'
+					'<cmd>2TermExec cmd="make run" direction=horizontal<cr>'
+					-- '<cmd>2TermExec cmd="make run" direction=horizontal<cr><C-w>j'
+					-- '<cmd>2TermExec cmd="make run" direction=vertical size=90<cr><C-w>h'
 					-- '<cmd>1TermExec cmd="make run" direction=float<cr>'
 				)
 				-- map(
@@ -127,7 +127,13 @@ map("n", "<A-cr>", ":", { noremap = true, silent = false })
 map("n", "<F2>", "<cmd>PersonalMenu<CR>", { desc = "Personal menu", noremap = true, silent = false })
 map("n", "<leader>cc", '<cmd>nohl<cr><cmd>echo "Search Cleared"<cr>', { desc = "Clear search" })
 map("", "<leader>s", "<cmd>set spell!<cr>", { desc = "Spell Toggle" })
-map("n", "<leader>ac", "<cmd>AutoCompile<cr>", { desc = "Toggle Auto compile" })
+-- map("n", "<leader>ac", "<cmd>AutoCompile<cr>", { desc = "Toggle Auto compile" })
+
+-- Clipboard integration
+map("v", "y", '"+y')
+map("n", "y", '"+y')
+map("n", "yy", '"+yy')
+map("n", "Y", '"+y$')
 
 -- Not rewrite clipboard
 map("", "s", '"_s')
