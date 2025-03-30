@@ -56,7 +56,7 @@ g.neovide_remember_window_size = true
 -- g.neovide_cursor_antialiasing = true
 -- g.neovide_cursor_unfocused_outline_width = 0.125
 -- g.neovide_scroll_animation_length = 0.3
-g.neovide_refresh_rate = 60
+-- g.neovide_refresh_rate = 120
 -- g.neovide_refresh_rate_idle = 5
 -- g.neovide_transparency = 0.95
 -- g.transparency = 1
@@ -65,7 +65,7 @@ g.neovide_refresh_rate = 60
 -- local alpha = function()
 --     return string.format("%x", math.floor((255 * g.transparency) or 0.8))
 -- end
-g.neovide_transparency = 0.94
+g.neovide_transparency = 0.98
 -- g.transparency = 0.9
 -- g.neovide_background_color = "#0f1117" .. alpha()
 -- g.neovide_window_floating_blur = 0.3
