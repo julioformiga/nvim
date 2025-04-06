@@ -125,15 +125,16 @@ map("n", "gf", "<Cmd>lua M.HandleURL()<cr>")
 -- map("n", "<leader>r", ':so %<cr><cmd>echo "Settings reload!"<cr>', { desc = "Reload settings" })
 map("n", "<A-cr>", ":", { noremap = true, silent = false })
 map("n", "<F2>", "<cmd>PersonalMenu<CR>", { desc = "Personal menu", noremap = true, silent = false })
+map("n", "<leader>mk", "<cmd>MakefileMenu<CR>", { desc = "Makefile menu", noremap = true, silent = false })
 map("n", "<leader>cc", '<cmd>nohl<cr><cmd>echo "Search Cleared"<cr>', { desc = "Clear search" })
 map("", "<leader>s", "<cmd>set spell!<cr>", { desc = "Spell Toggle" })
 -- map("n", "<leader>ac", "<cmd>AutoCompile<cr>", { desc = "Toggle Auto compile" })
 
 -- Clipboard integration
-map("v", "y", '"+y')
-map("n", "y", '"+y')
-map("n", "yy", '"+yy')
-map("n", "Y", '"+y$')
+-- map("v", "y", '"+y')
+-- map("n", "y", '"+y')
+-- map("n", "yy", '"+yy')
+-- map("n", "Y", '"+y$')
 
 -- Not rewrite clipboard
 map("", "s", '"_s')

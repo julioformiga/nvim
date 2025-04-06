@@ -31,6 +31,22 @@ function Setup_auto_compile()
 			end
 		end,
 	})
+
+	-- Adiciona integração com o menu de Makefile
+	-- Carrega o módulo de menu de Makefile apenas quando necessário
+	vim.api.nvim_create_autocmd("BufEnter", {
+		callback = function()
+			local makefile_menu = require("makefilemenu")
+			if makefile_menu.has_makefile() then
+				-- O menu de Makefile estará disponível através do atalho <leader>mk
+				vim.notify("Makefile detectado - use <leader>mk para acessar o menu de targets", vim.log.levels.INFO, {
+					title = "Makefile Menu",
+					timeout = 3000,
+				})
+			end
+		end,
+		once = true, -- Executa apenas uma vez por sessão para evitar notificações repetidas
+	})
 end
 
 Setup_auto_compile()
