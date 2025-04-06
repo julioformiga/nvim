@@ -138,6 +138,7 @@ map("", "<leader>s", "<cmd>set spell!<cr>", { desc = "Spell Toggle" })
 
 -- Not rewrite clipboard
 map("", "s", '"_s')
+map("", "x", '"_x')
 map("", "<Del>", '"_x')
 map("", "<S-Del>", '"_dd')
 map("i", "<S-Del>", '<esc>"_dd')
