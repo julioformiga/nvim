@@ -26,7 +26,7 @@ return {
 				arduino = { "clang_format" },
 				cmake = { "cmake-lint", "cmake-format" },
 				cpp = { "clang_format" },
-				sh = { "beautysh" },
+				-- sh = { "beautysh" },
 				lua = { "stylua" },
 				toml = { "taplo" },
 				-- python = { "ruff_fix", "ruff_format" },
