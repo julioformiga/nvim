@@ -180,6 +180,9 @@ return {
 	},
 	-- { "https://github.com/echasnovski/mini.nvim", version = "*" },
 	{
+		"https://github.com/AndrewRadev/sideways.vim",
+	},
+	{
 		"https://github.com/nvim-lualine/lualine.nvim",
 		dependencies = { "https://github.com/nvim-tree/nvim-web-devicons", opt = true },
 	},
