@@ -66,14 +66,14 @@ g.neovide_remember_window_size = true
 -- local alpha = function()
 --     return string.format("%x", math.floor((255 * g.transparency) or 0.8))
 -- end
-g.neovide_opacity = 0.98
+-- g.neovide_opacity = 0.99
 -- g.transparency = 0.9
 -- g.neovide_background_color = "#0f1117" .. alpha()
 -- g.neovide_window_floating_blur = 0.3
 -- g.neovide_floating_blur_amount_x = 2.0
 -- g.neovide_floating_blur_amount_y = 2.0
 
-o.list = true
+-- o.list = true -- show tabs and trailing spaces
 -- o.shell = HOMEDIR .. '/.local/bin/xonsh'
 -- o.shell = "/usr/bin/bash"
 o.shell = "/usr/bin/zsh"

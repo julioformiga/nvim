@@ -53,9 +53,10 @@ Setup_auto_compile()
 
 local function create_user_menu()
 	local itens = {
-		"󰫻 - Norminette",
-		"󰫮󰫰 - Auto compile",
-		"󱂈󱎦󰫵 - LSP inlay hints",
+		"N - Norminette",
+		"AC - Auto compile",
+		"ILH - LSP inlay hints",
+		"TTS - Toggle Tabs/Spaces",
 	}
 	local menu = Menu({
 		position = "50%",
@@ -78,6 +79,7 @@ local function create_user_menu()
 			Menu.item(itens[1], { shortcut = "n" }),
 			Menu.item(itens[2], { shortcut = "a" }),
 			Menu.item(itens[3], { shortcut = "i" }),
+			Menu.item(itens[4], { shortcut = "t" }),
 		},
 		max_width = 20,
 		keymap = {
@@ -89,6 +91,8 @@ local function create_user_menu()
 		on_submit = function(item)
 			if item.text == "Exit" then
 				return
+			elseif item.text == itens[4] then
+				vim.api.nvim_command("set invlist")
 			elseif item.text == itens[3] then
 				vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 			elseif item.text == itens[2] then
