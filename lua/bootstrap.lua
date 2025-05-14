@@ -412,7 +412,7 @@ local signs = {
 
 for type, icon in pairs(signs) do
 	local hl = "DiagnosticSign" .. type
-	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+	vim.diagnostic.config({ signs = { text = { icon }, texthl = { hl }, numhl = { hl } } })
 end
 
 -- Show diagnostics under the cursor when holding position
