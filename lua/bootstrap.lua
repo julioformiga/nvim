@@ -389,18 +389,19 @@ function OpenDiagnosticIfNoFloat()
 		end
 	end
 	-- THIS IS FOR BUILTIN LSP
-	-- vim.diagnostic.open_float(table, {
-	-- 	scope = "cursor",
-	-- 	focusable = false,
-	-- 	close_events = {
-	-- 		"CursorMoved",
-	-- 		"CursorMovedI",
-	-- 		"BufHidden",
-	-- 		"InsertCharPre",
-	-- 		"WinLeave",
-	-- 	},
-	-- })
-	vim.diagnostic.config({ virtual_lines = { current_line = true } })
+	vim.diagnostic.open_float({
+		scope = "line",
+		focusable = false,
+		border = "rounded",
+		close_events = {
+			"CursorMoved",
+			"CursorMovedI",
+			"BufHidden",
+			"InsertCharPre",
+			"WinLeave",
+		},
+	})
+	-- vim.diagnostic.config({ virtual_lines = { current_line = true }, virtual_text = false })
 end
 
 local signs = {
