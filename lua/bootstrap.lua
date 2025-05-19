@@ -405,17 +405,22 @@ function OpenDiagnosticIfNoFloat()
 	-- vim.diagnostic.config({ virtual_lines = { current_line = true }, virtual_text = false })
 end
 
-local signs = {
-	Error = " ",
-	Warn = " ",
-	Hint = "󰛨",
-	Info = " ",
-}
-
-for type, icon in pairs(signs) do
-	local hl = "DiagnosticSign" .. type
-	vim.diagnostic.config({ signs = { text = { icon }, texthl = { hl }, numhl = { hl } } })
-end
+vim.diagnostic.config({
+	signs = {
+		text = {
+			[vim.diagnostic.severity.ERROR] = "",
+			[vim.diagnostic.severity.WARN] = "",
+			[vim.diagnostic.severity.HINT] = "󰛨",
+			[vim.diagnostic.severity.INFO] = "",
+		},
+		numhl = {
+			[vim.diagnostic.severity.ERROR] = "DiagnosticSignError",
+			[vim.diagnostic.severity.WARN] = "DiagnosticSignWarn",
+			[vim.diagnostic.severity.HINT] = "DiagnosticSignHint",
+			[vim.diagnostic.severity.INFO] = "DiagnosticSignInfo",
+		},
+	},
+})
 
 -- Show diagnostics under the cursor when holding position
 vim.api.nvim_create_augroup("lsp_diagnostics_hold", { clear = true })
