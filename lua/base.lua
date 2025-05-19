@@ -28,6 +28,7 @@ o.smartindent = false -- auto indent on new lines, see :help smartindent
 o.smarttab = true
 o.updatetime = 1000
 o.mouse = "a"
+o.laststatus = 3 --  Avante plugin recommended
 -- wo.colorcolumn = '80'
 -- o.clipboard = [[unnamed,unnamedplus]]
 o.clipboard = "unnamedplus"
