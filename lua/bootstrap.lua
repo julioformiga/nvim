@@ -330,6 +330,9 @@ require("lspconfig").volar.setup({
 })
 
 lspconfig["clangd"].setup({
+	root_dir = function(fname)
+		return require("lspconfig.util").find_git_ancestor(fname) or vim.fn.getcwd()
+	end,
 	on_attach = lsp_on_attach,
 	capabilities = capabilities,
 	flags = lsp_flags,
