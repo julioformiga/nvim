@@ -381,30 +381,6 @@ lspconfig["tailwindcss"].setup({
 	flags = lsp_flags,
 })
 
--- Function to check if a floating dialog exists and if not
--- then check for diagnostics under the cursor
-function OpenDiagnosticIfNoFloat()
-	for _, winid in pairs(vim.api.nvim_tabpage_list_wins(0)) do
-		if vim.api.nvim_win_get_config(winid).zindex then
-			return
-		end
-	end
-	-- THIS IS FOR BUILTIN LSP
-	vim.diagnostic.open_float(nil, {
-		scope = "line",
-		focusable = true,
-		border = "rounded",
-		close_events = {
-			"CursorMoved",
-			"CursorMovedI",
-			"BufHidden",
-			"InsertCharPre",
-			-- "WinLeave",
-		},
-	})
-	-- vim.diagnostic.config({ virtual_lines = { current_line = true }, virtual_text = false })
-end
-
 vim.diagnostic.config({
 	signs = {
 		text = {
@@ -421,6 +397,30 @@ vim.diagnostic.config({
 		},
 	},
 })
+
+-- Function to check if a floating dialog exists and if not
+-- then check for diagnostics under the cursor
+function OpenDiagnosticIfNoFloat()
+	for _, winid in pairs(vim.api.nvim_tabpage_list_wins(0)) do
+		if vim.api.nvim_win_get_config(winid).zindex then
+			return
+		end
+	end
+	-- THIS IS FOR BUILTIN LSP
+	vim.diagnostic.open_float(nil, {
+		scope = "cursor", -- "line", "buffer",
+		focusable = true,
+		border = "rounded",
+		close_events = {
+			"CursorMoved",
+			"CursorMovedI",
+			"BufHidden",
+			"InsertCharPre",
+			-- "WinLeave",
+		},
+	})
+	-- vim.diagnostic.config({ virtual_lines = { current_line = true }, virtual_text = false })
+end
 
 -- Show diagnostics under the cursor when holding position
 vim.api.nvim_create_augroup("lsp_diagnostics_hold", { clear = true })
