@@ -2,6 +2,7 @@ vim.api.nvim_create_autocmd("FileType", {
 	pattern = {
 		"html",
 		"css",
+		"cpp",
 		"scss",
 		"vue",
 		"json",
@@ -36,7 +37,7 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = {
 		"c",
-		"cpp",
+		-- "cpp",
 		"arduino",
 	},
 	callback = function()
@@ -256,7 +257,7 @@ local lspservers = {
 	"cmake",
 	"bashls",
 	"awk_ls",
-	"lua_ls",
+	-- "lua_ls",
 	"pyright",
 	"ruff",
 	"rust_analyzer",
