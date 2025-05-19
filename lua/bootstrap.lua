@@ -225,7 +225,7 @@ local lsp_on_attach = function(client, bufnr)
 	vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 	vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts)
 	vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
-	-- vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
+	vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
 	vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
 	vim.keymap.set("n", "gsh", vim.lsp.buf.signature_help, bufopts)
 	vim.keymap.set("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, bufopts)
@@ -333,8 +333,9 @@ lspconfig["clangd"].setup({
 	capabilities = capabilities,
 	flags = lsp_flags,
 	cmd = {
-		"clangd",
-		-- "/usr/bin/clangd",
+		-- "clangd",
+		"/usr/bin/clangd",
+		-- HOMEDIR .. "/.local/share/nvim/mason/bin/clangd",
 		"--offset-encoding=utf-16",
 	},
 })
@@ -389,16 +390,16 @@ function OpenDiagnosticIfNoFloat()
 		end
 	end
 	-- THIS IS FOR BUILTIN LSP
-	vim.diagnostic.open_float({
+	vim.diagnostic.open_float(nil, {
 		scope = "line",
-		focusable = false,
+		focusable = true,
 		border = "rounded",
 		close_events = {
 			"CursorMoved",
 			"CursorMovedI",
 			"BufHidden",
 			"InsertCharPre",
-			"WinLeave",
+			-- "WinLeave",
 		},
 	})
 	-- vim.diagnostic.config({ virtual_lines = { current_line = true }, virtual_text = false })
