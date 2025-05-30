@@ -158,7 +158,7 @@ return {
 					auto_trigger = false,
 					debounce = 75,
 					keymap = {
-						accept = "<M-l>",
+						accept = "<M-m>",
 						accept_word = false,
 						accept_line = false,
 						next = "<M-]>",

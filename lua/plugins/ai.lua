@@ -25,7 +25,7 @@ return {
 				temperature = 0,
 				timeout = 30000,
 				max_tokens = 8192,
-				-- disable_tools = true,
+				disable_tools = true,
 			},
 			gemini = {
 				api_key_name = "cmd:pass GEMINI_API_KEY",
@@ -75,7 +75,7 @@ return {
 					prev = "[x",
 				},
 				suggestion = {
-					accept = "<M-l>",
+					accept = "<M-m>",
 					next = "<M-]>",
 					prev = "<M-[>",
 					dismiss = "<C-]>",
