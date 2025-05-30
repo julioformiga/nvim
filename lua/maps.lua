@@ -33,8 +33,9 @@ local aucmd_dict = {
 					"n",
 					"<leader><cr>",
 					-- '<cmd>2TermExec cmd="cc % -Wall -Wextra -Werror -g -o main && ./main" direction=horizontal<cr>'
-					'<cmd>2TermExec cmd="make run" direction=horizontal<cr>'
+					'<cmd>2TermExec cmd="make run" direction=horizontal<cr><esc>'
 					-- '<cmd>2TermExec cmd="make run" direction=horizontal<cr><C-w>j'
+					-- '<cmd>2TermExec cmd="make run" direction=vertical size=90<cr>'
 					-- '<cmd>2TermExec cmd="make run" direction=vertical size=90<cr><C-w>h'
 					-- '<cmd>1TermExec cmd="make run" direction=float<cr>'
 				)
