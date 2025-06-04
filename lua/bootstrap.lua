@@ -265,7 +265,7 @@ local lspservers = {
 	"biome",
 	"emmet_language_server",
 	-- "eslint_d",
-	-- "eslint",
+	"eslint",
 	"dockerls",
 	"docker_compose_language_service",
 	"html",
@@ -273,6 +273,8 @@ local lspservers = {
 	"jsonls",
 	"yamlls",
 	"jqls",
+	-- "ts_ls",
+	-- "vue_ls",
 	-- "hyprls",
 }
 
@@ -297,11 +299,34 @@ end
 -- 		})
 -- 	end,
 -- })
+--
+--
+-- VUE Language Server
+local vue_language_server_path = vim.fn.expand("$MASON/packages")
+	.. "/vue-language-server"
+	.. "/node_modules/@vue/language-server"
 
+lspconfig.ts_ls.setup({
+	init_options = {
+		plugins = {
+			{
+				name = "@vue/typescript-plugin",
+				location = vue_language_server_path,
+				languages = { "vue" },
+			},
+		},
+	},
+	filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
+})
+
+lspconfig.vue_ls.setup({})
+
+-- No need to set `hybridMode` to `true` as it's the default value
+-- lspconfig.vue_ls.setup {}
 -- local mason_registry = require("mason-registry")
 -- local vue_language_server_path = mason_registry.get_package("vue-language-server"):get_install_path()
--- .. "/node_modules/@vue/language-server"
-
+-- 	.. "/node_modules/@vue/language-server"
+--
 -- lspconfig["ts_ls"].setup({
 -- 	init_options = {
 -- 		plugins = {
@@ -320,14 +345,14 @@ end
 
 -- No-Hybrid mode is for Vue 3 with <script setup>
 -- https://github.com/vuejs/language-tools
-require("lspconfig").volar.setup({
-	filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
-	init_options = {
-		vue = {
-			hybridMode = false,
-		},
-	},
-})
+-- require("lspconfig").vue_ls.setup({
+-- 	filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
+-- 	init_options = {
+-- 		vue = {
+-- 			hybridMode = false,
+-- 		},
+-- 	},
+-- })
 
 lspconfig["clangd"].setup({
 	root_dir = function(fname)
