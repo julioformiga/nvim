@@ -65,7 +65,7 @@ return {
 				highlight_overrides = {
 					all = function(colors)
 						return {
-							CmpItemMenu = { fg = colors.surface2 },
+							-- CmpItemMenu = { fg = colors.surface2 },
 							CursorLineNr = { fg = colors.text },
 							FloatBorder = { bg = colors.base, fg = colors.surface0 },
 							GitSignsChange = { fg = colors.peach },
@@ -330,7 +330,7 @@ return {
 					end,
 				},
 				integrations = {
-					cmp = true,
+					cmp = false,
 					gitsigns = true,
 					nvimtree = false,
 					telescope = true,
@@ -340,9 +340,10 @@ return {
 				},
 			})
 			require("catppuccin").load()
-			-- vim.cmd.colorscheme("catppuccin-latte")
+			-- vim.cmd.colorscheme("catppuccin-frappe")
 			-- vim.cmd.colorscheme("catppuccin-mocha")
 			vim.cmd.colorscheme("catppuccin-macchiato")
+			-- vim.cmd.colorscheme("catppuccin-latte")
 		end,
 	},
 	{

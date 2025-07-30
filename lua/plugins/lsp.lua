@@ -1,12 +1,50 @@
 return {
 	"https://github.com/neovim/nvim-lspconfig",
-	"https://github.com/hrsh7th/nvim-cmp",
-	"https://github.com/hrsh7th/cmp-nvim-lua",
-	"https://github.com/hrsh7th/cmp-nvim-lsp",
-	"https://github.com/hrsh7th/cmp-buffer",
-	"https://github.com/hrsh7th/cmp-path",
-	"https://github.com/hrsh7th/cmp-cmdline",
-	"https://github.com/saadparwaiz1/cmp_luasnip",
+	{
+		"https://github.com/neovim/nvim-lspconfig",
+		dependencies = { "https://github.com/saghen/blink.cmp" },
+
+		-- example using `opts` for defining servers
+		-- opts = {
+		-- 	servers = {
+		-- 		lua_ls = {},
+		-- 	},
+		-- },
+		-- config = function(_, opts)
+		-- 	local lspconfig = require("lspconfig")
+		-- 	for server, config in pairs(opts.servers) do
+		-- 		-- passing config.capabilities to blink.cmp merges with the capabilities in your
+		-- 		-- `opts[server].capabilities, if you've defined it
+		-- 		config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
+		-- 		lspconfig[server].setup(config)
+		-- 	end
+		-- end,
+
+		-- example calling setup directly for each LSP
+		-- config = function()
+		--   local capabilities = require('blink.cmp').get_lsp_capabilities()
+		--   local lspconfig = require('lspconfig')
+		--
+		--   lspconfig['lua_ls'].setup({ capabilities = capabilities })
+		-- end
+	},
+	-- "https://github.com/hrsh7th/nvim-cmp",
+	-- {
+	-- 	"https://github.com/hrsh7th/nvim-cmp",
+	-- 	opts = function(_, opts)
+	-- 		opts.sources = opts.sources or {}
+	-- 		table.insert(opts.sources, {
+	-- 			name = "lazydev",
+	-- 			group_index = 0, -- set group index to 0 to skip loading LuaLS completions
+	-- 		})
+	-- 	end,
+	-- },
+	-- "https://github.com/hrsh7th/cmp-nvim-lua",
+	-- "https://github.com/hrsh7th/cmp-nvim-lsp",
+	-- "https://github.com/hrsh7th/cmp-buffer",
+	-- "https://github.com/hrsh7th/cmp-path",
+	-- "https://github.com/hrsh7th/cmp-cmdline",
+	-- "https://github.com/saadparwaiz1/cmp_luasnip",
 	"https://github.com/rafamadriz/friendly-snippets",
 	"https://github.com/onsails/lspkind.nvim",
 	"https://github.com/RRethy/vim-illuminate",
@@ -135,8 +173,20 @@ return {
 	{
 		"https://github.com/zbirenbaum/copilot.lua",
 		cmd = "Copilot",
-		event = "InsertEnter",
+		-- event = "InsertEnter",
+		event = "BufWinEnter",
+		init = function()
+			vim.g.copilot_no_maps = true
+		end,
 		config = function()
+			vim.api.nvim_create_augroup("github_copilot", { clear = true })
+			-- vim.api.nvim_create_autocmd({ "FileType", "BufUnload" }, {
+			-- 	group = "github_copilot",
+			-- 	-- callback = function(args)
+			-- 	-- 	vim.fn["copilot#On" .. args.event]()
+			-- 	-- end,
+			-- })
+			-- vim.fn["copilot#OnFileType"]()
 			require("copilot").setup({
 				panel = {
 					enabled = false,
@@ -191,10 +241,10 @@ return {
 			})
 		end,
 	},
-	{
-		"https://github.com/zbirenbaum/copilot-cmp",
-		config = function()
-			require("copilot_cmp").setup()
-		end,
-	},
+	-- {
+	-- 	"https://github.com/zbirenbaum/copilot-cmp",
+	-- 	config = function()
+	-- 		require("copilot_cmp").setup()
+	-- 	end,
+	-- },
 }

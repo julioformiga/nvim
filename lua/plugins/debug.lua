@@ -129,19 +129,82 @@ return {
 			require("dap-python").setup("~/.local/share/nvim/mason/packages/debugpy/venv/bin/python")
 		end,
 	},
+	-- {
+	-- 	"https://github.com/mortepau/codicons.nvim",
+	-- 	config = function()
+	-- 		require("codicons").setup()
+	-- 	end,
+	-- },
+	-- {
+	-- 	"https://github.com/folke/neodev.nvim",
+	-- 	config = function()
+	-- 		require("neodev").setup({
+	-- 			library = { plugins = { "nvim-dap-ui", "neotest" }, types = true },
+	-- 		})
+	-- 	end,
+	-- },
 	{
-		"https://github.com/mortepau/codicons.nvim",
-		config = function()
-			require("codicons").setup()
-		end,
+		"https://github.com/folke/lazydev.nvim",
+		ft = "lua", -- only load on lua files
+		opts = {
+			library = {
+				-- See the configuration section for more details
+				-- Load luvit types when the `vim.uv` word is found
+				{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
+			},
+		},
 	},
-	{
-		"https://github.com/folke/neodev.nvim",
-		config = function()
-			require("neodev").setup({
-				library = { plugins = { "nvim-dap-ui", "neotest" }, types = true },
-			})
-		end,
+	{ -- optional blink completion source for require statements and module annotations
+		"https://github.com/saghen/blink.cmp",
+		dependencies = {
+			"https://github.com/rafamadriz/friendly-snippets",
+			"https://github.com/fang2hou/blink-copilot",
+		},
+		version = "1.*",
+		opts = {
+			keymap = {
+				preset = "default",
+				["<Tab>"] = { "select_next", "fallback" },
+				["<A-j>"] = { "select_next", "fallback" },
+				["<S-Tab>"] = { "select_prev", "fallback" },
+				["<A-k>"] = { "select_prev", "fallback" },
+				["<CR>"] = { "accept", "fallback" },
+				["<A-l>"] = { "accept", "fallback" },
+				["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
+				["<C-e>"] = { "hide" },
+				["<A-h>"] = { "hide" },
+			},
+			completion = {
+				list = {
+					selection = { preselect = false, auto_insert = false },
+				},
+				documentation = {
+					auto_show = true,
+					auto_show_delay_ms = 50,
+				},
+				accept = {
+					auto_brackets = { enabled = true },
+				},
+			},
+			sources = {
+				-- add lazydev to your completion providers
+				default = { "lazydev", "lsp", "path", "snippets", "buffer", "copilot" },
+				providers = {
+					lazydev = {
+						name = "LazyDev",
+						module = "lazydev.integrations.blink",
+						-- make lazydev completions top priority (see `:h blink.cmp`)
+						score_offset = 100,
+					},
+					copilot = {
+						name = "copilot",
+						module = "blink-copilot",
+						score_offset = 100,
+						async = true,
+					},
+				},
+			},
+		},
 	},
 	{
 		"https://github.com/theHamsta/nvim-dap-virtual-text",

@@ -64,14 +64,14 @@ local has_words_before = function()
 end
 
 local has_words_before_copilot = function()
-	if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
-		return false
-	end
+	-- if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
+	-- 	return false
+	-- end
 	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
 	return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
 end
 
-local cmp = require("cmp")
+-- local cmp = require("cmp")
 local lspkind = require("lspkind")
 local luasnip = require("luasnip")
 
@@ -108,116 +108,130 @@ vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
 -- require("luasnip.loaders.from_vscode").lazy_load()
 require("luasnip.loaders.from_snipmate").lazy_load()
 
-cmp.setup({
-	snippet = {
-		expand = function(args) -- REQUIRED - you must specify a snippet engine
-			-- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-			luasnip.lsp_expand(args.body) -- For `luasnip` users.
-			-- require('snippy').expand_snippet(args.body) -- For `snippy` users.
-			-- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
-		end,
-	},
-	formatting = {
-		format = lspkind.cmp_format({
-			mode = "symbol_text", -- show only symbol annotations
-			maxwidth = 50, -- prevent the popup from showing more than provided characters
-			ellipsis_char = "...", -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead
-			symbol_map = { Copilot = "" },
-			menu = {
-				path = "[Path]",
-				nvim_lua = "[Lua]",
-				nvim_lsp = "[LSP]",
-				luasnip = "[LuaSnip]",
-				buffer = "[Buffer]",
-				latex_symbols = "[Latex]",
-			},
-			before = require("tailwind-tools.cmp").lspkind_format,
-			-- fields = { "kind", "abbr", "menu" },
-			-- The function below will be called before any actual modifications from lspkind
-			-- so that you can provide more controls on popup customization.
-			-- (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
-
-			-- before = function(entry, vim_item)
-			-- 	return vim_item
-			-- end,
-		}),
-	},
-	window = {
-		completion = cmp.config.window.bordered(),
-		documentation = cmp.config.window.bordered(),
-	},
-	-- mapping = cmp.mapping.preset.insert({
-	-- remove default mappings (like arrows)
-	mapping = cmp.mapping({
-		["<Tab>"] = function(fallback)
-			if cmp.visible() and has_words_before_copilot() then
-				cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-			elseif cmp.visible() then
-				cmp.select_next_item()
-			elseif luasnip.expand_or_jumpable() then
-				luasnip.expand_or_jump()
-			elseif has_words_before() then
-				cmp.complete()
-			else
-				fallback()
-			end
-		end,
-		["<S-Tab>"] = function(fallback)
-			if cmp.visible() then
-				cmp.select_prev_item()
-			elseif luasnip.jumpable(-1) then
-				luasnip.jump(-1)
-			else
-				fallback()
-			end
-		end,
-		["<C-b>"] = cmp.mapping.scroll_docs(-4),
-		["<C-f>"] = cmp.mapping.scroll_docs(4),
-		["<C-Space>"] = cmp.mapping.complete(),
-		-- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-		["<CR>"] = cmp.mapping.confirm({ select = false }),
-	}),
-	sources = cmp.config.sources({
-		{ name = "path" },
-		{ name = "copilot" },
-		{ name = "nvim_lsp" },
-		{ name = "luasnip" }, -- For luasnip users.
-		-- { name = 'vsnip' }, -- For vsnip users.
-		-- { name = 'ultisnips' }, -- For ultisnips users.
-		-- { name = 'snippy' }, -- For snippy users.
-	}, {
-		{ name = "buffer" },
-	}),
-})
-
-cmp.setup.cmdline({ "/", "?" }, {
-	mapping = cmp.mapping.preset.cmdline(),
-	sources = {
-		{ name = "buffer" },
-	},
-})
-
--- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline(":", {
-	mapping = cmp.mapping.preset.cmdline(),
-	sources = cmp.config.sources({
-		{ name = "path" },
-	}, {
-		{ name = "cmdline" },
-	}),
-})
+-- cmp.setup({
+-- 	snippet = {
+-- 		expand = function(args) -- REQUIRED - you must specify a snippet engine
+-- 			-- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+-- 			luasnip.lsp_expand(args.body) -- For `luasnip` users.
+-- 			-- require('snippy').expand_snippet(args.body) -- For `snippy` users.
+-- 			-- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+-- 		end,
+-- 	},
+-- 	formatting = {
+-- 		format = lspkind.cmp_format({
+-- 			mode = "symbol_text", -- show only symbol annotations
+-- 			maxwidth = 50, -- prevent the popup from showing more than provided characters
+-- 			ellipsis_char = "...", -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead
+-- 			symbol_map = { Copilot = "" },
+-- 			menu = {
+-- 				path = "[Path]",
+-- 				nvim_lua = "[Lua]",
+-- 				nvim_lsp = "[LSP]",
+-- 				luasnip = "[LuaSnip]",
+-- 				buffer = "[Buffer]",
+-- 				latex_symbols = "[Latex]",
+-- 			},
+-- 			before = require("tailwind-tools.cmp").lspkind_format,
+-- 			-- fields = { "kind", "abbr", "menu" },
+-- 			-- The function below will be called before any actual modifications from lspkind
+-- 			-- so that you can provide more controls on popup customization.
+-- 			-- (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
+--
+-- 			-- before = function(entry, vim_item)
+-- 			-- 	return vim_item
+-- 			-- end,
+-- 		}),
+-- 	},
+-- 	window = {
+-- 		completion = cmp.config.window.bordered(),
+-- 		documentation = cmp.config.window.bordered(),
+-- 	},
+-- 	-- mapping = cmp.mapping.preset.insert({
+-- 	-- remove default mappings (like arrows)
+-- 	mapping = cmp.mapping({
+-- 		["<Tab>"] = function(fallback)
+-- 			if cmp.visible() and has_words_before_copilot() then
+-- 				cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+-- 			elseif cmp.visible() then
+-- 				cmp.select_next_item()
+-- 			elseif luasnip.expand_or_jumpable() then
+-- 				luasnip.expand_or_jump()
+-- 			elseif has_words_before() then
+-- 				cmp.complete()
+-- 			else
+-- 				fallback()
+-- 			end
+-- 		end,
+-- 		["<S-Tab>"] = function(fallback)
+-- 			if cmp.visible() then
+-- 				cmp.select_prev_item()
+-- 			elseif luasnip.jumpable(-1) then
+-- 				luasnip.jump(-1)
+-- 			else
+-- 				fallback()
+-- 			end
+-- 		end,
+-- 		["<C-b>"] = cmp.mapping.scroll_docs(-4),
+-- 		["<C-f>"] = cmp.mapping.scroll_docs(4),
+-- 		["<C-Space>"] = cmp.mapping.complete(),
+-- 		-- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+-- 		["<CR>"] = cmp.mapping.confirm({ select = false }),
+-- 	}),
+-- 	sources = cmp.config.sources({
+-- 		{ name = "path" },
+-- 		{ name = "copilot" },
+-- 		{ name = "nvim_lsp" },
+-- 		{ name = "luasnip" }, -- For luasnip users.
+-- 		-- { name = 'vsnip' }, -- For vsnip users.
+-- 		-- { name = 'ultisnips' }, -- For ultisnips users.
+-- 		-- { name = 'snippy' }, -- For snippy users.
+-- 	}, {
+-- 		{ name = "buffer" },
+-- 	}),
+-- })
+--
+-- cmp.setup.cmdline({ "/", "?" }, {
+-- 	mapping = cmp.mapping.preset.cmdline(),
+-- 	sources = {
+-- 		{ name = "buffer" },
+-- 	},
+-- })
+--
+-- -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+-- cmp.setup.cmdline(":", {
+-- 	mapping = cmp.mapping.preset.cmdline(),
+-- 	sources = cmp.config.sources({
+-- 		{ name = "path" },
+-- 	}, {
+-- 		{ name = "cmdline" },
+-- 	}),
+-- })
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
-capabilities.textDocument.foldingRange = {
-	dynamicRegistration = true,
-	lineFoldingOnly = false,
-}
-capabilities.workspace = {
-	didChangeWorkspaceFolders = {
-		dynamicRegistration = true,
+-- capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+capabilities = vim.tbl_deep_extend("force", capabilities, require("blink.cmp").get_lsp_capabilities({}, false))
+capabilities = vim.tbl_deep_extend("force", capabilities, {
+	textDocument = {
+		foldingRange = {
+			dynamicRegistration = false,
+			lineFoldingOnly = true,
+		},
 	},
-}
+	workspace = {
+		didChangeConfiguration = {
+			dynamicRegistration = false,
+		},
+	},
+})
+-- capabilities.textDocument.foldingRange = {
+-- 	dynamicRegistration = true,
+-- 	lineFoldingOnly = false,
+-- }
+-- capabilities.workspace = {
+-- 	didChangeWorkspaceFolders = {
+-- 		dynamicRegistration = true,
+-- 	},
+-- }
 
 local navic = require("nvim-navic")
 local lsp_on_attach = function(client, bufnr)
