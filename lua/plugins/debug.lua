@@ -172,7 +172,10 @@ return {
 				["<A-l>"] = { "accept", "fallback" },
 				["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
 				["<C-e>"] = { "hide" },
-				["<A-h>"] = { "hide" },
+				["<Up>"] = {},
+				["<Down>"] = {},
+				["<Left>"] = {},
+				["<Right>"] = {},
 			},
 			completion = {
 				list = {
@@ -180,7 +183,7 @@ return {
 				},
 				documentation = {
 					auto_show = true,
-					auto_show_delay_ms = 50,
+					auto_show_delay_ms = 1000,
 				},
 				accept = {
 					auto_brackets = { enabled = true },
