@@ -57,23 +57,23 @@ vim.g.VM_maps = {
 	["I BS"] = "", -- disable backspace mapping, to resolve incompatibility with multi select
 }
 
-local has_words_before = function()
-	unpack = unpack or table.unpack
-	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-end
+-- local has_words_before = function()
+-- 	unpack = unpack or table.unpack
+-- 	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+-- 	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+-- end
 
-local has_words_before_copilot = function()
-	-- if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
-	-- 	return false
-	-- end
-	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-	return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
-end
+-- local has_words_before_copilot = function()
+-- 	-- if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
+-- 	-- 	return false
+-- 	-- end
+-- 	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+-- 	return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
+-- end
 
 -- local cmp = require("cmp")
 local lspkind = require("lspkind")
-local luasnip = require("luasnip")
+-- local luasnip = require("luasnip")
 
 lspkind.init({
 	symbol_map = {
@@ -286,6 +286,7 @@ local lspservers = {
 	"jsonls",
 	"yamlls",
 	"jqls",
+	-- "vtsls",
 	-- "ts_ls",
 	-- "vue_ls",
 	-- "hyprls",
@@ -315,24 +316,24 @@ end
 --
 --
 -- VUE Language Server
-local vue_language_server_path = vim.fn.expand("$MASON/packages")
-	.. "/vue-language-server"
-	.. "/node_modules/@vue/language-server"
+-- local vue_language_server_path = vim.fn.expand("$MASON/packages")
+-- 	.. "/vue-language-server"
+-- 	.. "/node_modules/@vue/language-server"
+--
+-- lspconfig.ts_ls.setup({
+-- 	init_options = {
+-- 		plugins = {
+-- 			{
+-- 				name = "@vue/typescript-plugin",
+-- 				location = vue_language_server_path,
+-- 				languages = { "vue" },
+-- 			},
+-- 		},
+-- 	},
+-- 	filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
+-- })
 
-lspconfig.ts_ls.setup({
-	init_options = {
-		plugins = {
-			{
-				name = "@vue/typescript-plugin",
-				location = vue_language_server_path,
-				languages = { "vue" },
-			},
-		},
-	},
-	filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
-})
-
-lspconfig.vue_ls.setup({})
+-- lspconfig.vue_ls.setup({})
 
 -- No need to set `hybridMode` to `true` as it's the default value
 -- lspconfig.vue_ls.setup {}
@@ -367,6 +368,29 @@ lspconfig.vue_ls.setup({})
 -- 	},
 -- })
 
+require("lspconfig").vtsls.setup({
+	filetypes = { "javascript", "javascriptreact", "vue" },
+	init_options = {
+		typescript = {
+			tsdk = HOMEDIR
+				.. "/.local/share/nvim/mason/packages/typescript-language-server/node_modules/typescript/lib",
+		},
+	},
+	settings = {
+		vtsls = {
+			tsserver = {
+				globalPlugins = {
+					{
+						name = "@vue/typescript-plugin",
+						location = HOMEDIR
+							.. "/.local/share/nvim/mason/packages/vue-language-server/node_modules/@vue/language-server",
+						languages = { "vue" },
+					},
+				},
+			},
+		},
+	},
+})
 lspconfig["clangd"].setup({
 	root_dir = function(fname)
 		return require("lspconfig.util").find_git_ancestor(fname) or vim.fn.getcwd()
@@ -415,13 +439,13 @@ lspconfig["cssls"].setup({
 	flags = lsp_flags,
 })
 
-lspconfig["tailwindcss"].setup({
-	on_attach = function(client, bufnr)
-		require("tailwindcss-colors").buf_attach(bufnr)
-	end,
-	capabilities = capabilities,
-	flags = lsp_flags,
-})
+-- lspconfig["tailwindcss"].setup({
+-- 	on_attach = function(client, bufnr)
+-- 		require("tailwindcss-colors").buf_attach(bufnr)
+-- 	end,
+-- 	capabilities = capabilities,
+-- 	flags = lsp_flags,
+-- })
 
 vim.diagnostic.config({
 	signs = {
