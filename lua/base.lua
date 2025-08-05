@@ -3,6 +3,10 @@ local o = vim.o
 local wo = vim.wo
 local opt = vim.opt
 
+g.loaded_node_provider = 0
+g.loaded_perl_provider = 0
+-- g.loaded_python_provider = 0
+-- g.loaded_python3_provider = 0
 -- syntax on                     -- syntax highlighting, see :help syntax
 wo.number = true
 wo.relativenumber = true
@@ -92,7 +96,7 @@ opt.iskeyword:append("-") -- Add '-' in command 'w' to select word
 -- opt.guifont = "JetBrains Mono NL Thin:h10.8"
 -- opt.guifont = "MesloLGS Nerd Font Mono:h10"
 -- opt.guifont = "Hack Nerd Font Mono:h10"
-opt.guifont = "JetBrainsMonoNL Nerd Font Mono:h11"
+opt.guifont = "JetBrainsMonoNL Nerd Font Mono:h11.8"
 -- opt.guifont = "JetBrainsMonoNL Nerd Font Mono:h10.8"
 -- opt.guifont = "JetBrainsMono Nerd Font Mono:h10.8"
 opt.spell = false

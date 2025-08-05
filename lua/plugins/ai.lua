@@ -138,7 +138,7 @@ return {
 				},
 			},
 			highlights = {
-				---@type AvanteConflictHighlights
+				-- -@type AvanteConflictHighlights
 				diff = {
 					current = "DiffText",
 					incoming = "DiffAdd",
