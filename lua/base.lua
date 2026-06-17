@@ -3,8 +3,9 @@ local o = vim.o
 local wo = vim.wo
 local opt = vim.opt
 
-g.loaded_node_provider = 0
-g.loaded_perl_provider = 0
+vim.env.PATH = HOMEDIR .. "/.nvm/versions/node/v24.16.0/bin:" .. vim.env.PATH
+-- g.loaded_node_provider = 0
+-- g.loaded_perl_provider = 0
 -- g.loaded_python_provider = 0
 -- g.loaded_python3_provider = 0
 -- syntax on                     -- syntax highlighting, see :help syntax
