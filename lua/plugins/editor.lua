@@ -4,18 +4,28 @@ return {
 	"https://github.com/tpope/vim-repeat",
 	{
 		"https://github.com/nvim-treesitter/nvim-treesitter",
+		branch = "main",
+		build = ":TSUpdate",
 		config = function()
-			require("nvim-treesitter.configs").setup({
-				highlight = {
-					enable = true,
-					disable = { "" },
-					additional_vim_regex_highlighting = true,
-				},
-				indent = {
-					enable = true,
-					disable = { "yaml" },
-				},
+			require("nvim-treesitter").setup()
+			-- highlight agora é habilitado via autocmd, não mais pelo setup()
+			vim.api.nvim_create_autocmd("FileType", {
+				pattern = "*",
+				callback = function()
+					pcall(vim.treesitter.start)
+				end,
 			})
+			-- require("nvim-treesitter.configs").setup({
+			-- 	highlight = {
+			-- 		enable = true,
+			-- 		disable = { "" },
+			-- 		additional_vim_regex_highlighting = true,
+			-- 	},
+			-- 	indent = {
+			-- 		enable = true,
+			-- 		disable = { "yaml" },
+			-- 	},
+			-- })
 		end,
 	},
 	{
@@ -57,14 +67,14 @@ return {
 	-- 	},
 	-- 	enabled = true, -- This line disables the plugin
 	-- },
-	{
-		"https://github.com/gorbit99/codewindow.nvim",
-		config = function()
-			local codewindow = require("codewindow")
-			codewindow.setup()
-			codewindow.apply_default_keybinds()
-		end,
-	},
+	-- {
+	-- 	"https://github.com/gorbit99/codewindow.nvim",
+	-- 	config = function()
+	-- 		local codewindow = require("codewindow")
+	-- 		codewindow.setup()
+	-- 		codewindow.apply_default_keybinds()
+	-- 	end,
+	-- },
 	{
 		"https://github.com/shellRaining/hlchunk.nvim",
 		event = { "BufReadPre", "BufNewFile" },
