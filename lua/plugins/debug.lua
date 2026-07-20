@@ -248,7 +248,7 @@ return {
 		end,
 		dependencies = {
 			"https://github.com/nvim-lua/plenary.nvim",
-			"https://github.com/nvim-treesitter/nvim-treesitter",
+			-- "https://github.com/nvim-treesitter/nvim-treesitter",
 			"https://github.com/antoinemadec/FixCursorHold.nvim",
 			"https://github.com/nvim-neotest/neotest-python",
 			"https://github.com/nvim-neotest/neotest-plenary",

@@ -17,9 +17,10 @@ return {
 	{
 		"https://github.com/williamboman/mason.nvim",
 		config = function()
-			require("mason").setup({
-				automatic_enable = { exclude = { "vue_ls" } },
-			})
+			require("mason").setup()
+			--          {
+			-- 	-- automatic_enable = { exclude = { "vue_ls" } },
+			-- })
 		end,
 	},
 	{

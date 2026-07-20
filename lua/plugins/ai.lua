@@ -14,15 +14,15 @@ return {
 			---@alias Provider "claude" | "openai" | "azure" | "gemini" | "cohere" | "copilot" | string
 			-- provider = "gemini",
 			-- provider = "openai",
-			provider = "copilot",
-			-- provider = "claude",
+			-- provider = "copilot",
+			provider = "claude",
 			-- provider = "deepseek",
 			auto_suggestions_provider = "copilot",
 			providers = {
 				copilot = {
 					endpoint = "https://api.githubcopilot.com",
-					model = "claude-sonnet-4",
-					-- model = "claude-3.7-sonnet",
+					-- model = "claude-sonnet-5",
+					-- model = "claude-sonnet-4.6",
 					-- model = "gpt-4o-2024-08-06",
 					timeout = 30000,
 					disable_tools = true,
@@ -36,15 +36,14 @@ return {
 					model = "gpt-4o-2024-08-06",
 				},
 				claude = {
-					-- endpoint = "https://api.anthropic.com",
-					endpoint = "https://api.githubcopilot.com",
-					-- model = "claude-3-5-sonnet-20241022",
-					model = "claude-3.5-sonnet",
+					endpoint = "https://api.anthropic.com",
+					model = "claude-sonnet-5",
+					timeout = 30000,
 					extra_request_body = {
-						temperature = 0,
-						max_tokens = 8000,
+						temperature = 0.75,
+						max_tokens = 20480,
 					},
-					-- api_key_name = "cmd:pass ANTHROPIC_API_KEY",
+					api_key_name = "cmd:pass ANTHROPIC_API_KEY",
 				},
 				openai = {
 					endpoint = "https://api.openai.com/v1",

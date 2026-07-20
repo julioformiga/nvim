@@ -72,38 +72,43 @@ vim.g.VM_maps = {
 -- end
 
 -- local cmp = require("cmp")
-local lspkind = require("lspkind")
+-- local lspkind = require("lspkind")
 -- local luasnip = require("luasnip")
 
-lspkind.init({
-	symbol_map = {
-		Text = "",
-		Method = "",
-		Function = "",
-		Constructor = "",
-		Variable = "",
-		Class = "ﴯ",
-		Interface = "",
-		Module = "",
-		Property = "ﰠ",
-		Unit = "塞",
-		Value = "",
-		Enum = "",
-		Keyword = "",
-		Snippet = "",
-		Color = "",
-		File = "",
-		Folder = "",
-		EnumMember = "",
-		Constant = "",
-		Struct = "פּ",
-		Event = "",
-		Operator = "",
-		TypeParameter = "",
-	},
-})
-
+-- lspkind.init({
+-- 	symbol_map = {
+-- 		Text = "",
+-- 		Method = "",
+-- 		Function = "",
+-- 		Constructor = "",
+-- 		Variable = "",
+-- 		Class = "ﴯ",
+-- 		Interface = "",
+-- 		Module = "",
+-- 		Property = "ﰠ",
+-- 		Unit = "塞",
+-- 		Value = "",
+-- 		Enum = "",
+-- 		Keyword = "",
+-- 		Snippet = "",
+-- 		Color = "",
+-- 		File = "",
+-- 		Folder = "",
+-- 		EnumMember = "",
+-- 		Constant = "",
+-- 		Struct = "פּ",
+-- 		Event = "",
+-- 		Operator = "",
+-- 		TypeParameter = "",
+-- 	},
+-- })
+--
 vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
+
+-- Add LSPLog command to open the LSP log in a new tab
+vim.api.nvim_create_user_command("LspLog", function()
+	vim.cmd.tabnew(vim.lsp.log.get_filename())
+end, { desc = "Abre o log do LSP" })
 
 -- require("luasnip.loaders.from_vscode").lazy_load()
 require("luasnip.loaders.from_snipmate").lazy_load()
@@ -233,73 +238,75 @@ capabilities = vim.tbl_deep_extend("force", capabilities, {
 -- 	},
 -- }
 
-local navic = require("nvim-navic")
-local lsp_on_attach = function(client, bufnr)
-	local bufopts = { noremap = true, silent = true, buffer = bufnr }
+-- local navic = require("nvim-navic")
+-- local lsp_on_attach = function(client, bufnr)
+-- 	local bufopts = { noremap = true, silent = true, buffer = bufnr }
+--
+-- 	vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts)
+-- 	vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
+-- 	vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
+-- 	vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
+-- 	vim.keymap.set("n", "gsh", vim.lsp.buf.signature_help, bufopts)
+-- 	vim.keymap.set("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, { desc = "Add workspace folder" })
+-- 	vim.keymap.set("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, { desc = "Remove workspace folder" })
+-- 	vim.keymap.set("n", "<leader>wl", function()
+-- 		print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+-- 	end, { desc = "List workspace folders" })
+-- 	vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, bufopts)
+-- 	vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, bufopts)
+-- 	vim.keymap.set("v", "<leader>r", vim.lsp.buf.rename, bufopts)
+-- 	vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, bufopts)
+-- 	vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
+-- 	vim.keymap.set("n", "<leader>f", function()
+-- 		vim.lsp.buf.format({ async = true })
+-- 	end, bufopts)
+-- 	if client.server_capabilities.documentSymbolProvider then
+-- 		navic.attach(client, bufnr)
+-- 	end
+-- 	client.server_capabilities.documentFormattingProvider = true
+-- end
 
-	vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts)
-	vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
-	vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
-	vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
-	vim.keymap.set("n", "gsh", vim.lsp.buf.signature_help, bufopts)
-	vim.keymap.set("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, { desc = "Add workspace folder" })
-	vim.keymap.set("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, { desc = "Remove workspace folder" })
-	vim.keymap.set("n", "<leader>wl", function()
-		print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-	end, { desc = "List workspace folders" })
-	vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, bufopts)
-	vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, bufopts)
-	vim.keymap.set("v", "<leader>r", vim.lsp.buf.rename, bufopts)
-	vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, bufopts)
-	vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
-	vim.keymap.set("n", "<leader>f", function()
-		vim.lsp.buf.format({ async = true })
-	end, bufopts)
-	if client.server_capabilities.documentSymbolProvider then
-		navic.attach(client, bufnr)
-	end
-	client.server_capabilities.documentFormattingProvider = true
-end
-
-local lsp_flags = {
-	debounce_text_changes = 500,
-}
+-- local lsp_flags = {
+-- 	debounce_text_changes = 500,
+-- }
 
 -- For C++ in Ubuntu: sudo apt install g++-12
-local lspservers = {
-	"cmake",
-	"bashls",
-	"awk_ls",
-	-- "lua_ls",
-	"pyright",
-	"ruff",
-	"rust_analyzer",
-	"marksman",
-	"biome",
-	"emmet_language_server",
-	-- "eslint_d",
-	"eslint",
-	"dockerls",
-	"docker_compose_language_service",
-	"html",
-	"graphql",
-	"jsonls",
-	"yamlls",
-	"jqls",
-	-- "vtsls",
-	-- "ts_ls",
-	-- "vue_ls",
-	-- "hyprls",
-}
+-- local lspservers = {
+-- 	"cmake",
+-- 	"bashls",
+-- 	"awk_ls",
+-- 	-- "lua_ls",
+-- 	"css_variables",
+-- 	"cssls",
+-- 	"pyright",
+-- 	"ruff",
+-- 	"rust_analyzer",
+-- 	"marksman",
+-- 	"biome",
+-- 	"emmet_language_server",
+-- 	-- "eslint_d",
+-- 	"eslint",
+-- 	"dockerls",
+-- 	"docker_compose_language_service",
+-- 	"html",
+-- 	"graphql",
+-- 	"jsonls",
+-- 	"yamlls",
+-- 	"jqls",
+-- 	-- "vtsls",
+-- 	-- "vue_ls",
+-- 	-- "ts_ls",
+-- 	-- "hyprls",
+-- }
 
-local lspconfig = require("lspconfig")
-for _, lsp in pairs(lspservers) do
-	require("lspconfig")[lsp].setup({
-		on_attach = lsp_on_attach,
-		capabilities = capabilities,
-		flags = lsp_flags,
-	})
-end
+-- local lspconfig = require("lspconfig")
+-- for _, lsp in pairs(lspservers) do
+-- 	require("lspconfig")[lsp].setup({
+-- 		on_attach = lsp_on_attach,
+-- 		capabilities = capabilities,
+-- 		flags = lsp_flags,
+-- 	})
+-- end
 
 -- Hyprlang LSP
 -- vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
@@ -368,75 +375,83 @@ end
 -- 	},
 -- })
 
-require("lspconfig").vtsls.setup({
-	filetypes = { "javascript", "javascriptreact", "vue" },
-	init_options = {
-		typescript = {
-			tsdk = HOMEDIR
-				.. "/.local/share/nvim/mason/packages/typescript-language-server/node_modules/typescript/lib",
-		},
-	},
-	settings = {
-		vtsls = {
-			tsserver = {
-				globalPlugins = {
-					{
-						name = "@vue/typescript-plugin",
-						location = HOMEDIR
-							.. "/.local/share/nvim/mason/packages/vue-language-server/node_modules/@vue/language-server",
-						languages = { "vue" },
-					},
-				},
-			},
-		},
-	},
-})
-lspconfig["clangd"].setup({
-	root_dir = function(fname)
-		return require("lspconfig.util").find_git_ancestor(fname) or vim.fn.getcwd()
-	end,
-	on_attach = lsp_on_attach,
-	capabilities = capabilities,
-	flags = lsp_flags,
-	cmd = {
-		-- "clangd",
-		"/usr/bin/clangd",
-		-- HOMEDIR .. "/.local/share/nvim/mason/bin/clangd",
-		"--offset-encoding=utf-16",
-	},
-})
+-- require("lspconfig").vtsls.setup({
+-- 	filetypes = { "javascript", "javascriptreact", "vue" },
+-- 	init_options = {
+-- 		typescript = {
+-- 			tsdk = HOMEDIR
+-- 				.. "/.local/share/nvim/mason/packages/typescript-language-server/node_modules/typescript/lib",
+-- 		},
+-- 	},
+-- 	settings = {
+-- 		vtsls = {
+-- 			tsserver = {
+-- 				globalPlugins = {
+-- 					{
+-- 						name = "@vue/typescript-plugin",
+-- 						location = HOMEDIR
+-- 							.. "/.local/share/nvim/mason/packages/vue-language-server/node_modules/@vue/language-server",
+-- 						languages = { "vue" },
+-- 					},
+-- 				},
+-- 			},
+-- 		},
+-- 	},
+-- })
+-- lspconfig["clangd"].setup({
+-- 	root_dir = function(fname)
+-- 		return require("lspconfig.util").find_git_ancestor(fname) or vim.fn.getcwd()
+-- 	end,
+-- 	on_attach = lsp_on_attach,
+-- 	capabilities = capabilities,
+-- 	flags = lsp_flags,
+-- 	cmd = {
+-- 		-- "clangd",
+-- 		"/usr/bin/clangd",
+-- 		-- HOMEDIR .. "/.local/share/nvim/mason/bin/clangd",
+-- 		"--offset-encoding=utf-16",
+-- 	},
+-- })
+--
+-- lspconfig["arduino_language_server"].setup({
+-- 	on_attach = lsp_on_attach,
+-- 	capabilities = capabilities,
+-- 	flags = lsp_flags,
+-- 	cmd = {
+-- 		HOMEDIR .. "/.local/share/nvim/mason/bin/arduino-language-server",
+-- 		"-clangd",
+-- 		HOMEDIR .. "/.local/share/nvim/mason/bin/clangd",
+-- 		"-cli",
+-- 		"/usr/bin/arduino-cli",
+-- 		"-cli-config",
+-- 		HOMEDIR .. "/.arduino15/arduino-cli.yaml",
+-- 		-- "-fqbn", "Seeeduino:samd:seeed_XIAO_m0",
+-- 		"-fqbn",
+-- 		-- "arduino:avr:uno",
+-- 		"arduino:avr:mega",
+-- 		-- "-fqbn", "rp2040:rp2040:rpipicow",
+-- 		-- "-fqbn", "esp8266:esp8266:nodemcuv2",
+-- 	},
+-- })
+--
+-- lspconfig["cssls"].setup({
+-- 	on_attach = lsp_on_attach,
+-- 	capabilities = capabilities,
+-- 	settings = {
+-- 		validate = true,
+-- 		css = {
+-- 			lint = { unknownAtRules = "ignore" },
+-- 		},
+-- 	},
+-- 	flags = lsp_flags,
+-- })
 
-lspconfig["arduino_language_server"].setup({
-	on_attach = lsp_on_attach,
-	capabilities = capabilities,
-	flags = lsp_flags,
-	cmd = {
-		HOMEDIR .. "/.local/share/nvim/mason/bin/arduino-language-server",
-		"-clangd",
-		HOMEDIR .. "/.local/share/nvim/mason/bin/clangd",
-		"-cli",
-		"/usr/bin/arduino-cli",
-		"-cli-config",
-		HOMEDIR .. "/.arduino15/arduino-cli.yaml",
-		-- "-fqbn", "Seeeduino:samd:seeed_XIAO_m0",
-		"-fqbn",
-		-- "arduino:avr:uno",
-		"arduino:avr:mega",
-		-- "-fqbn", "rp2040:rp2040:rpipicow",
-		-- "-fqbn", "esp8266:esp8266:nodemcuv2",
-	},
-})
-
-lspconfig["cssls"].setup({
-	on_attach = lsp_on_attach,
-	capabilities = capabilities,
+vim.lsp.config("cssls", {
 	settings = {
-		validate = true,
-		css = {
-			lint = { unknownAtRules = "ignore" },
-		},
+		css = { lint = { unknownAtRules = "ignore" } },
+		scss = { lint = { unknownAtRules = "ignore" } },
+		less = { lint = { unknownAtRules = "ignore" } },
 	},
-	flags = lsp_flags,
 })
 
 -- lspconfig["tailwindcss"].setup({
@@ -495,7 +510,7 @@ vim.api.nvim_create_autocmd({ "CursorMoved" }, {
 	command = "lua OpenDiagnosticIfNoFloat()",
 	group = "lsp_diagnostics_hold",
 })
-require("lspconfig.ui.windows").default_options.border = "rounded"
+-- require("lspconfig.ui.windows").default_options.border = "rounded"
 
 require("gitsigns").setup({
 	-- signs = {
